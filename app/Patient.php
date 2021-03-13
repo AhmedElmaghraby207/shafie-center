@@ -18,7 +18,13 @@ class Patient extends Model
         'image',
         'age',
         'weight',
-        'tall',
-        'address'
+        'height',
+        'gender',
+        'address',
+        'facebook_id',
+        'google_id',
+        'apple_id',
+        'mobile_os',
+        'mobile_model'
     ];
 }

@@ -26,8 +26,17 @@ class CreatePatientsTable extends Migration
             $table->string('image', 200)->nullable();
             $table->integer('age')->nullable();
             $table->float('weight')->nullable();
-            $table->float('tall')->nullable();
+            $table->float('height')->nullable();
+            $table->boolean('gender')->nullable();
             $table->string('address', 200)->nullable();
+            $table->string('facebook_id', 200)->nullable();
+            $table->string('google_id', 200)->nullable();
+            $table->string('apple_id', 200)->nullable();
+            $table->string('mobile_os', 200)->nullable();
+            $table->string('mobile_model', 200)->nullable();
+            $table->string('token', 200)->nullable();
+            $table->string('hash', 200)->nullable();
+
             $table->timestamps();
         });
     }
