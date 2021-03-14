@@ -130,9 +130,9 @@ class AuthController extends PatientApiController
         $patient_device->firebase_token = $request->firebase_token;
         $patient_device->updated_at = date('Y-m-d H:i:s');
         $patient_device->save();
-//        if ($request->firebase_token) {
-//            \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENTS_FIREBASE_TOPIC'), [$request->firebase_token]);
-//        }
+        if ($request->firebase_token) {
+            \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENT_FIREBASE_TOPIC'), [$request->firebase_token]);
+        }
         return response()->json(['data' => $patient_device]);
     }
 

@@ -105,6 +105,7 @@
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
       <path value="$PROJECT_DIR$/vendor/pelago/emogrifier" />
       <path value="$PROJECT_DIR$/vendor/snowfire/beautymail" />
+      <path value="$PROJECT_DIR$/vendor/sngrl/php-firebase-cloud-messaging" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

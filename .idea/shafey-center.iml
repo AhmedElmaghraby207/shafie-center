@@ -110,6 +110,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pelago/emogrifier" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/snowfire/beautymail" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sngrl/php-firebase-cloud-messaging" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
