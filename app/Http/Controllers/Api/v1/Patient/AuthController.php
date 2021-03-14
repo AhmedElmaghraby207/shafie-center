@@ -112,7 +112,7 @@ class AuthController extends PatientApiController
         $token = $request->header('x-auth-token');
         $patient = Patient::where('email', '=', $request->email)->first();
         if ($patient == null) {
-            return self::errify(400, ['errors' => ['Failed to create token']]);
+            return self::errify(400, ['errors' => ['Invalid patient email']]);
         }
 
         $patient_device = PatientDevice::where('PatientId', $patient->id)
@@ -121,7 +121,7 @@ class AuthController extends PatientApiController
 
         if (!$patient_device) {
             $patient_device = new PatientDevice();
-            $patient_device->date_created = date('Y-m-d H:i:s');
+            $patient_device->created_at = date('Y-m-d H:i:s');
         }
         $patient_device->PatientId = $patient->id;
         $patient_device->device_unique_id = $request->device_id;
@@ -130,9 +130,9 @@ class AuthController extends PatientApiController
         $patient_device->firebase_token = $request->firebase_token;
         $patient_device->updated_at = date('Y-m-d H:i:s');
         $patient_device->save();
-        if ($request->firebase_token) {
-            \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENTS_FIREBASE_TOPIC'), [$request->firebase_token]);
-        }
+//        if ($request->firebase_token) {
+//            \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENTS_FIREBASE_TOPIC'), [$request->firebase_token]);
+//        }
         return response()->json(['data' => $patient_device]);
     }
 
