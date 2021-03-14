@@ -22,6 +22,7 @@ class CreatePatientsTable extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
+            $table->rememberToken();
             $table->boolean('is_active')->default(1);
             $table->string('image', 200)->nullable();
             $table->integer('age')->nullable();
@@ -36,7 +37,6 @@ class CreatePatientsTable extends Migration
             $table->string('mobile_model', 200)->nullable();
             $table->string('token', 200)->nullable();
             $table->string('hash', 200)->nullable();
-
             $table->timestamps();
         });
     }

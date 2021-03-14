@@ -24,11 +24,11 @@ class AuthController extends PatientApiController
         $validator = Validator::make($request->all(), [
             "first_name" => "required",
             "last_name" => "required",
+            "email" => "required|email|unique:patients",
             "password" => "required|min:6",
+            "phone" => "required",
             "mobile_os" => "required",
             "mobile_model" => "required",
-            "mobile" => "required",
-            "email" => "required|email|unique:Patient",
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);
@@ -66,7 +66,7 @@ class AuthController extends PatientApiController
         }
 
         if ($created_patient) {
-            $this->sendVerificationEmail($patient);
+//            $this->sendVerificationEmail($patient);
             return response()->json(['token' => $patient->token]);
         } else {
             return self::errify(400, ['errors' => ['Failed']]);
@@ -96,6 +96,44 @@ class AuthController extends PatientApiController
                 return self::errify(400, ['errors' => ['Please enter correct email and password']]);
             }
         }
+    }
+
+    public function setDevice(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "email" => "required",
+            "device_id" => "required",
+            "status" => "required",
+            "firebase_token" => "required",
+        ]);
+        if ($validator->fails()) {
+            return self::errify(400, ['validator' => $validator]);
+        }
+        $token = $request->header('x-auth-token');
+        $patient = Patient::where('email', '=', $request->email)->first();
+        if ($patient == null) {
+            return self::errify(400, ['errors' => ['Failed to create token']]);
+        }
+
+        $patient_device = PatientDevice::where('PatientId', $patient->id)
+            ->where('device_unique_id', $request->device_id)
+            ->first();
+
+        if (!$patient_device) {
+            $patient_device = new PatientDevice();
+            $patient_device->date_created = date('Y-m-d H:i:s');
+        }
+        $patient_device->PatientId = $patient->id;
+        $patient_device->device_unique_id = $request->device_id;
+        ($request->status == 1) ? $patient_device->is_logged_in = 1 : $patient_device->is_logged_in = 0;
+        $patient_device->token = $token;
+        $patient_device->firebase_token = $request->firebase_token;
+        $patient_device->updated_at = date('Y-m-d H:i:s');
+        $patient_device->save();
+        if ($request->firebase_token) {
+            \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENTS_FIREBASE_TOPIC'), [$request->firebase_token]);
+        }
+        return response()->json(['data' => $patient_device]);
     }
 
     public function forgotPassword(Request $request)
@@ -177,40 +215,6 @@ class AuthController extends PatientApiController
         });
     }
 
-    public function checkFaceBook_idFound($facebook_id)
-    {
-        $facebook_id_count = Patient::where('facebook_id', $facebook_id)->count();
-        if ($facebook_id_count > 0) {
-            return $facebook_id_count;
-        } else {
-            return 0;
-        }
-    }
-
-    public function getTokenForFaceBookTokenFound($facebook_id)
-    {
-        $patient = Patient::where('facebook_id', $facebook_id)->first();
-        if ($patient)
-            return $patient->token;
-        return false;
-    }
-
-    public function getTokenForGoogleTokenFound($google_id)
-    {
-        $patient = Patient::where('google_id', $google_id)->first();
-        if ($patient)
-            return $patient->token;
-        return false;
-    }
-
-    public function getTokenForAppleTokenFound($apple_id)
-    {
-        $patient = Patient::where('apple_id', $apple_id)->first();
-        if ($patient)
-            return $patient->token;
-        return false;
-    }
-
     public function checkEmailISAlreadyTaken($email)
     {
         $patient = Patient::where('email', '=', $email)->first();
@@ -269,6 +273,24 @@ class AuthController extends PatientApiController
             return self::errify(400, ['errors' => ['Failed']]);
     }
 
+    public function getTokenForFaceBookTokenFound($facebook_id)
+    {
+        $patient = Patient::where('facebook_id', $facebook_id)->first();
+        if ($patient)
+            return $patient->token;
+        return false;
+    }
+
+    public function checkFaceBook_idFound($facebook_id)
+    {
+        $facebook_id_count = Patient::where('facebook_id', $facebook_id)->count();
+        if ($facebook_id_count > 0) {
+            return $facebook_id_count;
+        } else {
+            return 0;
+        }
+    }
+
     public function signupWithGoogle(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -317,6 +339,14 @@ class AuthController extends PatientApiController
             return response()->json(['data' => $newPatient]);
         } else
             return self::errify(400, ['errors' => ['Failed']]);
+    }
+
+    public function getTokenForGoogleTokenFound($google_id)
+    {
+        $patient = Patient::where('google_id', $google_id)->first();
+        if ($patient)
+            return $patient->token;
+        return false;
     }
 
     public function signupWithApple(Request $request)
@@ -369,42 +399,12 @@ class AuthController extends PatientApiController
             return self::errify(400, ['errors' => ['Failed']]);
     }
 
-    public function setDevice(Request $request)
+    public function getTokenForAppleTokenFound($apple_id)
     {
-        $validator = Validator::make($request->all(), [
-            "email" => "required",
-            "device_id" => "required",
-            "status" => "required",
-            "firebase_token" => "required",
-        ]);
-        if ($validator->fails()) {
-            return self::errify(400, ['validator' => $validator]);
-        }
-        $token = $request->header('x-auth-token');
-        $patient = Patient::where('email', '=', $request->email)->first();
-        if ($patient == null) {
-            return self::errify(400, ['errors' => ['Failed to create token']]);
-        }
-
-        $patient_device = PatientDevice::where('PatientId', $patient->id)
-            ->where('device_unique_id', $request->device_id)
-            ->first();
-
-        if (!$patient_device) {
-            $patient_device = new PatientDevice();
-            $patient_device->date_created = date('Y-m-d H:i:s');
-        }
-        $patient_device->PatientId = $patient->id;
-        $patient_device->device_unique_id = $request->device_id;
-        ($request->status == 1) ? $patient_device->is_logged_in = 1 : $patient_device->is_logged_in = 0;
-        $patient_device->token = $token;
-        $patient_device->firebase_token = $request->firebase_token;
-        $patient_device->updated_at = date('Y-m-d H:i:s');
-        $patient_device->save();
-        if ($request->firebase_token) {
-            \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENTS_FIREBASE_TOPIC'), [$request->firebase_token]);
-        }
-        return response()->json(['data' => $patient_device]);
+        $patient = Patient::where('apple_id', $apple_id)->first();
+        if ($patient)
+            return $patient->token;
+        return false;
     }
 
 }

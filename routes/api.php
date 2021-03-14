@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('/signup', 'AuthController@signup');
+        Route::post('/login', 'AuthController@login');
+        Route::post('/forgot_password', 'AuthController@forgotPassword');
+        Route::post('/resend_email_verification', 'AuthController@resendEmailVerification');
+        Route::post('/signup_facebook', 'AuthController@signupWithFacebook');
+        Route::post('/signup_google', 'AuthController@signupWithGoogle');
+        Route::post('/signup_apple', 'AuthController@signupWithApple');
+        Route::post('/device/set', 'AuthController@setDevice');
+    });
+
 });

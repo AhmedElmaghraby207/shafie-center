@@ -8,7 +8,7 @@ abstract class PatientApiController extends BaseController
 {
     function __construct()
     {
-        $this->middleware('user.auth', ['except' => [
+        $this->middleware('patient.auth', ['except' => [
             'login', 'signup',
             'forgotPassword',
             'setDevice',
@@ -16,8 +16,6 @@ abstract class PatientApiController extends BaseController
             'signupWithFacebook',
             'signupWithGoogle',
             'signupWithApple'
-        ]]);
-        $this->middleware('request.log', ['except' => [
         ]]);
     }
 }

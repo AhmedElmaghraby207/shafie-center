@@ -14,6 +14,7 @@ class Patient extends Model
         'password',
         'phone',
         'phone_verified_at',
+        'remember_token',
         'is_active',
         'image',
         'age',
@@ -26,5 +27,13 @@ class Patient extends Model
         'apple_id',
         'mobile_os',
         'mobile_model'
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 }
