@@ -131,44 +131,6 @@ class AuthController extends PatientApiController
         }
     }
 
-    public function setDevice(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            "email" => "required",
-            "device_id" => "required",
-            "status" => "required",
-            "firebase_token" => "required",
-        ]);
-        if ($validator->fails()) {
-            return self::errify(400, ['validator' => $validator]);
-        }
-        $token = $request->header('x-auth-token');
-        $patient = Patient::where('email', '=', $request->email)->first();
-        if ($patient == null) {
-            return self::errify(400, ['errors' => ['Invalid patient email']]);
-        }
-
-        $patient_device = PatientDevice::where('PatientId', $patient->id)
-            ->where('device_unique_id', $request->device_id)
-            ->first();
-
-        if (!$patient_device) {
-            $patient_device = new PatientDevice();
-            $patient_device->created_at = date('Y-m-d H:i:s');
-        }
-        $patient_device->PatientId = $patient->id;
-        $patient_device->device_unique_id = $request->device_id;
-        ($request->status == 1) ? $patient_device->is_logged_in = 1 : $patient_device->is_logged_in = 0;
-        $patient_device->token = $token;
-        $patient_device->firebase_token = $request->firebase_token;
-        $patient_device->updated_at = date('Y-m-d H:i:s');
-        $patient_device->save();
-        if ($request->firebase_token) {
-            \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENT_FIREBASE_TOPIC'), [$request->firebase_token]);
-        }
-        return response()->json(['data' => $patient_device]);
-    }
-
     public function forgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), ["email" => "required|email"]);

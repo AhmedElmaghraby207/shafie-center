@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +22,6 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
         Route::post('/signup_facebook', 'AuthController@signupWithFacebook');
         Route::post('/signup_google', 'AuthController@signupWithGoogle');
         Route::post('/signup_apple', 'AuthController@signupWithApple');
-        Route::post('/device/set', 'AuthController@setDevice');
     });
 
 });
