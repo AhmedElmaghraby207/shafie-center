@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api\v1\Patient;
 use App\Patient;
 use App\PatientDevice;
 use App\PatientRecover;
+use App\Transformers\PatientTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Snowfire\Beautymail\Beautymail;
+use Spatie\Fractal\Facades\Fractal;
 
 class AuthController extends PatientApiController
 {
@@ -78,6 +80,10 @@ class AuthController extends PatientApiController
         $validator = Validator::make($request->all(), [
             "password" => "required",
             "email" => "required",
+
+            //for set device
+            "device_id" => "required",
+            "firebase_token" => "required",
         ]);
         if ($validator->fails()) {
             return self::errify(400, ['validator' => $validator]);
@@ -91,7 +97,34 @@ class AuthController extends PatientApiController
                     return self::errify(400, ['errors' => ['auth.email_not_verified']]);
                 }
                 $patient->token = md5(rand() . time());
-                return response()->json(['data' => $patient]);
+
+                //set device
+                $patient_device = PatientDevice::where('PatientId', $patient->id)
+                    ->where('device_unique_id', $request->device_id)
+                    ->first();
+
+                if (!$patient_device) {
+                    $patient_device = new PatientDevice();
+                    $patient_device->created_at = date('Y-m-d H:i:s');
+                }
+                $patient_device->PatientId = $patient->id;
+                $patient_device->device_unique_id = $request->device_id;
+                $patient_device->is_logged_in = 1;
+                $patient_device->token = $patient->token;
+                $patient_device->firebase_token = $request->firebase_token;
+                $patient_device->updated_at = date('Y-m-d H:i:s');
+                $patient_device->save();
+                if ($request->firebase_token) {
+                    \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENT_FIREBASE_TOPIC'), [$request->firebase_token]);
+                }
+                $patient = Fractal::item($patient)
+                    ->transformWith(new PatientTransformer([
+                        'id', 'first_name', 'last_name', 'is_active', 'email', 'token'
+                    ]))
+                    ->withResourceName('')
+                    ->parseIncludes([]);
+
+                return response()->json($patient);
             } else {
                 return self::errify(400, ['errors' => ['Please enter correct email and password']]);
             }
