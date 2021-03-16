@@ -9,9 +9,9 @@ abstract class PatientApiController extends BaseController
     function __construct()
     {
         $this->middleware('patient.auth', ['except' => [
-            'login', 'signup',
+            'login',
+            'signup',
             'forgotPassword',
-            'setDevice',
             'resendEmailVerification',
             'signupSocial',
         ]]);

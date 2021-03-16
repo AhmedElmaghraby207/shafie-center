@@ -210,14 +210,6 @@ class AuthController extends PatientApiController
         });
     }
 
-    public function checkEmailISAlreadyTaken($email)
-    {
-        $patient = Patient::where('email', '=', $email)->first();
-        if ($patient)
-            return $patient->token;
-        return false;
-    }
-
     public function signupSocial(Request $request)
     {
         $validator = Validator::make($request->all(), [
