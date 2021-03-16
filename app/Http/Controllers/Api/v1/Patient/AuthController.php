@@ -50,9 +50,9 @@ class AuthController extends PatientApiController
         $patient->phone = $request->phone;
         $patient->mobile_os = $request->mobile_os;
         $patient->mobile_model = $request->mobile_model;
-        $patient->facebook_id = $request->facebook_id ?? "";
-        $patient->google_id = $request->google_id ?? "";
-        $patient->apple_id = $request->apple_id ?? "";
+        $patient->facebook_id = $request->facebook_id ?? null;
+        $patient->google_id = $request->google_id ?? null;
+        $patient->apple_id = $request->apple_id ?? null;
         $patient->email_verified_at = null;
         $patient->phone_verified_at = null;
         $patient->is_active = true;
@@ -218,21 +218,33 @@ class AuthController extends PatientApiController
         return false;
     }
 
-    public function signupWithFacebook(Request $request)
+    public function signupSocial(Request $request)
     {
         $validator = Validator::make($request->all(), [
             "first_name" => "required",
-            "facebook_id" => "required",
             "mobile_os" => "required",
             "mobile_model" => "required",
             "email" => "required|email",
+            "social_type" => "required|numeric|in:1,2,3",
+            "social_id" => "required",
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);
 
         $exsitingPatient = Patient::where('email', '=', $request->email)->first();
         if ($exsitingPatient) {
-            $exsitingPatient->facebook_id = $request->facebook_id ?? "";
+            switch ($request->social_type) {
+                case config('constants.SOCIAL_SIGNUP_FACEBOOK'):
+                    $exsitingPatient->facebook_id = $request->social_id;
+                    break;
+                case config('constants.SOCIAL_SIGNUP_GOOGLE'):
+                    $exsitingPatient->google_id = $request->social_id;
+                    break;
+                case config('constants.SOCIAL_SIGNUP_APPLE'):
+                    $exsitingPatient->apple_id = $request->social_id;
+                    break;
+            }
+
             $exsitingPatient->token = md5(rand() . time());
             $exsitingPatient->email_verified_at = Carbon::now()->toDateTimeString();
             $exsitingPatient->save();
@@ -240,8 +252,8 @@ class AuthController extends PatientApiController
         }
 
         $newPatient = new Patient;
-        if ($this->getTokenForFaceBookTokenFound($request->facebook_id)) {
-            return self::errify(400, ['errors' => ['facebook_id is already taken']]);
+        if ($this->getPatientForSocialId($request->social_type, $request->social_id)) {
+            return self::errify(400, ['errors' => ['social id is already taken']]);
         }
         $newPatient->first_name = $request->last_name;
         $newPatient->last_name = $request->last_name;
@@ -257,7 +269,7 @@ class AuthController extends PatientApiController
         $newPatient->email_verified_at = Carbon::now()->toDateTimeString();
         $newPatient->phone_verified_at = Carbon::now()->toDateTimeString();
         $newPatient->is_active = true;
-        //facebook image url
+        //social image url
         if ($request->image) {
             $newPatient->image = $request->image;
         }
@@ -268,135 +280,24 @@ class AuthController extends PatientApiController
             return self::errify(400, ['errors' => ['Failed']]);
     }
 
-    public function getTokenForFaceBookTokenFound($facebook_id)
+    public function getPatientForSocialId($social_type, $social_id)
     {
-        $patient = Patient::where('facebook_id', $facebook_id)->first();
-        if ($patient)
-            return $patient->token;
-        return false;
-    }
-
-    public function checkFaceBook_idFound($facebook_id)
-    {
-        $facebook_id_count = Patient::where('facebook_id', $facebook_id)->count();
-        if ($facebook_id_count > 0) {
-            return $facebook_id_count;
-        } else {
-            return 0;
-        }
-    }
-
-    public function signupWithGoogle(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            "first_name" => "required",
-            "google_id" => "required",
-            "mobile_os" => "required",
-            "mobile_model" => "required",
-            "email" => "required|email",
-        ]);
-        if ($validator->fails())
-            return self::errify(400, ['validator' => $validator]);
-
-        $exsitingPatient = Patient::where('email', '=', $request->email)->first();
-        if ($exsitingPatient) {
-            $exsitingPatient->google_id = $request->google_id ?? "";
-            $exsitingPatient->token = md5(rand() . time());
-            $exsitingPatient->email_verified_at = Carbon::now()->toDateTimeString();
-            $exsitingPatient->save();
-            return response()->json(['data' => $exsitingPatient]);
+        $patient = null;
+        switch ($social_type) {
+            case config('constants.SOCIAL_SIGNUP_FACEBOOK'):
+                $patient = Patient::where('facebook_id', $social_id)->first();
+                break;
+            case config('constants.SOCIAL_SIGNUP_GOOGLE'):
+                $patient = Patient::where('google_id', $social_id)->first();
+                break;
+            case config('constants.SOCIAL_SIGNUP_APPLE'):
+                $patient = Patient::where('apple_id', $social_id)->first();
+                break;
+            default:
+                $patient = null;
+                break;
         }
 
-        $newPatient = new Patient;
-        if ($this->getTokenForGoogleTokenFound($request->google_id)) {
-            return self::errify(400, ['errors' => ['google_id is already taken']]);
-        }
-        $newPatient->first_name = $request->last_name;
-        $newPatient->last_name = $request->last_name;
-        $newPatient->email = $request->email;
-        $newPatient->token = md5(rand() . time());
-        $newPatient->hash = md5(uniqid(rand(), true));
-        $newPatient->phone = $request->phone;
-        $newPatient->mobile_os = $request->mobile_os;
-        $newPatient->mobile_model = $request->mobile_model;
-        $newPatient->facebook_id = $request->facebook_id ?? "";
-        $newPatient->google_id = $request->google_id ?? "";
-        $newPatient->apple_id = $request->apple_id ?? "";
-        $newPatient->email_verified_at = Carbon::now()->toDateTimeString();
-        $newPatient->phone_verified_at = Carbon::now()->toDateTimeString();
-        $newPatient->is_active = true;
-        //google image url
-        if ($request->image) {
-            $newPatient->image = $request->image;
-        }
-        $saved = $newPatient->save();
-        if ($saved) {
-            return response()->json(['data' => $newPatient]);
-        } else
-            return self::errify(400, ['errors' => ['Failed']]);
-    }
-
-    public function getTokenForGoogleTokenFound($google_id)
-    {
-        $patient = Patient::where('google_id', $google_id)->first();
-        if ($patient)
-            return $patient->token;
-        return false;
-    }
-
-    public function signupWithApple(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            "first_name" => "required",
-            "apple_id" => "required",
-            "mobile_os" => "required",
-            "mobile_model" => "required",
-            "email" => "required|email",
-        ]);
-        if ($validator->fails())
-            return self::errify(400, ['validator' => $validator]);
-
-        $exsitingPatient = Patient::where('email', '=', $request->email)->first();
-        if ($exsitingPatient) {
-            $exsitingPatient->apple_id = $request->apple_id ?? "";
-            $exsitingPatient->token = md5(rand() . time());
-            $exsitingPatient->email_verified_at = Carbon::now()->toDateTimeString();
-            $exsitingPatient->save();
-            return response()->json(['data' => $exsitingPatient]);
-        }
-
-        $newPatient = new Patient;
-        if ($this->getTokenForAppleTokenFound($request->apple_id)) {
-            return self::errify(400, ['errors' => ['apple_id is already taken']]);
-        }
-        $newPatient->first_name = $request->last_name;
-        $newPatient->last_name = $request->last_name;
-        $newPatient->email = $request->email;
-        $newPatient->token = md5(rand() . time());
-        $newPatient->hash = md5(uniqid(rand(), true));
-        $newPatient->phone = $request->phone;
-        $newPatient->mobile_os = $request->mobile_os;
-        $newPatient->mobile_model = $request->mobile_model;
-        $newPatient->facebook_id = $request->facebook_id ?? "";
-        $newPatient->google_id = $request->google_id ?? "";
-        $newPatient->apple_id = $request->apple_id ?? "";
-        $newPatient->email_verified_at = Carbon::now()->toDateTimeString();
-        $newPatient->phone_verified_at = Carbon::now()->toDateTimeString();
-        $newPatient->is_active = true;
-        //apple image url
-        if ($request->image) {
-            $newPatient->image = $request->image;
-        }
-        $saved = $newPatient->save();
-        if ($saved) {
-            return response()->json(['data' => $newPatient]);
-        } else
-            return self::errify(400, ['errors' => ['Failed']]);
-    }
-
-    public function getTokenForAppleTokenFound($apple_id)
-    {
-        $patient = Patient::where('apple_id', $apple_id)->first();
         if ($patient)
             return $patient->token;
         return false;

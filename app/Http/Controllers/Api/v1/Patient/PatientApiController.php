@@ -13,9 +13,7 @@ abstract class PatientApiController extends BaseController
             'forgotPassword',
             'setDevice',
             'resendEmailVerification',
-            'signupWithFacebook',
-            'signupWithGoogle',
-            'signupWithApple'
+            'signupSocial',
         ]]);
     }
 }
