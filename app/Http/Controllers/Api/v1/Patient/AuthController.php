@@ -68,7 +68,7 @@ class AuthController extends PatientApiController
         }
 
         if ($created_patient) {
-//            $this->sendVerificationEmail($patient);
+            $this->sendVerificationEmail($patient);
             return response()->json(['token' => $patient->token]);
         } else {
             return self::errify(400, ['errors' => ['Failed']]);
@@ -161,7 +161,7 @@ class AuthController extends PatientApiController
                     global $emailTo;
                     global $emailToName;
                     $message
-                        ->from(env('MAIL_FROM'))
+                        ->from(env('MAIL_FROM_ADDRESS'))
                         ->to($emailTo, $emailToName)
                         ->subject(trans('patient.mail_reset_password_subject'));
                 });
@@ -244,11 +244,11 @@ class AuthController extends PatientApiController
             return self::errify(400, ['errors' => ['facebook_id is already taken']]);
         }
         $newPatient->first_name = $request->last_name;
-        $newPatient->flast_name = $request->last_name;
+        $newPatient->last_name = $request->last_name;
         $newPatient->email = $request->email;
         $newPatient->token = md5(rand() . time());
         $newPatient->hash = md5(uniqid(rand(), true));
-        $newPatient->mobile = $request->mobile;
+        $newPatient->phone = $request->phone;
         $newPatient->mobile_os = $request->mobile_os;
         $newPatient->mobile_model = $request->mobile_model;
         $newPatient->facebook_id = $request->facebook_id ?? "";
@@ -312,11 +312,11 @@ class AuthController extends PatientApiController
             return self::errify(400, ['errors' => ['google_id is already taken']]);
         }
         $newPatient->first_name = $request->last_name;
-        $newPatient->flast_name = $request->last_name;
+        $newPatient->last_name = $request->last_name;
         $newPatient->email = $request->email;
         $newPatient->token = md5(rand() . time());
         $newPatient->hash = md5(uniqid(rand(), true));
-        $newPatient->mobile = $request->mobile;
+        $newPatient->phone = $request->phone;
         $newPatient->mobile_os = $request->mobile_os;
         $newPatient->mobile_model = $request->mobile_model;
         $newPatient->facebook_id = $request->facebook_id ?? "";
@@ -370,11 +370,11 @@ class AuthController extends PatientApiController
             return self::errify(400, ['errors' => ['apple_id is already taken']]);
         }
         $newPatient->first_name = $request->last_name;
-        $newPatient->flast_name = $request->last_name;
+        $newPatient->last_name = $request->last_name;
         $newPatient->email = $request->email;
         $newPatient->token = md5(rand() . time());
         $newPatient->hash = md5(uniqid(rand(), true));
-        $newPatient->mobile = $request->mobile;
+        $newPatient->phone = $request->phone;
         $newPatient->mobile_os = $request->mobile_os;
         $newPatient->mobile_model = $request->mobile_model;
         $newPatient->facebook_id = $request->facebook_id ?? "";
