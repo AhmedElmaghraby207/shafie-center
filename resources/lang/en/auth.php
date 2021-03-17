@@ -15,5 +15,8 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'email_not_found' => 'Invalid Email or account doesn\'t exist.',
+    'email_already_verified' => 'Email already verified.',
+    'email_not_verified' => 'Email not Verified.',
 
 ];

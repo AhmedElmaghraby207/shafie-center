@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1\Patient;
 
+use App\Mail\ResetPassword;
 use App\Patient;
 use App\PatientDevice;
 use App\PatientRecover;
@@ -9,6 +10,7 @@ use App\Transformers\PatientTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Snowfire\Beautymail\Beautymail;
 use Spatie\Fractal\Facades\Fractal;
@@ -154,17 +156,8 @@ class AuthController extends PatientApiController
                 $emailTo = $patient->email;
                 global $emailToName;
                 $emailToName = $patient->first_name . ' ' . $patient->last_name;
-                $beautymail = app()->make(Beautymail::class);
-                $beautymail->send('emails.patient.resetpassword', [
-                    "token" => $hash,
-                    "patient" => $patient], function ($message) {
-                    global $emailTo;
-                    global $emailToName;
-                    $message
-                        ->from(env('MAIL_FROM_ADDRESS'))
-                        ->to($emailTo, $emailToName)
-                        ->subject(trans('patient.mail_reset_password_subject'));
-                });
+                $from = env('MAIL_FROM_ADDRESS');
+                Mail::to($emailTo)->send(new ResetPassword($patient, $hash, $from));
                 return response()->json(['status' => 'ok']);
             }
         }
