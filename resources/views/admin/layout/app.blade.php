@@ -40,6 +40,7 @@
     <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/core/colors/palette-gradient.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/timeline.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/dashboard-ecommerce.css')}}">
+    <link rel='stylesheet' type='text/css' href='{{url('/app-assets/css/fontawesome.min.css')}}'>
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style.css')}}">
@@ -196,6 +197,7 @@
 <!-- END MODERN JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{{url('/app-assets/js/scripts/pages/dashboard-ecommerce.js')}}" type="text/javascript"></script>
+<script src='{{url("/app-assets/js/scripts/fontawesome.min.js")}}' type='text/javascript'></script>
 
 @yield('scripts')
 <!-- END PAGE LEVEL JS-->

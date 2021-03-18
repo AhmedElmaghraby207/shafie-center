@@ -1,12 +1,13 @@
-@extends('beautymail::templates.shafey')
+@extends('emails.templates.main')
+
 @section('content')
 
-    @include ('beautymail::templates.shafey.heading', [
+    @include ('emails.templates.partials.heading', [
         'heading' => 'Verify Email',
         'level' => 'h1',
     ])
 
-    @include('beautymail::templates.shafey.contentStart')
+    @include('emails.templates.partials.contentStart')
 
     <p>Dear {{ $patient->first_name }} {{ $patient->last_name }},</p>
     <p>Please click below to confirm your email.
@@ -17,9 +18,9 @@
         {{ URL::to('patient/email/verify', array($token)) }}
     </a>
 
-    @include('beautymail::templates.shafey.contentEnd')
+    @include('emails.templates.partials.contentEnd')
 
-    @include('beautymail::templates.shafey.button', [
+    @include('emails.templates.partials.button', [
         'title' => 'Confirm Email',
         'link' =>  URL::to('patient/email/verify', array($token))
     ])

@@ -1,21 +1,17 @@
-@extends('beautymail::templates.shafey')
+@extends('emails.templates.main')
 
 @section('content')
 
-    @include ('beautymail::templates.shafey.heading' , [
+    @include ('emails.templates.partials.heading', [
             'heading' => 'Announcement',
             'level' => 'h1',
         ])
 
-    @include('beautymail::templates.shafey.contentStart')
+    @include('emails.templates.partials.contentStart')
 
     <p> Dear {{ $patient->first_name }} {{ $patient->last_name }},</p>
     <p>{{ $announcement->message }}</p>
 
-    @include('beautymail::templates.shafey.contentEnd')
+    @include('emails.templates.partials.contentEnd')
 
 @stop
-
-
-
-

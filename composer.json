@@ -17,7 +17,6 @@
         "laravel/tinker": "^2.5",
         "league/fractal": "0.19",
         "sngrl/php-firebase-cloud-messaging": "dev-master",
-        "snowfire/beautymail": "dev-master",
         "spatie/laravel-fractal": "^5.5"
     },
     "require-dev": {

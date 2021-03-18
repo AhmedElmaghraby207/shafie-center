@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::post('/login', 'AuthController@login')->name('auth.login');
     Route::get('/logout', 'AuthController@logout')->name('auth.logout');
 
+    Route::get('/email-temp-view', 'HomeController@emailTempView');
 });
 
 Route::group(['prefix' => 'patient', 'namespace' => 'Patient'], function () {

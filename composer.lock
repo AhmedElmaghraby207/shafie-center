@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9c1a911e8ac0f6740545ddb75fe0d13",
+    "content-hash": "b07fc3f4e22a4e95cbfd1a5f960f0e3b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1997,84 +1997,6 @@
             "time": "2020-11-07T02:01:34+00:00"
         },
         {
-            "name": "pelago/emogrifier",
-            "version": "v3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/MyIntervals/emogrifier.git",
-                "reference": "f6a5c7d44612d86c3901c93f1592f5440e6b2cd8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MyIntervals/emogrifier/zipball/f6a5c7d44612d86c3901c93f1592f5440e6b2cd8",
-                "reference": "f6a5c7d44612d86c3901c93f1592f5440e6b2cd8",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-libxml": "*",
-                "php": "^5.6 || ~7.0 || ~7.1 || ~7.2 || ~7.3 || ~7.4",
-                "symfony/css-selector": "^2.8 || ^3.0 || ^4.0 || ^5.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.15.3",
-                "phpmd/phpmd": "^2.7.0",
-                "phpunit/phpunit": "^5.7.27",
-                "squizlabs/php_codesniffer": "^3.5.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Pelago\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Oliver Klee",
-                    "email": "github@oliverklee.de"
-                },
-                {
-                    "name": "Zoli Szabó",
-                    "email": "zoli.szabo+github@gmail.com"
-                },
-                {
-                    "name": "John Reeve",
-                    "email": "jreeve@pelagodesign.com"
-                },
-                {
-                    "name": "Jake Hotson",
-                    "email": "jake@qzdesign.co.uk"
-                },
-                {
-                    "name": "Cameron Brooks"
-                },
-                {
-                    "name": "Jaime Prado"
-                }
-            ],
-            "description": "Converts CSS styles into inline style attributes in your HTML code",
-            "homepage": "https://www.myintervals.com/emogrifier.php",
-            "keywords": [
-                "css",
-                "email",
-                "pre-processing"
-            ],
-            "support": {
-                "issues": "https://github.com/MyIntervals/emogrifier/issues",
-                "source": "https://github.com/MyIntervals/emogrifier"
-            },
-            "time": "2019-12-26T19:37:31+00:00"
-        },
-        {
             "name": "phpoption/phpoption",
             "version": "1.7.5",
             "source": {
@@ -2793,61 +2715,6 @@
                 "source": "https://github.com/sngrl/php-firebase-cloud-messaging/tree/master"
             },
             "time": "2017-06-26T15:58:02+00:00"
-        },
-        {
-            "name": "snowfire/beautymail",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Snowfire/Beautymail.git",
-                "reference": "506ac993043edd136bc3cc157ed5b28d1b99eb5b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Snowfire/Beautymail/zipball/506ac993043edd136bc3cc157ed5b28d1b99eb5b",
-                "reference": "506ac993043edd136bc3cc157ed5b28d1b99eb5b",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "4.*|5.*|^6.0.0|^7.0.0|^8.0.0",
-                "pelago/emogrifier": "^3.0",
-                "php": ">=5.4.0"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Snowfire\\Beautymail\\BeautymailServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Snowfire\\Beautymail\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Emil Sundberg",
-                    "email": "emil@snowfire.net"
-                }
-            ],
-            "description": "Send beautiful html emails with Laravel",
-            "keywords": [
-                "email",
-                "html",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/Snowfire/Beautymail/issues",
-                "source": "https://github.com/Snowfire/Beautymail/tree/master"
-            },
-            "time": "2020-09-21T15:58:22+00:00"
         },
         {
             "name": "spatie/fractalistic",
@@ -6361,16 +6228,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.12.2",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "245710e971a030f42e08f4912863805570f23d39"
+                "reference": "be1996ed8adc35c3fd795488a653f4b518be70ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/245710e971a030f42e08f4912863805570f23d39",
-                "reference": "245710e971a030f42e08f4912863805570f23d39",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/be1996ed8adc35c3fd795488a653f4b518be70ea",
+                "reference": "be1996ed8adc35c3fd795488a653f4b518be70ea",
                 "shasum": ""
             },
             "require": {
@@ -6422,9 +6289,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpspec/prophecy/issues",
-                "source": "https://github.com/phpspec/prophecy/tree/1.12.2"
+                "source": "https://github.com/phpspec/prophecy/tree/1.13.0"
             },
-            "time": "2020-12-19T10:15:11+00:00"
+            "time": "2021-03-17T13:42:18+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -7737,8 +7604,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "sngrl/php-firebase-cloud-messaging": 20,
-        "snowfire/beautymail": 20
+        "sngrl/php-firebase-cloud-messaging": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
