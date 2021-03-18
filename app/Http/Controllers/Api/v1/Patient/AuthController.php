@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1\Patient;
 
+use App\Mail\EmailVerification;
 use App\Mail\ResetPassword;
 use App\Patient;
 use App\PatientDevice;
@@ -12,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Snowfire\Beautymail\Beautymail;
 use Spatie\Fractal\Facades\Fractal;
 
 class AuthController extends PatientApiController
@@ -145,6 +145,10 @@ class AuthController extends PatientApiController
             if ($patient == null) {
                 return self::errify(400, ['errors' => ['auth.email_not_found']]);
             } else {
+                $recover = PatientRecover::where('email', $patient->email)->first();
+                if ($recover)
+                    return response()->json(['error' => 'Reset email already sent, Please check your email']);
+
                 $hash = md5(uniqid(rand(), true));
                 $patientRecover = new PatientRecover();
                 $patientRecover->email = $patient->email;
@@ -190,17 +194,8 @@ class AuthController extends PatientApiController
         global $emailToName;
         $emailToName = $patient->first_name . ' ' . $patient->last_name;
         $hash = $patient->hash;
-        $beautymail = app()->make(Beautymail::class);
-        $beautymail->send('emails.patient.register', [
-            "token" => $hash,
-            "patient" => $patient], function ($message) {
-            global $emailTo;
-            global $emailToName;
-            $message
-                ->from(env('MAIL_FROM'))
-                ->to($emailTo, $emailToName)
-                ->subject(trans('patient.mail_confirm_email_subject'));
-        });
+        $from = env('MAIL_FROM_ADDRESS');
+        Mail::to($emailTo)->send(new EmailVerification($patient, $hash, $from));
     }
 
     public function signupSocial(Request $request)

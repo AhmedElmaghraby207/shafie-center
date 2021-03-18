@@ -1,8 +1,10 @@
 @extends('admin.layout.auth')
-@section('title') Verify email @endsection
+@section('title') Expired page @endsection
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
             <div class="content-body">
                 <section class="flexbox-container">
                     <div class="col-12 d-flex align-items-center justify-content-center">
@@ -10,15 +12,8 @@
                             <div class="card mb-0">
                                 <div class="card-body text-center">
                                     @if(isset($error))
-                                        <p>{{$error}}</p>
-                                        <img src='{{ url("/assets/images/failure.png")}}'
-                                             alt="Failure" width="100"
-                                             style="margin-top: 15px"/>
-                                    @endif
-                                    @if(isset($success))
-                                        <p>{{$success}}</p>
-                                        <img src='{{ url("/assets/images/success.png")}}'
-                                             alt="Success" width="100"
+                                        <p>{{ $error}}</p>
+                                        <img src='{{ url("/assets/images/failure.png")}}' alt="Failure" width="100"
                                              style="margin-top: 15px"/>
                                     @endif
                                 </div>

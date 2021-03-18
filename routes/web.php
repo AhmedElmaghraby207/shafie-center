@@ -24,8 +24,8 @@ Route::group(['namespace' => 'Admin'], function () {
 });
 
 Route::group(['prefix' => 'patient', 'namespace' => 'Patient'], function () {
-    Route::get('/verifyemail/{token}', 'AuthController@verify_email');
-    Route::get('/password/reset/{token}', 'PasswordController@reset');
-    Route::post('/password/reset', 'PasswordController@post_reset');
+    Route::get('/email/verify/{token}', 'AuthController@verify_email');
+    Route::get('/password/reset/{token}', 'AuthController@get_reset');
+    Route::post('/password/reset', 'AuthController@post_reset');
 });
 
