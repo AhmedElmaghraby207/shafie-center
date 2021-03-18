@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="en" data-textdirection="@if(App::isLocale('en')) ltr @elseif(App::isLocale('ar')) rtl @endif">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,42 +10,71 @@
     <meta name="keywords"
           content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
-    <title>Dashboard sales - Modern Admin - Clean Bootstrap 4 Dashboard HTML Template + Bitcoin
-        Dashboard
-    </title>
+    <title> @yield('title') </title>
     <link rel="apple-touch-icon" href="{{url('/app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{url('/app-assets/images/ico/favicon.ico')}}">
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
         rel="stylesheet">
     <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
+@if(App::isLocale('en'))
     <!-- BEGIN VENDOR CSS-->
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/vendors.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/weather-icons/climacons.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/fonts/meteocons/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/morris.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/chartist.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/chartist-plugin-tooltip.css')}}">
-    <!-- END VENDOR CSS-->
-    <!-- BEGIN MODERN CSS-->
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/app.css')}}">
-    <!-- END MODERN CSS-->
-    <!-- BEGIN Page Level CSS-->
-    <link rel="stylesheet" type="text/css"
-          href="{{url('/app-assets/css/core/menu/menu-types/vertical-menu-modern.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/core/colors/palette-gradient.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/morris.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/fonts/simple-line-icons/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/core/colors/palette-gradient.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/timeline.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/dashboard-ecommerce.css')}}">
-    <link rel='stylesheet' type='text/css' href='{{url('/app-assets/css/fontawesome.min.css')}}'>
-    <!-- END Page Level CSS-->
-    <!-- BEGIN Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style.css')}}">
-    <!-- END Custom CSS-->
-
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/vendors.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{url('/app-assets/vendors/css/weather-icons/climacons.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/fonts/meteocons/style.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/morris.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/chartist.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{url('/app-assets/vendors/css/charts/chartist-plugin-tooltip.css')}}">
+        <!-- END VENDOR CSS-->
+        <!-- BEGIN MODERN CSS-->
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/app.css')}}">
+        <!-- END MODERN CSS-->
+        <!-- BEGIN Page Level CSS-->
+        <link rel="stylesheet" type="text/css"
+              href="{{url('/app-assets/css/core/menu/menu-types/vertical-menu-modern.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/core/colors/palette-gradient.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{url('/app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/fonts/simple-line-icons/style.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/timeline.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/dashboard-ecommerce.css')}}">
+        <link rel='stylesheet' type='text/css' href='{{url('/app-assets/css/fontawesome.min.css')}}'>
+        <!-- END Page Level CSS-->
+        <!-- BEGIN Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style.css')}}">
+        <!-- END Custom CSS-->
+@elseif(App::isLocale('ar'))
+    <!-- BEGIN VENDOR CSS-->
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/vendors.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{url('/app-assets/vendors/css/weather-icons/climacons.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/fonts/meteocons/style.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/morris.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/chartist.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{url('/app-assets/vendors/css/charts/chartist-plugin-tooltip.css')}}">
+        <!-- END VENDOR CSS-->
+        <!-- BEGIN MODERN CSS-->
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/app.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/custom-rtl.css')}}">
+        <!-- END MODERN CSS-->
+        <!-- BEGIN Page Level CSS-->
+        <link rel="stylesheet" type="text/css"
+              href="{{url('/app-assets/css-rtl/core/menu/menu-types/vertical-menu-modern.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/core/colors/palette-gradient.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{url('/app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/fonts/simple-line-icons/style.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/pages/timeline.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/pages/dashboard-ecommerce.css')}}">
+        <link rel='stylesheet' type='text/css' href='{{url('/app-assets/css/fontawesome.min.css')}}'>
+        <!-- END Page Level CSS-->
+        <!-- BEGIN Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style-rtl.css')}}">
+        <!-- END Custom CSS-->
+    @endif
     @yield('styles')
 </head>
 
@@ -105,12 +134,19 @@
                         <a class="dropdown-toggle nav-link" id="dropdown-flag" href="#"
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
-                            <i class="flag-icon flag-icon-gb"></i>
-                            <span class="selected-language"></span>
+                            @if(App::isLocale('en'))
+                                <i class="flag-icon flag-icon-us"></i>
+                                <span class="selected-language"></span>
+                            @elseif(App::isLocale('ar'))
+                                <i class="flag-icon flag-icon-eg"></i>
+                                <span class="selected-language"></span>
+                            @endif
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-flag">
-                            <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-gb"></i> English</a>
-                            <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a>
+                            <a class="dropdown-item" href="{{route('CHANGE_LANGUAGE','ar')}}"><i
+                                    class="flag-icon flag-icon-eg"></i> العربية</a>
+                            <a class="dropdown-item" href="{{route('CHANGE_LANGUAGE','en')}}"><i
+                                    class="flag-icon flag-icon-us"></i> English</a>
                         </div>
                     </li>
                     <li class="dropdown dropdown-notification nav-item">

@@ -1,5 +1,5 @@
 @extends('admin.layout.app')
-
+@section('title') Home @endsection
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">

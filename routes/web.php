@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['namespace' => 'Admin'], function () {
+    Route::get('/changeLanguage/{lang}', 'LanguagesController@changeLanguage')->name('CHANGE_LANGUAGE')->middleware('lang');
     Route::get('/', 'HomeController@dashboard');
     Route::get('/dashboard', 'HomeController@dashboard');
     Route::get('/login', 'HomeController@home');

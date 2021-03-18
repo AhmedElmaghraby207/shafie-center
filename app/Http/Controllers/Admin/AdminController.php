@@ -8,7 +8,7 @@ abstract class AdminController extends BaseController
 {
     function __construct()
     {
-        $this->middleware('admin.auth', ['except' => [
+        $this->middleware(['admin.auth', 'web'], ['except' => [
             'home',
             'login',
         ]]);
