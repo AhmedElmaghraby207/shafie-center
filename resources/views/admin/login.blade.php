@@ -1,5 +1,5 @@
 @extends('admin.layout.auth')
-
+@section('title') Login @endsection
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">

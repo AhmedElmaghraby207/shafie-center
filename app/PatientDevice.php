@@ -13,4 +13,9 @@ class PatientDevice extends Model
         'firebase_token',
         'is_logged_in'
     ];
+
+    public function patient()
+    {
+        return $this->belongsTo('App\Patient', 'PatientId');
+    }
 }

@@ -15,7 +15,7 @@ class PatientAuthentication
         $patient_device = PatientDevice::where('token', $token)->first();
 
         if ($patient_device != null) {
-            $patient = $patient_device->patient();
+            $patient = $patient_device->patient;
             $this->patient = $patient;
         }
 

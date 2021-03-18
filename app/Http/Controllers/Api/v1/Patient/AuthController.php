@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Fractal\Facades\Fractal;
+use App\Facades\PatientAuthenticateFacade as PatientAuth;
 
 class AuthController extends PatientApiController
 {
@@ -164,6 +165,32 @@ class AuthController extends PatientApiController
                 Mail::to($emailTo)->send(new ResetPassword($patient, $hash, $from));
                 return response()->json(['status' => 'ok']);
             }
+        }
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "old_password" => "required",
+            'password' => 'required|confirmed|min:6',
+        ]);
+        if ($validator->fails())
+            return self::errify(400, ['validator' => $validator]);
+
+        $patient_auth = PatientAuth::patient();
+        $patient = Patient::where('email', '=', $patient_auth->email)
+            ->where('password', md5($request->old_password))->first();
+
+        if ($patient != null) {
+            if ($patient->email_verified_at == null) {
+                return self::errify(400, ['errors' => ['auth.email_not_verified']]);
+            }
+            $patient->password = md5($request->password);
+            $patient->save();
+
+            return response()->json(['status' => 'ok', 'message' => 'Password changed successfully']);
+        } else {
+            return self::errify(400, ['errors' => ['The old password is not valid']]);
         }
     }
 
