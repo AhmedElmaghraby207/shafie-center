@@ -19,7 +19,7 @@ class CreatePatientsTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('phone')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->rememberToken();

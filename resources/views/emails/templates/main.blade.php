@@ -109,7 +109,7 @@
 {{--                                                </td>--}}
 {{--                                            @else--}}
 {{--                                                <td>--}}
-{{--                                                    <a href="http://twitter.com/shafey">--}}
+{{--                                                    <a href="http://twitter.com/account-url">--}}
 {{--                                                        <img src="{{url('/assets/images/twitter.png')}}"--}}
 {{--                                                             alt="Twitter" height="25" width="25" style="border:0"/>--}}
 {{--                                                    </a>--}}
@@ -124,7 +124,7 @@
 {{--                                                    </a>--}}
 {{--                                                </td>--}}
 {{--                                            @else--}}
-{{--                                                <td><a href="http://facebook.com/shafey">--}}
+{{--                                                <td><a href="http://facebook.com/account-url">--}}
 {{--                                                        <img src="{{url('/assets/images/facebook.png')}}"--}}
 {{--                                                             alt="Facebook" height="25" width="25" style="border:0"/>--}}
 {{--                                                    </a>--}}
