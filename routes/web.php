@@ -21,6 +21,10 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/login', 'HomeController@home');
     Route::post('/login', 'AuthController@login')->name('auth.login');
     Route::get('/logout', 'AuthController@logout')->name('auth.logout');
+    Route::get('/password/forgot', 'AuthController@getForgotPassword')->name('auth.get_forgot');
+    Route::post('/password/forgot', 'AuthController@postForgotPassword')->name('auth.post_forgot');
+    Route::get('/password/reset/{token}', 'AuthController@getResetPassword')->name('auth.get_reset');
+    Route::post('/password/reset', 'AuthController@postResetPassword')->name('auth.post_reset');
 
     Route::get('/email-temp-view', 'HomeController@emailTempView');
 });

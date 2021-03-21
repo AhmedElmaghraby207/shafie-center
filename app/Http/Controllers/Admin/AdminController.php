@@ -11,6 +11,10 @@ abstract class AdminController extends BaseController
         $this->middleware(['admin.auth', 'web'], ['except' => [
             'home',
             'login',
+            'getForgotPassword',
+            'postForgotPassword',
+            'getResetPassword',
+            'postResetPassword',
         ]]);
     }
 }

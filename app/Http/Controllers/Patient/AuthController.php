@@ -24,7 +24,7 @@ class AuthController extends Controller
             ->first();
 
         if ($patient && $patient->email_verified_at != null)
-            return view('patient/auth/expired-token')->with('error', "Expired page");
+            return view('partials/expired-token')->with('error', "Expired page");
 
         if ($hash == null || $patient == null) {
             return view('patient/auth/verify-email')->with('error', "Invalid Token");
@@ -39,7 +39,7 @@ class AuthController extends Controller
     {
         $patientRecover = PatientRecover::where('hash', '=', $token)->first();
         if ($token == null || $patientRecover == null) {
-            return view('patient/auth/expired-token')->with('error', "Invalid or expired Token");
+            return view('partials/expired-token')->with('error', "Invalid or expired Token");
         }
 
         return view('patient/auth/reset-password')->with('token', $token);
@@ -69,7 +69,7 @@ class AuthController extends Controller
             $patient->password = md5($password);
             $patient->save();
 
-            return view('patient/auth/success')->with(['token' => $hash, 'message' => "Password changed successfully!"]);
+            return view('partials/success')->with(['token' => $hash, 'message' => "Password changed successfully!"]);
         }
     }
 

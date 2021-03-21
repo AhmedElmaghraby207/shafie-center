@@ -1,5 +1,5 @@
 @extends('admin.layout.auth')
-@section('title') Login @endsection
+@section('title') Forgot password @endsection
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -18,13 +18,13 @@
                                         </div>
                                     </div>
                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
-                                        <span>Login with Modern</span>
+                                        <span>Send forgot password email</span>
                                     </h6>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form-horizontal form-simple" id="loginform"
-                                              action="{{ route('auth.login') }}?return_url={{Request::get('return_url')}}"
+                                        <form class="form-horizontal form-simple"
+                                              action="{{ route('auth.post_forgot') }}"
                                               method="post" novalidate>
                                             {{ csrf_field() }}
                                             @if ($errors->any())
@@ -36,14 +36,7 @@
                                                     </ul>
                                                 </div>
                                             @endif
-                                            @if(isset($status) && $status == 'success'))
-                                                <div class="alert alert-success">
-                                                    <ul style="margin-bottom: 0">
-                                                        <li>{{ $message }}</li>
-                                                    </ul>
-                                                </div>
-                                            @endif
-                                            <fieldset class="form-group position-relative has-icon-left mb-0">
+                                            <fieldset class="form-group position-relative has-icon-left">
                                                 <input type="email" class="form-control form-control-lg input-lg"
                                                        id="email" name="email" placeholder="Your Email"
                                                        required>
@@ -51,27 +44,8 @@
                                                     <i class="ft-user"></i>
                                                 </div>
                                             </fieldset>
-                                            <fieldset class="form-group position-relative has-icon-left">
-                                                <input type="password" class="form-control form-control-lg input-lg"
-                                                       id="user-password" name="password"
-                                                       placeholder="Enter Password" required>
-                                                <div class="form-control-position">
-                                                    <i class="la la-key"></i>
-                                                </div>
-                                            </fieldset>
-                                            <div class="form-group row">
-                                                <div class="col-md-6 col-12 text-center text-md-left">
-                                                    <fieldset>
-                                                        <input type="checkbox" id="remember-me" name="remember_me" class="chk-remember">
-                                                        <label for="remember-me"> Remember Me</label>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-md-6 col-12 text-center text-md-right">
-                                                    <a href="{{ route('auth.get_forgot') }}" class="card-link">Forgot Password?</a>
-                                                </div>
-                                            </div>
                                             <button type="submit" class="btn btn-info btn-lg btn-block"><i
-                                                    class="ft-unlock"></i> Login
+                                                    class="ft-unlock"></i> Send
                                             </button>
                                         </form>
                                     </div>

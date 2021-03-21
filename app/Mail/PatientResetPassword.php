@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EmailVerification extends Mailable
+class PatientResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -34,7 +34,7 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.patient.verify-email')
+        return $this->view('emails.patient.reset-password')
             ->with([
                 'patient' => $this->patient,
                 'token' => $this->token,

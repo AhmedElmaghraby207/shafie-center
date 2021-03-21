@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\v1\Patient;
 
-use App\Mail\EmailVerification;
-use App\Mail\ResetPassword;
+use App\Mail\PatientEmailVerification;
+use App\Mail\PatientResetPassword;
 use App\Patient;
 use App\PatientDevice;
 use App\PatientRecover;
@@ -162,7 +162,7 @@ class AuthController extends PatientApiController
                 global $emailToName;
                 $emailToName = $patient->first_name . ' ' . $patient->last_name;
                 $from = env('MAIL_FROM_ADDRESS');
-                Mail::to($emailTo)->send(new ResetPassword($patient, $hash, $from));
+                Mail::to($emailTo)->send(new PatientResetPassword($patient, $hash, $from));
                 return response()->json(['status' => 'ok']);
             }
         }
@@ -222,7 +222,7 @@ class AuthController extends PatientApiController
         $emailToName = $patient->first_name . ' ' . $patient->last_name;
         $hash = $patient->hash;
         $from = env('MAIL_FROM_ADDRESS');
-        Mail::to($emailTo)->send(new EmailVerification($patient, $hash, $from));
+        Mail::to($emailTo)->send(new PatientEmailVerification($patient, $hash, $from));
     }
 
     public function signupSocial(Request $request)
