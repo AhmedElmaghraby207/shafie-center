@@ -31,14 +31,14 @@ class AuthController extends AdminController
             return redirect()->back()->withErrors($validator->errors());
         $user_admin = Admin::where('email', $request->email)->where('password', md5($request->password))->first();
         if (!$user_admin)
-            return redirect()->back()->withErrors(['Please enter correct email and password']);
+            return redirect()->back()->withErrors([__('auth.failed_credentials')]);
         if ($user_admin->email_verified_at == '0000-00-00 00:00:00' || $user_admin->email_verified_at == null)
-            return redirect()->back()->withErrors(['Email Entered is not verified!']);
+            return redirect()->back()->withErrors([__('auth.email_not_verified')]);
         if ($request->remember_me) {
             $user_admin->remember_token = md5(rand() . time());
             $is_token_generated = $user_admin->save();
             if (!$is_token_generated)
-                return redirect()->back()->withErrors(['Database Error!']);
+                return redirect()->back()->withErrors([__('auth.database_error')]);
         }
         $request->session()->put('user_admin', $user_admin);
         if ($request->return_url)
@@ -61,11 +61,11 @@ class AuthController extends AdminController
             $admin = Admin::where('email', '=', $email)->first();
 
             if ($admin == null) {
-                return redirect()->back()->withErrors(['Please enter correct email']);
+                return redirect()->back()->withErrors([__('auth.email_not_found')]);
             } else {
                 $recover = AdminRecover::where('email', $admin->email)->first();
                 if ($recover)
-                    return redirect()->back()->withErrors(['Reset email already sent, Please check your email']);
+                    return redirect()->back()->withErrors([__('auth.reset_email_already_sent')]);
 
                 $hash = md5(uniqid(rand(), true));
                 $adminRecover = new AdminRecover();
@@ -80,8 +80,8 @@ class AuthController extends AdminController
                 $emailToName = $admin->name;
                 $from = env('MAIL_FROM_ADDRESS');
                 Mail::to($emailTo)->send(new AdminResetPassword($admin, $hash, $from));
-                return view('partials/success')->with(['message' => "Reset email has been sent successfully!"]);
-                return response()->json(['status' => 'ok']);
+
+                return view('partials/success')->with(['message' => __('auth.reset_email_sent')]);
             }
         }
     }
@@ -90,7 +90,7 @@ class AuthController extends AdminController
     {
         $adminRecover = AdminRecover::where('hash', '=', $token)->first();
         if ($token == null || $adminRecover == null) {
-            return view('partials/expired-token')->with('error', "Invalid or expired Token");
+            return view('partials/expired-token')->with('error', __('auth.invalid_token'));
         }
 
         return view('admin/reset-password')->with('token', $token);
@@ -112,7 +112,7 @@ class AuthController extends AdminController
 
         $adminRecover = AdminRecover::where('hash', '=', $hash)->first();
         if ($hash == null || $adminRecover == null) {
-            return redirect()->back()->with('error', "Invalid or expired Token");
+            return redirect()->back()->with('error', __('auth.invalid_token'));
         } else {
             $adminRecover->delete();
             $email = $adminRecover->email;
@@ -120,7 +120,7 @@ class AuthController extends AdminController
             $admin->password = md5($password);
             $admin->save();
 
-            return redirect()->route('auth.login')->with(['status' => 'success', "message" => "Password changed successfully!"]);
+            return redirect()->route('auth.login')->with(['status' => 'success', "message" => __('auth.password_changed_success')]);
         }
     }
 

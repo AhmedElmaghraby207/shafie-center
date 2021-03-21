@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1\Patient;
 
+use App\Facades\PatientAuthenticateFacade as PatientAuth;
 use App\Mail\PatientEmailVerification;
 use App\Mail\PatientResetPassword;
 use App\Patient;
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Fractal\Facades\Fractal;
-use App\Facades\PatientAuthenticateFacade as PatientAuth;
 
 class AuthController extends PatientApiController
 {
@@ -39,7 +39,7 @@ class AuthController extends PatientApiController
             return self::errify(400, ['validator' => $validator]);
         $patient = Patient::where('email', $request->email)->first();
         if ($patient != null) {
-            return self::errify(400, ['errors' => ['patient.email_already_exist']]);
+            return self::errify(400, ['errors' => [__('auth.email_already_exist')]]);
         }
 
         $hash = md5(uniqid(rand(), true));
@@ -97,7 +97,7 @@ class AuthController extends PatientApiController
 
             if ($patient != null) {
                 if ($patient->email_verified_at == null) {
-                    return self::errify(400, ['errors' => ['auth.email_not_verified']]);
+                    return self::errify(400, ['errors' => [__('auth.email_not_verified')]]);
                 }
                 $patient->token = md5(rand() . time());
 
@@ -129,7 +129,7 @@ class AuthController extends PatientApiController
 
                 return response()->json($patient);
             } else {
-                return self::errify(400, ['errors' => ['Please enter correct email and password']]);
+                return self::errify(400, ['errors' => [__('auth.failed_credentials')]]);
             }
         }
     }
@@ -144,11 +144,11 @@ class AuthController extends PatientApiController
             $patient = Patient::where('email', '=', $email)->first();
 
             if ($patient == null) {
-                return self::errify(400, ['errors' => ['auth.email_not_found']]);
+                return self::errify(400, ['errors' => [__('auth.email_not_found')]]);
             } else {
                 $recover = PatientRecover::where('email', $patient->email)->first();
                 if ($recover)
-                    return response()->json(['error' => 'Reset email already sent, Please check your email']);
+                    return response()->json(['error' => __('auth.reset_email_already_sent')]);
 
                 $hash = md5(uniqid(rand(), true));
                 $patientRecover = new PatientRecover();
@@ -183,14 +183,14 @@ class AuthController extends PatientApiController
 
         if ($patient != null) {
             if ($patient->email_verified_at == null) {
-                return self::errify(400, ['errors' => ['auth.email_not_verified']]);
+                return self::errify(400, ['errors' => [__('auth.email_not_verified')]]);
             }
             $patient->password = md5($request->password);
             $patient->save();
 
-            return response()->json(['status' => 'ok', 'message' => 'Password changed successfully']);
+            return response()->json(['status' => 'ok', 'message' => __('auth.password_changed_success')]);
         } else {
-            return self::errify(400, ['errors' => ['The old password is not valid']]);
+            return self::errify(400, ['errors' => [__('auth.invalid_old_password')]]);
         }
     }
 
@@ -203,9 +203,9 @@ class AuthController extends PatientApiController
             $email = $request["email"];
             $patient = Patient::where('email', '=', $email)->first();
             if ($patient == null) {
-                return self::errify(400, ['errors' => ['auth.email_not_found']]);
+                return self::errify(400, ['errors' => [__('auth.email_not_found')]]);
             } else if ($patient->email_verified_at) {
-                return self::errify(400, ['errors' => ['auth.email_already_verified']]);
+                return self::errify(400, ['errors' => [__('auth.email_already_verified')]]);
             } else {
                 // send Email
                 $this->sendVerificationEmail($patient);
@@ -260,7 +260,7 @@ class AuthController extends PatientApiController
 
         $newPatient = new Patient;
         if ($this->getPatientForSocialId($request->social_type, $request->social_id)) {
-            return self::errify(400, ['errors' => ['social id is already taken']]);
+            return self::errify(400, ['errors' => [__('auth.social_id_already_exist')]]);
         }
         $newPatient->first_name = $request->last_name;
         $newPatient->last_name = $request->last_name;

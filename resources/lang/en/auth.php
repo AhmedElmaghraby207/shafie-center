@@ -1,11 +1,20 @@
 <?php
 
 return [
-    'failed' => 'These credentials do not match our records.',
+    'failed_credentials' => 'Please enter correct email and password!',
     'email_not_found' => 'Invalid Email or account doesn\'t exist.',
+    'email_already_exist' => 'Email already exist.',
+    'email_verified_success' => 'Email already verified.',
     'email_already_verified' => 'Email already verified.',
     'email_not_verified' => 'Email not Verified.',
-    'invalid_token' => 'Invalid Token.',
+    'invalid_token' => 'Invalid or expired Token',
+    'database_error' => 'Database error',
+    'reset_email_sent' => 'Reset email sent successfully',
+    'reset_email_already_sent' => 'Reset email already sent, Please check your email',
+    'invalid_old_password' => 'The old password is not valid!',
+    'password_changed_success' => 'Password changed successfully!',
+    'page_expired' => 'Page expired!',
+    'social_id_already_exist' => 'social id is already taken',
 
     'dashboard' => 'Dashboard',
     'login_title' => 'Login',
@@ -21,6 +30,4 @@ return [
     'reset_password_header' => 'Enter your new password to reset',
     'reset_submit_button' => 'Submit',
 
-    'un_valid_email_or_password_message' => 'Please enter correct email and password!',
-    'email_not_verified_message' => 'Entered email is not verified!',
 ];

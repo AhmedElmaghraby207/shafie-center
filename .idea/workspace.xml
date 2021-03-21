@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d92a30c3-e041-4802-904e-953fa5adf2c8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/base-app-with-basic-modules.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/base-app-with-basic-modules.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/Patient/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/Patient/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Patient/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Patient/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/EmailVerification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/PatientEmailVerification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/ResetPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/PatientResetPassword.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/patient/auth/expired-token.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/expired-token.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/patient/auth/success.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/success.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +182,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616327809768</updated>
-      <workItem from="1616327827072" duration="8434000" />
+      <workItem from="1616327827072" duration="12287000" />
     </task>
     <servers />
   </component>

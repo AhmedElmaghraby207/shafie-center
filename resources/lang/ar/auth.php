@@ -1,11 +1,20 @@
 <?php
 
 return [
-    'failed' => 'بيانات الدخول غير صحيحة',
-    'email_not_found' => 'عنوان بريد غير صحيح أو الحساب غير موجود',
-    'email_already_verified' => 'البريد مفعل بالفعل',
+    'failed_credentials' => 'بيانات الدخول غير صحيحة',
+    'email_not_found' => 'البريد غير صحيح او الحساب غير موجود',
+    'email_already_exist' => 'عنوان البريد موجود بالفعل',
+    'email_verified_success' => 'تم تفعيل البريد بنجاح',
+    'email_already_verified' => 'البريد مفعل من قبل',
     'email_not_verified' => 'البريد غير مفعل',
-    'invalid_token' => 'الرمز غير صحيح',
+    'invalid_token' => 'الرمز منتهى او غير صحيح',
+    'database_error' => 'خطأ فى قاعدة البيانات',
+    'reset_email_sent' => 'تم ارسال بريد اعادة التعيين بنجاح',
+    'reset_email_already_sent' => 'تم ارسال البريد بالفعل من فضلك افحص بريدك',
+    'invalid_old_password' => 'رمز المرور القديم غير صحيح',
+    'password_changed_success' => 'تم تغيير رمز المرور بنجاح',
+    'page_expired' => 'الصفحة منتهية',
+    'social_id_already_exist' => 'رقم حساب التواصل الاجتماعى موجود بالفعل',
 
     'dashboard' => 'لوحة التحكم',
     'login_title' => 'تسجيل الدخول',
@@ -21,6 +30,4 @@ return [
     'reset_password_header' => 'ادخل كلمة المرور الجديدة لاعادة التعيين',
     'reset_submit_button' => 'حفظ',
 
-    'un_valid_email_or_password_message' => 'ادخل بريد الكترونى وكلمة مرور صحيحتين!',
-    'email_not_verified_message' => 'البريد المدخل غير مفعل',
 ];
