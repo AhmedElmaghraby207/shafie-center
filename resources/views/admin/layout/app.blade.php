@@ -11,6 +11,7 @@
     <meta name="keywords"
           content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> @yield('title') </title>
     <link rel="apple-touch-icon" href="{{url('/app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{url('/app-assets/images/ico/favicon.ico')}}">
@@ -74,6 +75,7 @@
         <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/pages/dashboard-ecommerce.css')}}">
         <link rel='stylesheet' type='text/css' href='{{url('/app-assets/css/fontawesome.min.css')}}'>
         <link rel="stylesheet" type="text/css" href='{{url("/app-assets/css/sweetalert/sweetalert.css")}}'>
+        <link rel="stylesheet" type="text/css" href='{{url("/app-assets/vendors/css/extensions/toastr.css")}}'>
         <!-- END Page Level CSS-->
         <!-- BEGIN Custom CSS-->
         <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style-rtl.css')}}">
