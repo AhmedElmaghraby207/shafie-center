@@ -24,7 +24,7 @@
                                 <div class="card-content">
                                     <div class="card-body">
                                         <form class="form-horizontal form-simple" id="loginform"
-                                              action="{{ route('auth.login') }}?return_url={{Request::get('return_url')}}"
+                                              action="{{ route('admin.post_login') }}?return_url={{Request::get('return_url')}}"
                                               method="post" novalidate>
                                             {{ csrf_field() }}
                                             @if ($errors->any())
@@ -67,7 +67,7 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="col-md-6 col-12 text-center text-md-right">
-                                                    <a href="{{ route('auth.get_forgot') }}" class="card-link">Forgot Password?</a>
+                                                    <a href="{{ route('admin.get_forgot') }}" class="card-link">Forgot Password?</a>
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-info btn-lg btn-block"><i

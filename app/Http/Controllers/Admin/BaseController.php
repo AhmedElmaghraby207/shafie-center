@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller;
 
-abstract class AdminController extends BaseController
+abstract class BaseController extends Controller
 {
     function __construct()
     {
         $this->middleware(['admin.auth', 'web'], ['except' => [
             'home',
-            'login',
+            'get_login',
+            'post_login',
             'getForgotPassword',
             'postForgotPassword',
             'getResetPassword',

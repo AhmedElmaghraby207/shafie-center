@@ -15,18 +15,31 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['namespace' => 'Admin'], function () {
+    //change languages
     Route::get('/changeLanguage/{lang}', 'LanguagesController@changeLanguage')->name('CHANGE_LANGUAGE')->middleware('lang');
+
+    //get email template page
+    Route::get('/email-temp-view', 'HomeController@emailTempView');
+
+    //dashboard page
     Route::get('/', 'HomeController@dashboard');
     Route::get('/dashboard', 'HomeController@dashboard');
-    Route::get('/login', 'HomeController@home');
-    Route::post('/login', 'AuthController@login')->name('auth.login');
-    Route::get('/logout', 'AuthController@logout')->name('auth.logout');
-    Route::get('/password/forgot', 'AuthController@getForgotPassword')->name('auth.get_forgot');
-    Route::post('/password/forgot', 'AuthController@postForgotPassword')->name('auth.post_forgot');
-    Route::get('/password/reset/{token}', 'AuthController@getResetPassword')->name('auth.get_reset');
-    Route::post('/password/reset', 'AuthController@postResetPassword')->name('auth.post_reset');
 
-    Route::get('/email-temp-view', 'HomeController@emailTempView');
+    //admin auth
+    Route::get('/login', 'AuthController@get_login')->name('admin.get_login');
+    Route::post('/login', 'AuthController@post_login')->name('admin.post_login');
+    Route::get('/logout', 'AuthController@logout')->name('admin.logout');
+    Route::get('/password/forgot', 'AuthController@getForgotPassword')->name('admin.get_forgot');
+    Route::post('/password/forgot', 'AuthController@postForgotPassword')->name('admin.post_forgot');
+    Route::get('/password/reset/{token}', 'AuthController@getResetPassword')->name('admin.get_reset');
+    Route::post('/password/reset', 'AuthController@postResetPassword')->name('admin.post_reset');
+
+    //admin pages
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/{id}/edit', 'AdminsController@edit')->name('admin.edit');
+        Route::post('/{id}/update', 'AdminsController@update')->name('admin.update');
+    });
+
 });
 
 Route::group(['prefix' => 'patient', 'namespace' => 'Patient'], function () {

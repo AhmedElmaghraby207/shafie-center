@@ -5,17 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Patient;
 use Illuminate\Http\Request;
 
-class HomeController extends AdminController
+class HomeController extends BaseController
 {
 
     function __construct(Request $request)
     {
         parent::__construct();
-    }
-
-    public function home(Request $request)
-    {
-        return view('admin.login');
     }
 
     public function dashboard(Request $request)

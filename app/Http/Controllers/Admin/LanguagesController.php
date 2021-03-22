@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Session;
 
-class LanguagesController extends AdminController
+class LanguagesController extends BaseController
 {
     public function changeLanguage($lang)
     {

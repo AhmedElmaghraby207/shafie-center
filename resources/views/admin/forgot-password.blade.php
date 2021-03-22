@@ -24,7 +24,7 @@
                                 <div class="card-content">
                                     <div class="card-body">
                                         <form class="form-horizontal form-simple"
-                                              action="{{ route('auth.post_forgot') }}"
+                                              action="{{ route('admin.post_forgot') }}"
                                               method="post" novalidate>
                                             {{ csrf_field() }}
                                             @if ($errors->any())

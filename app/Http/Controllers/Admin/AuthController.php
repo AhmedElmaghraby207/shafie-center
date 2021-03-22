@@ -9,19 +9,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
-class AuthController extends AdminController
+class AuthController extends BaseController
 {
     function __construct(Request $request)
     {
         parent::__construct();
     }
 
-    public function home(Request $request)
+    public function get_login()
     {
-        return view('admin.dashboard');
+        return view('admin.login');
     }
 
-    public function login(Request $request)
+    public function post_login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             "email" => "required",
@@ -120,7 +120,7 @@ class AuthController extends AdminController
             $admin->password = md5($password);
             $admin->save();
 
-            return redirect()->route('auth.login')->with(['status' => 'success', "message" => __('auth.password_changed_success')]);
+            return redirect()->route('admin.get_login')->with(['status' => 'success', "message" => __('auth.password_changed_success')]);
         }
     }
 

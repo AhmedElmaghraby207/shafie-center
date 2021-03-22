@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="@if(App::isLocale('en')) ltr @elseif(App::isLocale('ar')) rtl @endif">
+<html class="loading" lang="en"
+      data-textdirection="@if(App::isLocale('en')) ltr @elseif(App::isLocale('ar')) rtl @endif">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -41,6 +42,7 @@
         <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/timeline.css')}}">
         <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/dashboard-ecommerce.css')}}">
         <link rel='stylesheet' type='text/css' href='{{url('/app-assets/css/fontawesome.min.css')}}'>
+        <link rel="stylesheet" type="text/css" href='{{url("/app-assets/css/sweetalert/sweetalert.css")}}'>
         <!-- END Page Level CSS-->
         <!-- BEGIN Custom CSS-->
         <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style.css')}}">
@@ -70,6 +72,7 @@
         <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/pages/timeline.css')}}">
         <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/pages/dashboard-ecommerce.css')}}">
         <link rel='stylesheet' type='text/css' href='{{url('/app-assets/css/fontawesome.min.css')}}'>
+        <link rel="stylesheet" type="text/css" href='{{url("/app-assets/css/sweetalert/sweetalert.css")}}'>
         <!-- END Page Level CSS-->
         <!-- BEGIN Custom CSS-->
         <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style-rtl.css')}}">
@@ -117,7 +120,7 @@
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <span class="mr-1">
-                                Hello, <span class="user-name text-bold-700">John Doe</span>
+                                Hello, <span class="user-name text-bold-700">{{App\Admin::find(session()->get('user_admin')->id)->name}}</span>
                             </span>
                             <span class="avatar avatar-online">
                                 <img src="{{url('/app-assets/images/portrait/small/avatar-s-19.png')}}"
@@ -125,9 +128,11 @@
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
+                            <a class="dropdown-item" href="{{ route('admin.edit', session()->get('user_admin')->id) }}">
+                                <i class="ft-user"></i> Edit Profile
+                            </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{url('/logout')}}"><i class="ft-power"></i> Logout</a>
+                            <a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="ft-power"></i> Logout</a>
                         </div>
                     </li>
                     <li class="dropdown dropdown-language nav-item">
@@ -196,16 +201,27 @@
 <!-- sidebar -->
 @include('admin/layout/sidebar')
 <!-- content -->
-@yield('content')
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            @yield('content_header')
+        </div>
+        <div class="content-body">
+            @yield('content')
+        </div>
+    </div>
+</div>
 <!-- footer -->
 <footer class="footer footer-static footer-light navbar-border navbar-shadow">
     <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
-      <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018 <a class="text-bold-800 grey darken-2"
-                                                                                     href="https://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
-                                                                                     target="_blank">PIXINVENT </a>, All
-        rights reserved. </span>
-        <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Hand-crafted & Made with <i
-                class="ft-heart pink"></i></span>
+      <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018
+          <a class="text-bold-800 grey darken-2" href="https://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
+             target="_blank">PIXINVENT
+          </a>, All rights reserved.
+      </span>
+        <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">
+            Hand-crafted & Made with <i class="ft-heart pink"></i>
+        </span>
     </p>
 </footer>
 
@@ -234,7 +250,12 @@
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{{url('/app-assets/js/scripts/pages/dashboard-ecommerce.js')}}" type="text/javascript"></script>
 <script src='{{url("/app-assets/js/scripts/fontawesome.min.js")}}' type='text/javascript'></script>
+<script src="{{ url('/app-assets/js/scripts/moment.js')}} "></script>
+<script src="{{ url('/app-assets/js/scripts/moment-timezone-with-data.js')}} "></script>
+<script src='{{ url("/app-assets/js/scripts/sweetalert/sweetalert.min.js")}}'></script>
+<script src='{{ url("/app-assets/js/scripts/sweetalert/jquery.sweet-alert.custom.js")}}'></script>
 
+@include('admin/partials/scripts/other-scripts')
 @yield('scripts')
 <!-- END PAGE LEVEL JS-->
 </body>
