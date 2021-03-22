@@ -44,6 +44,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
     $("#image_to_preview").change(function () {
         readURL(this);
     });
@@ -132,17 +133,17 @@
     {{--    });--}}
     {{--}--}}
 
-    {{--let msg;--}}
-    {{--@if(Session::has('success_message'))--}}
-    {{--    msg = '{{ Session::get('success_message') }}' + ' ';--}}
-    {{--{{ Session::forget('success_message') }}--}}
-    {{--showNotification('bg-green', msg + '&nbsp;', 'top', 'right', null, null);--}}
-    {{--@endif--}}
+    let msg;
+    @if(Session::has('success_message'))
+        msg = '{{ Session::get('success_message') }}' + ' ';
+    {{ Session::forget('success_message') }}
+    toastr.success(msg, null, {"closeButton": true});
+    @endif
 
-    {{--        @if(Session::has('error_message'))--}}
-    {{--    msg = '{{ Session::get('error_message') }}' + ' ';--}}
-    {{--{{ Session::forget('error_message') }}--}}
-    {{--showNotification('bg-red', msg + '&nbsp;', 'top', 'right', null, null);--}}
-    {{--@endif--}}
+        @if(Session::has('error_message'))
+        msg = '{{ Session::get('error_message') }}' + ' ';
+    {{ Session::forget('error_message') }}
+    toastr.error(msg, null, {"closeButton": true});
+    @endif
 
 </script>

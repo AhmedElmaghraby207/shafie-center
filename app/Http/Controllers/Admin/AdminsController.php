@@ -70,7 +70,7 @@ class AdminsController extends BaseController
                 $updated_admin->save();
             }
 
-            session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('employee.attribute_name')]));
+            session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('admin.attribute_name')]));
             return redirect()->back();
         } else {
             session()->flash('error_message', 'Something went wrong');
