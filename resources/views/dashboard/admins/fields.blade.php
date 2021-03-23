@@ -74,7 +74,7 @@
         {{--Image--}}
         <div class="col-md-3">
             <div class="text-center mb-2">
-                <img id="image_preview" height="161"
+                <img id="image_preview" style="height: 160px; width: 160px"
                      src="{{isset($admin) && $admin->image ? url($admin->image) : url('/app-assets/images/portrait/medium/avatar-m-4.png')}}"
                      class="rounded-circle" alt="Card image">
             </div>
