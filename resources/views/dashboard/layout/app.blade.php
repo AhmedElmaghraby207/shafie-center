@@ -126,7 +126,7 @@
                                 Hello, <span class="user-name text-bold-700">{{App\Admin::find(session()->get('user_admin')->id)->name}}</span>
                             </span>
                             <span class="avatar avatar-online">
-                                <img src="{{url('/app-assets/images/portrait/small/avatar-s-19.png')}}"
+                                <img src="{{url(App\Admin::find(session()->get('user_admin')->id)->image)}}" style="height: 37px"
                                      alt="avatar"><i></i>
                             </span>
                         </a>
