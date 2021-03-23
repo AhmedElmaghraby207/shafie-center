@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\Repositories\Admins\AdminsRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
@@ -11,31 +12,36 @@ use Input;
 
 class AdminsController extends BaseController
 {
-    function __construct()
+    protected $adminRep;
+
+    function __construct(AdminsRepositoryInterface $adminRep)
     {
         parent::__construct();
+        $this->adminRep = $adminRep;
     }
 
     public function list()
     {
-        return view('admin.admins.list');
+        return view('dashboard.admins.list');
     }
 
     public function getAdmins(Request $request)
     {
-        $admins = Admin::all();
+        $name = $request->name;
+        $email = $request->email;
+        $admins = $this->adminRep->list(false, ['name' => $name, 'email' => $email]);
         return datatables()->of($admins)->toJson();
     }
 
     public function show($id)
     {
         $admin = Admin::find($id);
-        return view('admin.admins.show')->with(['admin' => $admin]);
+        return view('dashboard.admins.show')->with(['admin' => $admin]);
     }
 
     public function create()
     {
-        return view('admin.admins.create');
+        return view('dashboard.admins.create');
     }
 
     public function store(Request $request)
@@ -83,7 +89,7 @@ class AdminsController extends BaseController
             }
 
             session()->flash('success_message', trans('main.created_alert_message', ['attribute' => Lang::get('admin.attribute_name')]));
-            return redirect()->back();
+            return redirect()->to(route('admin.list'));
         } else {
             session()->flash('error_message', 'Something went wrong');
             return redirect()->back()->withInput(Input::all())->withErrors($validator);
@@ -93,7 +99,7 @@ class AdminsController extends BaseController
     public function edit($id)
     {
         $admin = Admin::find($id);
-        return view('admin.admins.edit')->with(['admin' => $admin]);
+        return view('dashboard.admins.edit')->with(['admin' => $admin]);
     }
 
     public function update($id, Request $request)
@@ -154,15 +160,27 @@ class AdminsController extends BaseController
 
     }
 
-    public function delete($id)
+    public function delete($id, Request $request)
     {
         $admin = Admin::find($id);
         $deleted_admin = $admin->delete();
 
         if ($deleted_admin) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'success',
+                    'success_message' => trans('main.deleted_alert_message', ['attribute' => Lang::get('admin.attribute_name')]),
+                ]);
+            }
             session()->flash('success_message', trans('main.deleted_alert_message', ['attribute' => Lang::get('admin.attribute_name')]));
             return redirect()->back();
         } else {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'error_message' => 'Something went wrong'
+                ]);
+            }
             session()->flash('error_message', 'Something went wrong');
             return redirect()->back();
         }

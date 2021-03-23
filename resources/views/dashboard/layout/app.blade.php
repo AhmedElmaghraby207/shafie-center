@@ -202,10 +202,10 @@
     </div>
 </nav>
 <!-- sidebar -->
-@include('admin/layout/sidebar')
+@include('dashboard.layout.sidebar')
 <!-- content -->
-<div class="app-content content">
-    <div class="content-wrapper">
+<div class="app-content content" style="margin-bottom: -12px">
+    <div class="content-wrapper" style="padding: 1.5rem">
         <div class="content-header row">
             @yield('content_header')
         </div>
@@ -259,7 +259,7 @@
 <script src='{{ url("/app-assets/js/scripts/sweetalert/jquery.sweet-alert.custom.js")}}'></script>
 <script src="{{ url('/app-assets/vendors/js/extensions/toastr.min.js')}}" type="text/javascript"></script>
 
-@include('admin/partials/scripts/other-scripts')
+@include('dashboard.partials.scripts.other-scripts')
 @yield('scripts')
 <!-- END PAGE LEVEL JS-->
 </body>

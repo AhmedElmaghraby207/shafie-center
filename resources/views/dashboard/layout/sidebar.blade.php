@@ -2,10 +2,16 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            <li class=" nav-item">
+            <li class="nav-item">
                 <a href="{{url('/')}}">
                     <i class="la la-home"></i>
-                    <span class="menu-title">Dashboard</span>
+                    <span class="menu-title">@lang('dashboard.title')</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{url('/dashboard/admin/list')}}">
+                    <i class="la la-user-secret"></i>
+                    <span class="menu-title">@lang('admin.title_list')</span>
                 </a>
             </li>
 

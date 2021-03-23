@@ -24,14 +24,14 @@ class AuthController extends Controller
             ->first();
 
         if ($patient && $patient->email_verified_at != null)
-            return view('partials/expired-token')->with('error', __('auth.page_expired'));
+            return view('partials.expired-token')->with('error', __('auth.page_expired'));
 
         if ($hash == null || $patient == null) {
-            return view('patient/auth/verify-email')->with('error', __('auth.invalid_token'));
+            return view('patient.auth.verify-email')->with('error', __('auth.invalid_token'));
         } else {
             $patient->email_verified_at = Carbon::now()->toDateTimeString();
             $patient->save();
-            return view('patient/auth/verify-email')->with('success', __('auth.email_verified_success'));
+            return view('patient.auth.verify-email')->with('success', __('auth.email_verified_success'));
         }
     }
 
@@ -39,10 +39,10 @@ class AuthController extends Controller
     {
         $patientRecover = PatientRecover::where('hash', '=', $token)->first();
         if ($token == null || $patientRecover == null) {
-            return view('partials/expired-token')->with('error', __('auth.invalid_token'));
+            return view('partials.expired-token')->with('error', __('auth.invalid_token'));
         }
 
-        return view('patient/auth/reset-password')->with('token', $token);
+        return view('patient.auth.reset-password')->with('token', $token);
     }
 
     public function post_reset(Request $request)
@@ -69,7 +69,7 @@ class AuthController extends Controller
             $patient->password = md5($password);
             $patient->save();
 
-            return view('partials/success')->with(['token' => $hash, 'message' => __('auth.password_changed_success')]);
+            return view('partials.success')->with(['token' => $hash, 'message' => __('auth.password_changed_success')]);
         }
     }
 

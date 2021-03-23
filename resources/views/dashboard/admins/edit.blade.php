@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('dashboard.layout.app')
 
 @section('title') @lang('admin.title_edit') @endsection
 
@@ -36,7 +36,7 @@
                         <form class="form form-horizontal" method="POST"
                               action="{{ route('admin.update', $admin->id) }}" enctype="multipart/form-data">
                             @csrf
-                            @include('admin.admins.fields')
+                            @include('dashboard.admins.fields')
                             <div class="form-actions right">
                                 <a href="{{url('/dashboard')}}" class="btn btn-warning mr-1">
                                     <i class="ft-x"></i> @lang('main.cancel_button')

@@ -18,7 +18,7 @@ class AuthController extends BaseController
 
     public function get_login()
     {
-        return view('admin.login');
+        return view('dashboard.login');
     }
 
     public function post_login(Request $request)
@@ -48,7 +48,7 @@ class AuthController extends BaseController
 
     public function getForgotPassword()
     {
-        return view('admin.forgot-password');
+        return view('dashboard.forgot-password');
     }
 
     public function postForgotPassword(Request $request)
@@ -81,7 +81,7 @@ class AuthController extends BaseController
                 $from = env('MAIL_FROM_ADDRESS');
                 Mail::to($emailTo)->send(new AdminResetPassword($admin, $hash, $from));
 
-                return view('partials/success')->with(['message' => __('auth.reset_email_sent')]);
+                return view('partials.success')->with(['message' => __('auth.reset_email_sent')]);
             }
         }
     }
@@ -90,10 +90,10 @@ class AuthController extends BaseController
     {
         $adminRecover = AdminRecover::where('hash', '=', $token)->first();
         if ($token == null || $adminRecover == null) {
-            return view('partials/expired-token')->with('error', __('auth.invalid_token'));
+            return view('partials.expired-token')->with('error', __('auth.invalid_token'));
         }
 
-        return view('admin/reset-password')->with('token', $token);
+        return view('dashboard.reset-password')->with('token', $token);
     }
 
     public function postResetPassword(Request $request)

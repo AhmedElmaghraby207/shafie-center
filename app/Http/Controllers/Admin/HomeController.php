@@ -15,7 +15,7 @@ class HomeController extends BaseController
 
     public function dashboard(Request $request)
     {
-        return view('admin.dashboard')->with([]);
+        return view('dashboard.dashboard')->with([]);
     }
 
     public function emailTempView(Request $request)

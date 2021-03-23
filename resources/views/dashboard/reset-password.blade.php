@@ -1,4 +1,4 @@
-@extends('admin.layout.auth')
+@extends('dashboard.layout.auth')
 @section('title') Reset password @endsection
 @section('content')
     <div class="app-content content">

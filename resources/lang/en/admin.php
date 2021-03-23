@@ -7,6 +7,9 @@ return [
     'title_create' => 'Create admin',
     'title_edit' => 'Edit admin',
 
+    'title_search' => 'Search',
+    'title_data' => 'Admins list',
+
     'name' => 'Name',
     'email' => 'Email',
     'password' => 'Password',
