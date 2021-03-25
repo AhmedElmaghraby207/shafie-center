@@ -56,3 +56,10 @@ Breadcrumbs::for('patients-profile', function ($trail, $id) {
     $trail->parent('patients');
     $trail->push(trans('patient.title_profile'), route('patient.show', $id));
 });
+
+//***************************************************************
+// Dashboard > Announcements > Create
+Breadcrumbs::for('announcements-create', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('announcement.title_create'), route('announcement.create'));
+});

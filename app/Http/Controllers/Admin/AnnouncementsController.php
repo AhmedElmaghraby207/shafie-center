@@ -20,7 +20,8 @@ class AnnouncementsController extends BaseController
 
     public function create(Request $request)
     {
-        return view('admin.announcements.create');
+        $patients = Patient::all();
+        return view('dashboard.announcements.create')->with(['patients' => $patients]);
     }
 
     public function send(Request $request)
@@ -28,6 +29,8 @@ class AnnouncementsController extends BaseController
         $validator = Validator::make($request->all(), [
             "subject" => "required|min:3|max:500",
             "message" => "required|min:3|max:2000",
+            "mail_checkbox" => 'required_without:notify_checkbox',
+            "notify_checkbox" => 'required_without:mail_checkbox',
         ]);
         if ($validator->fails())
             return redirect()->to(route('announcement.create'))->withErrors($validator);
@@ -39,9 +42,9 @@ class AnnouncementsController extends BaseController
         $announcement->subject = $request->subject;
         $announcement->message = $request->message;
 
+        $patients_ids_for_tokens = array();
         if ($request->patients) {
             $patients_ids = '';
-            $patients_ids_for_tokens = array();
             $array_ids = explode(',', $request->patients);
             foreach ($array_ids as $key => $id) {
                 $patients_ids .= '[' . $id . ']';
@@ -54,17 +57,18 @@ class AnnouncementsController extends BaseController
         $announcement->publish_at = date('Y-m-d H:i:s');
         $announcement->created_at = date('Y-m-d H:i:s');
         $announcement->save();
-        if ($request->mail_checkbox) {
-            if ($request->patients)
-                $array_patients = Patient::whereIn('id', $patients_ids_for_tokens)->get();
-            else
-                $array_patients = Patient::get();
 
+        if ($request->patients)
+            $array_patients = Patient::whereIn('id', $patients_ids_for_tokens)->get();
+        else
+            $array_patients = Patient::get();
+
+        if ($request->mail_checkbox) {
             foreach ($array_patients as $key => $patient) {
                 try {
-                    if ($patient->is_email_verified) {
+                    if ($patient->email_verified_at != null) {
                         $validator = validator::make(['email' => $patient->email], [
-                            "email" => "email:rfc"
+                            "email" => "email"
                         ]);
                         if (!$validator->fails()) {
                             // send Email
@@ -74,7 +78,7 @@ class AnnouncementsController extends BaseController
                             $emailToName = $patient->first_name . ' ' . $patient->last_name;
                             $hash = $patient->hash;
                             $from = env('MAIL_FROM_ADDRESS');
-                            Mail::to($emailTo)->send(new PatientAnnouncement($patient, $hash, $from));
+                            Mail::to($emailTo)->send(new PatientAnnouncement($announcement, $patient, $hash, $from));
                         }
                     }
                 } catch (\Exception $e) {
@@ -84,13 +88,8 @@ class AnnouncementsController extends BaseController
         }
 
         if ($request->notify_checkbox) {
-            if ($request->patients_checkbox) {
-                if ($request->patients) {
-                    foreach ($patients_ids_for_tokens as $patient_id) {
-                        $patient = Patient::find($patient_id);
-                        $patient->notify(new P_Announcement($request->subject, $request->message));
-                    }
-                }
+            foreach ($array_patients as $patient) {
+                $patient->notify(new P_Announcement($request->subject, $request->message));
             }
         }
 

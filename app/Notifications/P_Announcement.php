@@ -92,9 +92,9 @@ class P_Announcement extends _BaseNotification
         $res['title'] = $dataObject['title'];
         $res['entity_id'] = Config::get('constants.SOCIAL_ENTITY_ID_Announcement');
         $res['message'] = $dataObject['content'];
-        $res['popup'] = $this->template->is_popup;
+//        $res['popup'] = $this->template->is_popup;
 //        $res['popup_image'] = Setting::where('key', 'announcement_popup_image_url')->first()->value;
-        $res['popup_image'] = $this->template->popup_image;
+//        $res['popup_image'] = $this->template->popup_image;
 //        $res['thumbnail'] = Setting::where('key', 'announcement_image_url')->first()->value;
         return $res;
     }

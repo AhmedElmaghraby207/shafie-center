@@ -15,5 +15,16 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\Admins\AdminsRepository'
         );
 
+        // Notifications
+        $this->app->bind(
+            'App\Repositories\Notifications\NotificationsRepositoryInterface',
+            'App\Repositories\Notifications\NotificationsRepository'
+        );
+
+        // Notification Templates
+        $this->app->bind(
+            'App\Repositories\NotificationTemplates\NotificationTemplatesRepositoryInterface',
+            'App\Repositories\NotificationTemplates\NotificationTemplatesRepository'
+        );
     }
 }

@@ -56,6 +56,12 @@ Route::group(['namespace' => 'Admin'], function () {
             Route::post('/{id}/update', 'PatientsController@update')->name('patient.update');
             Route::get('/{id}/delete', 'PatientsController@delete')->name('patient.delete');
         });
+
+        //announcements
+        Route::group(['prefix' => 'announcement'], function () {
+            Route::get('/create', 'AnnouncementsController@create')->name('announcement.create');
+            Route::post('/send', 'AnnouncementsController@send')->name('announcement.send');
+        });
     });
 
 });

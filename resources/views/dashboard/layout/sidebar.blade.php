@@ -14,6 +14,12 @@
                     <span class="menu-title">@lang('admin.title_list')</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{url('/dashboard/announcement/create')}}">
+                    <i class="la la-bullhorn"></i>
+                    <span class="menu-title">@lang('announcement.attribute_name')</span>
+                </a>
+            </li>
 
 {{--            <li class=" navigation-header">--}}
 {{--                <span data-i18n="nav.category.layouts">Layouts</span>--}}

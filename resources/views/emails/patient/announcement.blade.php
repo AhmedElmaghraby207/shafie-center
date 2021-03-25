@@ -3,7 +3,7 @@
 @section('content')
 
     @include ('emails.templates.partials.heading', [
-            'heading' => 'Announcement',
+            'heading' => $announcement->subject,
             'level' => 'h1',
         ])
 

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Announcement;
 use App\Patient;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -11,6 +12,7 @@ class PatientAnnouncement extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $announcement;
     protected $patient;
     protected $token;
     protected $mailFrom;
@@ -20,8 +22,9 @@ class PatientAnnouncement extends Mailable
      *
      * @return void
      */
-    public function __construct(Patient $patient, $token, $mailFrom)
+    public function __construct(Announcement $announcement, Patient $patient, $token, $mailFrom)
     {
+        $this->announcement = $announcement;
         $this->patient = $patient;
         $this->token = $token;
         $this->mailFrom = $mailFrom;
@@ -36,6 +39,7 @@ class PatientAnnouncement extends Mailable
     {
         return $this->view('emails.patient.announcement')
             ->with([
+                'announcement' => $this->announcement,
                 'patient' => $this->patient,
                 'token' => $this->token,
                 'senderName' => $this->mailFrom,
