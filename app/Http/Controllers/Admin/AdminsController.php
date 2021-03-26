@@ -29,7 +29,8 @@ class AdminsController extends BaseController
     {
         $name = $request->name;
         $email = $request->email;
-        $admins = $this->adminRep->list(false, ['name' => $name, 'email' => $email]);
+        $adminId = session()->get('user_admin')->id;
+        $admins = $this->adminRep->list(false, ['name' => $name, 'email' => $email, 'adminId' => $adminId]);
         return datatables()->of($admins)->toJson();
     }
 

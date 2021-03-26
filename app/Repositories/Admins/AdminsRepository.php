@@ -16,9 +16,13 @@ class AdminsRepository extends BaseRepository implements AdminsRepositoryInterfa
     {
         $name = $param["name"] ?? null;
         $email = $param["email"] ?? null;
+        $adminId = $param["adminId"] ?? null;
 
         $admins = $this->query();
 
+        if ($adminId) {
+            $admins = $admins->where('id', '!=', $adminId);
+        }
         if ($name) {
             $admins = $admins->where('name', 'like', '%' . $name . '%');
         }
