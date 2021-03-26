@@ -62,6 +62,14 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::get('/create', 'AnnouncementsController@create')->name('announcement.create');
             Route::post('/send', 'AnnouncementsController@send')->name('announcement.send');
         });
+
+        //settings
+        Route::group(['prefix' => 'setting'], function () {
+            Route::get('/list', 'SettingsController@list')->name('setting.list');
+            Route::post('/get-settings-data', 'SettingsController@getSettings')->name('setting.list_data');
+            Route::get('/{id}/edit', 'SettingsController@edit')->name('setting.edit');
+            Route::post('/{id}/update', 'SettingsController@update')->name('setting.update');
+        });
     });
 
 });

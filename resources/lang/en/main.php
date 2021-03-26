@@ -2,6 +2,10 @@
 
 return [
 
+    //sections
+    'title_search' => 'Search',
+    'title_data' => 'List',
+
     //direction
     'direction' => 'ltr',
 

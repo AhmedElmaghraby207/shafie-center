@@ -2,6 +2,10 @@
 
 return [
 
+    //sections
+    'title_search' => 'البحث',
+    'title_data' => 'القائمة',
+
     //direction
     'direction' => 'rtl',
 

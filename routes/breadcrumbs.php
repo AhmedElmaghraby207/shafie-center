@@ -63,3 +63,16 @@ Breadcrumbs::for('announcements-create', function ($trail) {
     $trail->parent('dashboard');
     $trail->push(trans('announcement.title_create'), route('announcement.create'));
 });
+
+//***************************************************************
+// Dashboard > Settings
+Breadcrumbs::for('settings', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('setting.title_list'), route('setting.list'));
+});
+
+// Dashboard > Settings > Edit
+Breadcrumbs::for('settings-edit', function ($trail, $id) {
+    $trail->parent('settings');
+    $trail->push(trans('setting.title_edit'), route('setting.edit', $id));
+});

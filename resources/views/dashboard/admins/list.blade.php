@@ -28,7 +28,7 @@
             <div class="col-12">
                 <div class="card" style="margin-bottom: 15px">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('admin.title_search')</h4>
+                        <h4 class="card-title">@lang('main.title_search')</h4>
                         <a class="heading-elements-toggle"><i
                                 class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
@@ -85,7 +85,7 @@
             <div class="col-12">
                 <div class="card mb-0">
                     <div class="card-header">
-                        <h4 class="card-title display-inline">@lang('admin.title_data')</h4>&ensp;&ensp;&ensp;
+                        <h4 class="card-title display-inline">@lang('main.title_data')</h4>&ensp;&ensp;&ensp;
                         <a class="btn add-btn btn-sm btn-success" href="{{ url('dashboard/admin/create') }}">
                             <i class="fa fa-plus"></i> @lang('main.add_button')
                         </a>
