@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['namespace' => 'Admin'], function () {
+Route::group(['namespace' => 'Dashboard'], function () {
     //change languages
     Route::get('/changeLanguage/{lang}', 'LanguagesController@changeLanguage')->name('CHANGE_LANGUAGE')->middleware('lang');
 

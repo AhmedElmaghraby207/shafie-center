@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Repositories\NotificationTemplates\NotificationTemplatesRepositoryInterface;
 use Illuminate\Http\Request;
