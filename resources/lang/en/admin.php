@@ -12,6 +12,7 @@ return [
     'password' => 'Password',
     'password_confirm' => 'Confirm password',
     'image' => 'Image',
+    'roles' => 'Roles',
     'activate' => 'Activate',
     'deactivate' => 'Deactivate',
 ];

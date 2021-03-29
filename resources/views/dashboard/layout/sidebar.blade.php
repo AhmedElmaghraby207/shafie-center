@@ -21,6 +21,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{url('/dashboard/role/list')}}">
+                    <i class="la la-cog"></i>
+                    <span class="menu-title">@lang('role.title_list')</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{url('/dashboard/setting/list')}}">
                     <i class="la la-cog"></i>
                     <span class="menu-title">@lang('setting.title_list')</span>

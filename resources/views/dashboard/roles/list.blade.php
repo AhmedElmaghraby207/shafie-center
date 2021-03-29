@@ -1,16 +1,16 @@
 @extends('dashboard.layout.app')
 
-@section('title') @lang('admin.title_list') @endsection
+@section('title') @lang('role.title_list') @endsection
 
 @section('content_header')
     <div class="content-header-left col-md-6 col-12">
-        <h3 class="content-header-title">@lang('admin.title_list')</h3>
+        <h3 class="content-header-title">@lang('role.title_list')</h3>
     </div>
     <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-12">
         <div class="breadcrumb-wrapper col-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <p>{{ Breadcrumbs::render('admins') }}</p>
+                    <p>{{ Breadcrumbs::render('roles') }}</p>
                 </li>
             </ol>
         </div>
@@ -40,25 +40,16 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard" style="padding: 0 1.5rem;">
-                            <form method="get" id="form_admins_search">
+                            <form method="get" id="form_roles_search">
                                 <div class="row">
 
                                     {{--Name search field--}}
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="form-group">
-                                            <label for="name">@lang('admin.name')</label>
+                                            <label for="name">@lang('role.name')</label>
                                             <input type="text" id="name" name="name"
                                                    class="form-control font-size-small"
-                                                   placeholder="@lang('admin.name')">
-                                        </div>
-                                    </div>
-                                    {{--Email search field--}}
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="form-group">
-                                            <label for="email">@lang('admin.email')</label>
-                                            <input type="text" id="email" name="email"
-                                                   class="form-control font-size-small"
-                                                   placeholder="@lang('admin.email')">
+                                                   placeholder="@lang('role.name')">
                                         </div>
                                     </div>
                                     {{--Filter & clrear buttons--}}
@@ -86,7 +77,7 @@
                 <div class="card mb-0">
                     <div class="card-header">
                         <h4 class="card-title display-inline">@lang('main.title_data')</h4>&ensp;&ensp;&ensp;
-                        <a class="btn add-btn btn-sm btn-success" href="{{ url('dashboard/admin/create') }}">
+                        <a class="btn add-btn btn-sm btn-success" href="{{ route('role.create') }}">
                             <i class="fa fa-plus"></i> @lang('main.add_button')
                         </a>
                         <div class="heading-elements">
@@ -99,13 +90,11 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard pt-0">
-                            <table class="table table-striped table-bordered file-export" id="adminsTable" style="width: 100%">
+                            <table class="table table-striped table-bordered file-export" id="rolesTable" style="width: 100%">
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Image</th>
                                     <th>Name</th>
-                                    <th>Email</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -128,40 +117,38 @@
     <script>
 
         let name_field = $('#name');
-        let email_field = $('#email');
-        let form_admins_search = $('#form_admins_search');
+        let form_roles_search = $('#form_roles_search');
         let clear_button = $('#clear_button');
         let reload_data_btn = $('#reload_data_btn');
 
         $(document).ready(function () {
 
             // Draw table after Filter
-            form_admins_search.on('submit', function (e) {
+            form_roles_search.on('submit', function (e) {
                 e.preventDefault();
-                AdminsDatatable();
+                RolesDatatable();
             });
 
             // Draw table after click reload btn
-            reload_data_btn.click(AdminsDatatable);
+            reload_data_btn.click(RolesDatatable);
 
             // Draw table after Clear
             clear_button.on('click', function (e) {
                 name_field.val("");
-                email_field.val("");
-                form_admins_search.submit();
+                form_roles_search.submit();
                 check_inputs();
             });
 
-            name_field.add(email_field).bind("keyup change", function () {
+            name_field.bind("keyup change", function () {
                 check_inputs();
             });
 
             check_inputs();
-            AdminsDatatable();
+            RolesDatatable();
         });
 
-        function AdminsDatatable() {
-            $('#adminsTable').DataTable({
+        function RolesDatatable() {
+            $('#rolesTable').DataTable({
                 "bDestroy": true,
                 processing: true,
                 serverSide: true,
@@ -171,16 +158,16 @@
                 sPaginationType: "full_numbers",
                 "bStateSave": true,
                 "fnStateSave": function (oSettings, oData) {
-                    localStorage.setItem('adminsDataTables', JSON.stringify(oData));
+                    localStorage.setItem('rolesDataTables', JSON.stringify(oData));
                 },
                 "fnStateLoad": function (oSettings) {
-                    return JSON.parse(localStorage.getItem('adminsDataTables'));
+                    return JSON.parse(localStorage.getItem('rolesDataTables'));
                 },
                 @if(App::isLocale('ar'))
                 language: dataTablesArabicLocalization,
                 @endif
                 ajax: {
-                    url: "{{ route('admin.list_data') }}",
+                    url: "{{ route('role.list_data') }}",
                     method: 'POST',
                     dataType: "JSON",
                     headers: {
@@ -189,7 +176,6 @@
                     data: function (d) {
                         //for search
                         d.name = name_field.val();
-                        d.email = email_field.val();
                     }
                 },
                 type: 'GET',
@@ -203,31 +189,14 @@
                         }
                     },
                     {
-                        data: 'image', name: 'image',
-                        "searchable": true,
-                        "sortable": true,
-                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html(
-                                '<a href="{{url('/dashboard/admin')}}' + '/' + oData.id + '/edit' + ' ">' +
-                                '<img style="width: 36px; height: 36px" src="' + oData.image + '" data-id="' + oData.id + '" class="img-fluid img-thumbnail">' +
-                                '</a>'
-                            );
-                        }
-                    },
-                    {
                         data: 'name', name: 'name',
                         "searchable": true,
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/dashboard/admin')}}' + '/' + oData.id + '/edit' + ' ">' + oData.name + '</a>'
+                                '<a href="{{url('/dashboard/role')}}' + '/' + oData.id + '/edit' + ' ">' + oData.name + '</a>'
                             );
                         }
-                    },
-                    {
-                        data: 'email', name: 'email',
-                        "searchable": true,
-                        "sortable": true,
                     },
                     {
                         "data": "id",
@@ -235,8 +204,8 @@
                         "sortable": false,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                "<a href='{{url('dashboard/admin/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  " +
-                                "<a href='javascript:' url='{{url('dashboard/admin/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
+                                "<a href='{{url('dashboard/role/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  " +
+                                "<a href='javascript:' url='{{url('dashboard/role/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
                             );
                         }
                     }
@@ -245,7 +214,7 @@
         }
 
         function check_inputs() {
-            if (name_field.val().length > 0 || email_field.val().length > 0) {
+            if (name_field.val().length > 0) {
                 clear_button.attr('hidden', false)
             } else {
                 clear_button.attr('hidden', true)
@@ -273,7 +242,7 @@
                         success: function (response) {
                             if (response.status === 'success') {
                                 swal("@lang('main.delete_success_title')", "@lang('main.delete_success_content')", "success");
-                                AdminsDatatable();
+                                RolesDatatable();
                             } else if (response.status === 'fail') {
                                 swal("@lang('main.delete_fail_title')", "@lang('main.delete_fail_content')", "error");
                             }
@@ -319,7 +288,7 @@
                                     success: function (response) {
                                         if (response.status === 'success') {
                                             swal("@lang('main.delete_success_title')", "@lang('main.delete_success_content')", "success");
-                                            adminsTable.draw();
+                                            RolesDatatable();
                                         } else if (response.status === 'fail') {
                                             swal("@lang('main.delete_fail_title')", "@lang('main.delete_fail_content')", "error");
                                         }

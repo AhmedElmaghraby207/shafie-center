@@ -35,6 +35,17 @@ Route::group(['namespace' => 'Dashboard'], function () {
     Route::post('/password/reset', 'AuthController@postResetPassword')->name('admin.post_reset');
 
     Route::group(['prefix' => 'dashboard'], function () {
+        //role pages
+        Route::group(['prefix' => 'role'], function () {
+            Route::get('/list', 'RolesController@list')->name('role.list');
+            Route::post('/get-roles-data', 'RolesController@getRoles')->name('role.list_data');
+            Route::get('/create', 'RolesController@create')->name('role.create');
+            Route::post('/store', 'RolesController@store')->name('role.store');
+            Route::get('/{id}/edit', 'RolesController@edit')->name('role.edit');
+            Route::post('/{id}/update', 'RolesController@update')->name('role.update');
+            Route::get('/{id}/delete', 'RolesController@delete')->name('role.delete');
+        });
+
         //admin pages
         Route::group(['prefix' => 'admin'], function () {
             Route::get('/list', 'AdminsController@list')->name('admin.list');

@@ -76,3 +76,28 @@ Breadcrumbs::for('settings-edit', function ($trail, $id) {
     $trail->parent('settings');
     $trail->push(trans('setting.title_edit'), route('setting.edit', $id));
 });
+
+//***************************************************************
+// Dashboard > Roles
+Breadcrumbs::for('roles', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('role.title_list'), route('role.list'));
+});
+
+// Dashboard > roles > Create
+Breadcrumbs::for('roles-create', function ($trail) {
+    $trail->parent('roles');
+    $trail->push(trans('role.title_create'), route('role.create'));
+});
+
+// Dashboard > roles > Edit
+Breadcrumbs::for('roles-edit', function ($trail, $id) {
+    $trail->parent('roles');
+    $trail->push(trans('role.title_edit'), route('role.edit', $id));
+});
+
+// Dashboard > roles > show
+Breadcrumbs::for('roles-profile', function ($trail, $id) {
+    $trail->parent('roles');
+    $trail->push(trans('role.title_show'), route('role.show', $id));
+});
