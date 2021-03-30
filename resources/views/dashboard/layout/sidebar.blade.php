@@ -2,14 +2,14 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            <li class="nav-item">
+            <li class="nav-item {{ (request()->is('/')) || (request()->is('dashboard')) ? 'active' : '' }}">
                 <a href="{{url('/')}}">
                     <i class="la la-home"></i>
                     <span class="menu-title">@lang('dashboard.title')</span>
                 </a>
             </li>
             @if(session()->get('user_admin')->can('admin-list'))
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('dashboard/admin*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/admin/index')}}">
                         <i class="la la-user-secret"></i>
                         <span class="menu-title">@lang('admin.title_list')</span>
@@ -17,7 +17,7 @@
                 </li>
             @endif
             @if(session()->get('user_admin')->can('announcement-create'))
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('dashboard/announcement*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/announcement/create')}}">
                         <i class="la la-bullhorn"></i>
                         <span class="menu-title">@lang('announcement.attribute_name')</span>
@@ -25,15 +25,15 @@
                 </li>
             @endif
             @if(session()->get('user_admin')->can('message-list'))
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('dashboard/message*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/message/index')}}">
-                        <i class="la la-bullhorn"></i>
+                        <i class="la la-envelope"></i>
                         <span class="menu-title">@lang('message.title_list')</span>
                     </a>
                 </li>
             @endif
             @if(session()->get('user_admin')->can('role-list'))
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('dashboard/role*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/role/index')}}">
                         <i class="la la-unlock"></i>
                         <span class="menu-title">@lang('role.title_list')</span>
@@ -41,7 +41,7 @@
                 </li>
             @endif
             @if(session()->get('user_admin')->can('setting-list'))
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('dashboard/setting*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/setting/index')}}">
                         <i class="la la-cog"></i>
                         <span class="menu-title">@lang('setting.title_list')</span>
