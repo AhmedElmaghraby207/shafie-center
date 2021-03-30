@@ -16,6 +16,7 @@ class AnnouncementsController extends BaseController
     function __construct(Request $request)
     {
         parent::__construct();
+        $this->middleware('permission:announcement-create', ['only' => ['create', 'send']]);
     }
 
     public function create(Request $request)

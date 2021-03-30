@@ -101,3 +101,10 @@ Breadcrumbs::for('roles-profile', function ($trail, $id) {
     $trail->parent('roles');
     $trail->push(trans('role.title_show'), route('role.show', $id));
 });
+
+//***************************************************************
+// Dashboard > messages
+Breadcrumbs::for('messages', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('message.title_list'), route('message.index'));
+});

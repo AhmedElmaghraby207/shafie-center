@@ -74,6 +74,14 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::post('/send', 'AnnouncementsController@send')->name('announcement.send');
         });
 
+        //messages
+        Route::group(['prefix' => 'message'], function () {
+            Route::get('/index', 'MessagesController@index')->name('message.index');
+            Route::post('/get-messages-data', 'MessagesController@getMessages')->name('message.list');
+            Route::get('/{id}/read', 'MessagesController@read')->name('message.read');
+            Route::get('/{id}/delete', 'MessagesController@destroy')->name('message.delete');
+        });
+
         //settings
         Route::group(['prefix' => 'setting'], function () {
             Route::get('/index', 'SettingsController@index')->name('setting.index');

@@ -24,6 +24,14 @@
                     </a>
                 </li>
             @endif
+            @if(session()->get('user_admin')->can('message-list'))
+                <li class="nav-item">
+                    <a href="{{url('/dashboard/message/index')}}">
+                        <i class="la la-bullhorn"></i>
+                        <span class="menu-title">@lang('message.title_list')</span>
+                    </a>
+                </li>
+            @endif
             @if(session()->get('user_admin')->can('role-list'))
                 <li class="nav-item">
                     <a href="{{url('/dashboard/role/index')}}">
