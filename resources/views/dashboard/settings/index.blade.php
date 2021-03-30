@@ -104,7 +104,9 @@
                                     <th>@lang('setting.key')</th>
                                     <th>@lang('setting.value')</th>
                                     <th>@lang('setting.description')</th>
-                                    <th>@lang('main.table_actions')</th>
+                                    @if(session()->get('user_admin')->can('setting-edit'))
+                                        <th>@lang('main.table_actions')</th>
+                                    @endif
                                 </tr>
                                 </thead>
                             </table>
@@ -221,6 +223,7 @@
                         "searchable": true,
                         "sortable": true,
                     },
+                        @if(session()->get('user_admin')->can('setting-edit'))
                     {
                         "data": "id",
                         "searchable": false,
@@ -231,6 +234,7 @@
                             );
                         }
                     }
+                    @endif
                 ]
             });
         }

@@ -90,12 +90,15 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard pt-0">
-                            <table class="table table-striped table-bordered file-export" id="rolesTable" style="width: 100%">
+                            <table class="table table-striped table-bordered file-export" id="rolesTable"
+                                   style="width: 100%">
                                 <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Actions</th>
+                                    @if(session()->get('user_admin')->can('role-edit') || session()->get('user_admin')->can('role-delete'))
+                                        <th>Actions</th>
+                                    @endif
                                 </tr>
                                 </thead>
                             </table>
@@ -198,17 +201,26 @@
                             );
                         }
                     },
+                        @if(session()->get('user_admin')->can('role-edit') || session()->get('user_admin')->can('role-delete'))
                     {
                         "data": "id",
                         "searchable": false,
                         "sortable": false,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html(
-                                "<a href='{{url('dashboard/role/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  " +
+                            $(nTd).html('')
+                            @if(session()->get('user_admin')->can('role-edit'))
+                            $(nTd).append(
+                                "<a href='{{url('dashboard/role/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  "
+                            );
+                            @endif
+                            @if(session()->get('user_admin')->can('role-delete'))
+                            $(nTd).append(
                                 "<a href='javascript:' url='{{url('dashboard/role/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
                             );
+                            @endif
                         }
                     }
+                    @endif
                 ]
             });
         }

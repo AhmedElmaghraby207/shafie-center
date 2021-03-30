@@ -86,9 +86,11 @@
                 <div class="card mb-0">
                     <div class="card-header">
                         <h4 class="card-title display-inline">@lang('main.title_data')</h4>&ensp;&ensp;&ensp;
-                        <a class="btn add-btn btn-sm btn-success" href="{{ url('dashboard/admin/create') }}">
-                            <i class="fa fa-plus"></i> @lang('main.add_button')
-                        </a>
+                        @if(session()->get('user_admin')->can('admin-create'))
+                            <a class="btn add-btn btn-sm btn-success" href="{{ url('dashboard/admin/create') }}">
+                                <i class="fa fa-plus"></i> @lang('main.add_button')
+                            </a>
+                        @endif
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -99,14 +101,17 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard pt-0">
-                            <table class="table table-striped table-bordered file-export" id="adminsTable" style="width: 100%">
+                            <table class="table table-striped table-bordered file-export" id="adminsTable"
+                                   style="width: 100%">
                                 <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Actions</th>
+                                    @if(session()->get('user_admin')->can('admin-edit') || session()->get('user_admin')->can('admin-delete'))
+                                        <th>Actions</th>
+                                    @endif
                                 </tr>
                                 </thead>
                             </table>
@@ -229,17 +234,26 @@
                         "searchable": true,
                         "sortable": true,
                     },
+                        @if(session()->get('user_admin')->can('admin-edit') || session()->get('user_admin')->can('admin-delete'))
                     {
                         "data": "id",
                         "searchable": false,
                         "sortable": false,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html(
-                                "<a href='{{url('dashboard/admin/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  " +
+                            $(nTd).html('')
+                            @if(session()->get('user_admin')->can('admin-edit'))
+                            $(nTd).append(
+                                "<a href='{{url('dashboard/admin/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  "
+                            );
+                            @endif
+                            @if(session()->get('user_admin')->can('admin-delete'))
+                            $(nTd).append(
                                 "<a href='javascript:' url='{{url('dashboard/admin/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
                             );
+                            @endif
                         }
                     }
+                    @endif
                 ]
             });
         }
