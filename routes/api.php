@@ -23,4 +23,8 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
         Route::post('/signup_social', 'AuthController@signupSocial');
     });
 
+    Route::group(['prefix' => 'message'], function (){
+        Route::post('/create', 'MessagesController@create');
+    });
+
 });
