@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/base-app-with-basic-modules.iml" filepath="$PROJECT_DIR$/.idea/base-app-with-basic-modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/shafie-center.iml" filepath="$PROJECT_DIR$/.idea/shafie-center.iml" />
     </modules>
   </component>
 </project>
