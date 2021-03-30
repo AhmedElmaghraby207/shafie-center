@@ -37,35 +37,35 @@ Route::group(['namespace' => 'Dashboard'], function () {
     Route::group(['prefix' => 'dashboard'], function () {
         //role pages
         Route::group(['prefix' => 'role'], function () {
-            Route::get('/list', 'RolesController@list')->name('role.list');
-            Route::post('/get-roles-data', 'RolesController@getRoles')->name('role.list_data');
+            Route::get('/index', 'RolesController@index')->name('role.index');
+            Route::post('/get-roles-data', 'RolesController@getRoles')->name('role.list');
             Route::get('/create', 'RolesController@create')->name('role.create');
             Route::post('/store', 'RolesController@store')->name('role.store');
             Route::get('/{id}/edit', 'RolesController@edit')->name('role.edit');
             Route::post('/{id}/update', 'RolesController@update')->name('role.update');
-            Route::get('/{id}/delete', 'RolesController@delete')->name('role.delete');
+            Route::get('/{id}/delete', 'RolesController@destroy')->name('role.delete');
         });
 
         //admin pages
         Route::group(['prefix' => 'admin'], function () {
-            Route::get('/list', 'AdminsController@list')->name('admin.list');
-            Route::post('/get-admins-data', 'AdminsController@getAdmins')->name('admin.list_data');
+            Route::get('/index', 'AdminsController@index')->name('admin.index');
+            Route::post('/get-admins-data', 'AdminsController@getAdmins')->name('admin.list');
             Route::get('/create', 'AdminsController@create')->name('admin.create');
             Route::post('/store', 'AdminsController@store')->name('admin.store');
             Route::get('/{id}/edit', 'AdminsController@edit')->name('admin.edit');
             Route::post('/{id}/update', 'AdminsController@update')->name('admin.update');
-            Route::get('/{id}/delete', 'AdminsController@delete')->name('admin.delete');
+            Route::get('/{id}/delete', 'AdminsController@destroy')->name('admin.delete');
         });
 
         //patient pages
         Route::group(['prefix' => 'patient'], function () {
-            Route::get('/list', 'PatientsController@list')->name('patient.list');
-            Route::post('/get-patients-data', 'PatientsController@getPatients')->name('patient.list_data');
+            Route::get('/index', 'PatientsController@index')->name('patient.index');
+            Route::post('/get-patients-data', 'PatientsController@getPatients')->name('patient.list');
             Route::get('/create', 'PatientsController@create')->name('patient.create');
             Route::post('/store', 'PatientsController@store')->name('patient.store');
             Route::get('/{id}/edit', 'PatientsController@edit')->name('patient.edit');
             Route::post('/{id}/update', 'PatientsController@update')->name('patient.update');
-            Route::get('/{id}/delete', 'PatientsController@delete')->name('patient.delete');
+            Route::get('/{id}/delete', 'PatientsController@destroy')->name('patient.delete');
         });
 
         //announcements
@@ -76,8 +76,8 @@ Route::group(['namespace' => 'Dashboard'], function () {
 
         //settings
         Route::group(['prefix' => 'setting'], function () {
-            Route::get('/list', 'SettingsController@list')->name('setting.list');
-            Route::post('/get-settings-data', 'SettingsController@getSettings')->name('setting.list_data');
+            Route::get('/index', 'SettingsController@index')->name('setting.index');
+            Route::post('/get-settings-data', 'SettingsController@getSettings')->name('setting.list');
             Route::get('/{id}/edit', 'SettingsController@edit')->name('setting.edit');
             Route::post('/{id}/update', 'SettingsController@update')->name('setting.update');
         });

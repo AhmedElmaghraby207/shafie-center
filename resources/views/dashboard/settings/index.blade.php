@@ -178,7 +178,7 @@
                 language: dataTablesArabicLocalization,
                 @endif
                 ajax: {
-                    url: "{{ route('setting.list_data') }}",
+                    url: "{{ route('setting.list') }}",
                     method: 'POST',
                     dataType: "JSON",
                     headers: {

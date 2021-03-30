@@ -38,7 +38,7 @@
                             @csrf
                             @include('dashboard.roles.fields')
                             <div class="form-actions right">
-                                <a href="{{url('/dashboard')}}" class="btn btn-warning mr-1">
+                                <a href="{{route('role.index')}}" class="btn btn-warning mr-1">
                                     <i class="ft-x"></i> @lang('main.cancel_button')
                                 </a>
                                 <button type="submit" class="btn btn-primary" style="height: 40px">

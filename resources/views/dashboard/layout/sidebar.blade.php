@@ -9,7 +9,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/dashboard/admin/list')}}">
+                <a href="{{url('/dashboard/admin/index')}}">
                     <i class="la la-user-secret"></i>
                     <span class="menu-title">@lang('admin.title_list')</span>
                 </a>
@@ -21,13 +21,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/dashboard/role/list')}}">
+                <a href="{{url('/dashboard/role/index')}}">
                     <i class="la la-cog"></i>
                     <span class="menu-title">@lang('role.title_list')</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{url('/dashboard/setting/list')}}">
+                <a href="{{url('/dashboard/setting/index')}}">
                     <i class="la la-cog"></i>
                     <span class="menu-title">@lang('setting.title_list')</span>
                 </a>

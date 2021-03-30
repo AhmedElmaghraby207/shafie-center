@@ -11,7 +11,7 @@ Breadcrumbs::for('dashboard', function ($trail) {
 // Dashboard > Admins
 Breadcrumbs::for('admins', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push(trans('admin.title_list'), route('admin.list'));
+    $trail->push(trans('admin.title_list'), route('admin.index'));
 });
 
 // Dashboard > Admins > Create
@@ -36,7 +36,7 @@ Breadcrumbs::for('admins-profile', function ($trail, $id) {
 // Dashboard > Patients
 Breadcrumbs::for('patients', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push(trans('patient.title_list'), route('patient.list'));
+    $trail->push(trans('patient.title_list'), route('patient.index'));
 });
 
 // Dashboard > Patients > Create
@@ -68,7 +68,7 @@ Breadcrumbs::for('announcements-create', function ($trail) {
 // Dashboard > Settings
 Breadcrumbs::for('settings', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push(trans('setting.title_list'), route('setting.list'));
+    $trail->push(trans('setting.title_list'), route('setting.index'));
 });
 
 // Dashboard > Settings > Edit
@@ -81,7 +81,7 @@ Breadcrumbs::for('settings-edit', function ($trail, $id) {
 // Dashboard > Roles
 Breadcrumbs::for('roles', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push(trans('role.title_list'), route('role.list'));
+    $trail->push(trans('role.title_list'), route('role.index'));
 });
 
 // Dashboard > roles > Create

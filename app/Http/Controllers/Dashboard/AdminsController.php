@@ -19,16 +19,16 @@ class AdminsController extends BaseController
     function __construct(AdminsRepositoryInterface $adminRep)
     {
         parent::__construct();
-//        $this->middleware('permission:admin-list', ['only' => ['list', 'getAdmins', 'show']]);
-//        $this->middleware('permission:admin-create', ['only' => ['create', 'store']]);
-//        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
-//        $this->middleware('permission:admin-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:admin-list', ['only' => ['index', 'getAdmins', 'show']]);
+        $this->middleware('permission:admin-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:admin-delete', ['only' => ['destroy']]);
         $this->adminRep = $adminRep;
     }
 
-    public function list()
+    public function index()
     {
-        return view('dashboard.admins.list');
+        return view('dashboard.admins.index');
     }
 
     public function getAdmins(Request $request)
@@ -99,7 +99,7 @@ class AdminsController extends BaseController
             }
 
             session()->flash('success_message', trans('main.created_alert_message', ['attribute' => Lang::get('admin.attribute_name')]));
-            return redirect()->route('admin.list');
+            return redirect()->route('admin.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
             return redirect()->back()->withInput(Input::all())->withErrors($validator);
@@ -167,7 +167,7 @@ class AdminsController extends BaseController
             }
 
             session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('admin.attribute_name')]));
-            return redirect()->route('admin.list');
+            return redirect()->route('admin.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
             return redirect()->back()->withInput(Input::all())->withErrors($validator);
@@ -176,7 +176,7 @@ class AdminsController extends BaseController
 
     }
 
-    public function delete($id, Request $request)
+    public function destroy($id, Request $request)
     {
         $admin = Admin::find($id);
         $deleted_admin = $admin->delete();

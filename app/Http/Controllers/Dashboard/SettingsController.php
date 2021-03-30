@@ -15,9 +15,9 @@ class SettingsController extends BaseController
         parent::__construct();
     }
 
-    public function list()
+    public function index()
     {
-        return view('dashboard.settings.list');
+        return view('dashboard.settings.index');
     }
 
     public function getSettings(Request $request)
@@ -71,7 +71,7 @@ class SettingsController extends BaseController
 
         if ($updated_setting) {
             session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('setting.attribute_name')]));
-            return redirect()->to(route('setting.list'));
+            return redirect()->to(route('setting.index'));
         } else {
             session()->flash('error_message', 'Something went wrong');
             return redirect()->back()->withInput(Input::all())->withErrors($validator);

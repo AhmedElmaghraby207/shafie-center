@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Input;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -16,15 +16,15 @@ class RolesController extends BaseController
     function __construct()
     {
         parent::__construct();
-        $this->middleware('permission:role-list', ['only' => ['list', 'getRoles', 'show']]);
-//        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
-//        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
-//        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:role-list', ['only' => ['index', 'getRoles', 'show']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
-    public function list()
+    public function index()
     {
-        return view('dashboard.roles.list');
+        return view('dashboard.roles.index');
     }
 
     public function getRoles(Request $request)
@@ -63,7 +63,7 @@ class RolesController extends BaseController
         $role->syncPermissions($request->input('permissions'));
 
         session()->flash('success_message', trans('main.created_alert_message', ['attribute' => Lang::get('role.attribute_name')]));
-        return redirect()->to(route('role.list'));
+        return redirect()->to(route('role.index'));
     }
 
     public function show($id)
@@ -90,7 +90,10 @@ class RolesController extends BaseController
     public function update(Request $request, $id)
     {
         $validator_array = [
-            'name' => 'required|unique:roles,name',
+            'name' => [
+                'required',
+                Rule::unique('roles')->ignore($id),
+            ],
             'permissions' => 'required',
         ];
         $validator = Validator::make($request->all(), $validator_array);
@@ -109,13 +112,31 @@ class RolesController extends BaseController
         $role->syncPermissions($request->input('permissions'));
 
         session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('role.attribute_name')]));
-        return redirect()->route('role.list');
+        return redirect()->route('role.index');
     }
 
     public function destroy($id)
     {
-        DB::table("roles")->where('id', $id)->delete();
-        return redirect()->route('role.list')
-            ->with('success', 'Role deleted successfully');
+        $deleted_role = DB::table("roles")->where('id', $id)->delete();
+
+        if ($deleted_role) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'success',
+                    'success_message' => trans('main.deleted_alert_message', ['attribute' => Lang::get('role.attribute_name')]),
+                ]);
+            }
+            session()->flash('success_message', trans('main.deleted_alert_message', ['attribute' => Lang::get('role.attribute_name')]));
+            return redirect()->back();
+        } else {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'fail',
+                    'error_message' => 'Something went wrong'
+                ]);
+            }
+            session()->flash('error_message', 'Something went wrong');
+            return redirect()->back();
+        }
     }
 }
