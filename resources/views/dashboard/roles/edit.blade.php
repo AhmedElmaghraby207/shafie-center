@@ -1,16 +1,16 @@
 @extends('dashboard.layout.app')
 
-@section('title') @lang('admin.title_create') @endsection
+@section('title') @lang('role.title_edit') @endsection
 
 @section('content_header')
     <div class="content-header-left col-md-6 col-12 mb-1">
-        <h3 class="content-header-title">@lang('admin.title_create')</h3>
+        <h3 class="content-header-title">@lang('role.title_edit')</h3>
     </div>
     <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-12">
         <div class="breadcrumb-wrapper col-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <p>{{ Breadcrumbs::render('admins-create') }}</p>
+                    <p>{{ Breadcrumbs::render('roles-edit', $role->id) }}</p>
                 </li>
             </ol>
         </div>
@@ -22,7 +22,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="horz-layout-colored-controls">@lang('admin.title_create')</h4>
+                    <h4 class="card-title" id="horz-layout-colored-controls">@lang('role.title_edit')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -34,15 +34,15 @@
                 <div class="card-content collpase show">
                     <div class="card-body">
                         <form class="form form-horizontal" method="POST"
-                              action="{{ route('admin.store') }}" enctype="multipart/form-data">
+                              action="{{ route('role.update', $role->id) }}">
                             @csrf
-                            @include('dashboard.admins.fields')
+                            @include('dashboard.roles.fields')
                             <div class="form-actions right">
-                                <a href="{{route('admin.index')}}" class="btn btn-warning mr-1">
+                                <a href="{{route('role.index')}}" class="btn btn-warning mr-1">
                                     <i class="ft-x"></i> @lang('main.cancel_button')
                                 </a>
                                 <button type="submit" class="btn btn-primary" style="height: 40px">
-                                    <i class="la la-check-square-o"></i> @lang('main.add_button')
+                                    <i class="la la-check-square-o"></i> @lang('main.save_button')
                                 </button>
                             </div>
                         </form>

@@ -6,10 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Traits\HasRoles;
 
 class Patient extends Model
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     protected $fillable = [
         'first_name',

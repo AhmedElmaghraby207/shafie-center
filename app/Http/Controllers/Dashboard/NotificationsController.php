@@ -138,7 +138,7 @@ class NotificationsController extends BaseController
 
         if ($deleted_notification) {
             session()->flash('success_message', trans('main.deleted_alert_message', ['attribute' => Lang::get('notification.attribute_name')]));
-            return redirect()->to(url('notification.list'));
+            return redirect()->route('notification.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
             return redirect()->back();

@@ -65,6 +65,25 @@
                     @endif
                 </div>
             </div>
+            {{--roles--}}
+            <div class="form-group row">
+                <label class="col-md-2 label-control" for="roles">@lang('admin.roles')</label>
+                <div class="col-md-10">
+                    <select id="roles" name="roles[]" class="select2 form-control"
+                            multiple="multiple">
+                        @foreach($roles as $role)
+                            <option
+                                value="{{$role->id}}"
+                                @if(isset($adminRoles) && count($adminRoles) > 0)
+                                @foreach($adminRoles as $a_r)
+                                @if($a_r->id == $role->id) selected @endif
+                                @endforeach
+                                @endif
+                            >{{$role->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
         {{--Spliter div--}}
         <div class="col-md-1 ml-auto mr-auto">

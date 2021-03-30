@@ -67,6 +67,7 @@
                                         </div>
 
                                         <div class="row skin skin-flat">
+                                            {{--mail_checkbox--}}
                                             <div class="col-md-3">
                                                 <fieldset>
                                                     <input type="checkbox" name="mail_checkbox" id="mail_checkbox">
@@ -79,6 +80,7 @@
                                                     @endif
                                                 </fieldset>
                                             </div>
+                                            {{--notify_checkbox--}}
                                             <div class="col-md-3">
                                                 <fieldset>
                                                     <input type="checkbox" name="notify_checkbox" id="notify_checkbox">

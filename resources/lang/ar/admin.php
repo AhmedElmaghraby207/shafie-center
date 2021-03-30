@@ -12,6 +12,7 @@ return [
     'password' => 'كلمة المرور',
     'password_confirm' => 'تأكيد كلمة المرور',
     'image' => 'الصورة',
+    'roles' => 'الصلاحيات',
     'activate' => 'تفعيل',
     'deactivate' => 'تعطيل',
 ];
