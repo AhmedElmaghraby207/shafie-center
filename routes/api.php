@@ -27,4 +27,8 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
         Route::post('/create', 'MessagesController@create');
     });
 
+    Route::group(['prefix' => 'faq'], function (){
+        Route::post('/list', 'FaqsController@list');
+    });
+
 });
