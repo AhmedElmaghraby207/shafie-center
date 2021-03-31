@@ -23,12 +23,14 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
         Route::post('/signup_social', 'AuthController@signupSocial');
     });
 
-    Route::group(['prefix' => 'message'], function (){
+    Route::group(['prefix' => 'message'], function () {
         Route::post('/create', 'MessagesController@create');
     });
 
-    Route::group(['prefix' => 'faq'], function (){
+    Route::group(['prefix' => 'faq'], function () {
         Route::post('/list', 'FaqsController@list');
     });
+
+    Route::get('/about-us', 'DoctorController@aboutUs');
 
 });

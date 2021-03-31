@@ -55,7 +55,7 @@ class SettingsController extends BaseController
         }
 
         $updated_setting = Setting::query()->find($id);
-        if ($request->type == 'file' && $file = $request->file) {
+        if ($updated_setting->type == 'file' && $file = $request->value) {
             if ($updated_setting->value) {
                 @unlink($updated_setting->getOriginal('value'));
             }

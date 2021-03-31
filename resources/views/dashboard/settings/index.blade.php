@@ -215,7 +215,13 @@
                         "searchable": true,
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html(oData.value);
+                            if (oData.type === 'text') {
+                                $(nTd).html(oData.value);
+                            } else if (oData.type === 'file') {
+                                $(nTd).html('<a href="{{url('')}}/' + oData.value + '" target="_blank">{{url('')}}/' + oData.value + '</a>');
+                            } else {
+                                $(nTd).html('----');
+                            }
                         }
                     },
                     {

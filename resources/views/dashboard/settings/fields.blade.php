@@ -15,6 +15,7 @@
                 @endif
             </div>
             {{--Value--}}
+            @if($setting->type == 'text')
             <div class="form-group">
                 <label for="value">@lang('setting.value')</label>
                 <textarea id="value" rows="3" class="form-control" name="value"
@@ -26,6 +27,21 @@
                     </div>
                 @endif
             </div>
+            @elseif($setting->type == 'file')
+                <fieldset class="form-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="value" id="value">
+                        <label class="custom-file-label"
+                               for="value">@lang('setting.value')</label>
+                    </div>
+                    @if ($errors->has('value'))
+                        <div class="error" style="color: red">
+                            <i class="fa fa-sm fa-times-circle"></i>
+                            {{ $errors->first('value') }}
+                        </div>
+                    @endif
+                </fieldset>
+            @endif
             {{--Description--}}
             <div class="form-group">
                 <label for="description">@lang('setting.description')</label>
