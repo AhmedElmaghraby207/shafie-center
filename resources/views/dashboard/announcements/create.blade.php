@@ -56,8 +56,7 @@
                                         <div class="form-group">
                                             <label for="message">@lang('announcement.message')</label>
                                             <textarea id="message" rows="5" class="form-control" name="message"
-                                                      placeholder="@lang('announcement.message')">
-                                            </textarea>
+                                                      placeholder="@lang('announcement.message')"></textarea>
                                             @if ($errors->has('message'))
                                                 <div class="error" style="color: red">
                                                     <i class="fa fa-sm fa-times-circle"></i>

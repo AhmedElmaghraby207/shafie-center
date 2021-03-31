@@ -32,6 +32,14 @@
                     </a>
                 </li>
             @endif
+            @if(session()->get('user_admin')->can('faq-list'))
+                <li class="nav-item {{ (request()->is('dashboard/faq*')) ? 'active' : '' }}">
+                    <a href="{{url('/dashboard/faq/index')}}">
+                        <i class="la la-question"></i>
+                        <span class="menu-title">@lang('faq.title_list')</span>
+                    </a>
+                </li>
+            @endif
             @if(session()->get('user_admin')->can('role-list'))
                 <li class="nav-item {{ (request()->is('dashboard/role*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/role/index')}}">

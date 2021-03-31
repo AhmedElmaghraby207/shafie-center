@@ -103,6 +103,31 @@ Breadcrumbs::for('roles-profile', function ($trail, $id) {
 });
 
 //***************************************************************
+// Dashboard > faqs
+Breadcrumbs::for('faqs', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('faq.title_list'), route('faq.index'));
+});
+
+// Dashboard > faqs > Create
+Breadcrumbs::for('faqs-create', function ($trail) {
+    $trail->parent('faqs');
+    $trail->push(trans('faq.title_create'), route('faq.create'));
+});
+
+// Dashboard > faqs > Edit
+Breadcrumbs::for('faqs-edit', function ($trail, $id) {
+    $trail->parent('faqs');
+    $trail->push(trans('faq.title_edit'), route('faq.edit', $id));
+});
+
+// Dashboard > faqs > show
+Breadcrumbs::for('faqs-profile', function ($trail, $id) {
+    $trail->parent('faqs');
+    $trail->push(trans('faq.title_show'), route('faq.show', $id));
+});
+
+//***************************************************************
 // Dashboard > messages
 Breadcrumbs::for('messages', function ($trail) {
     $trail->parent('dashboard');

@@ -82,6 +82,17 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::get('/{id}/delete', 'MessagesController@destroy')->name('message.delete');
         });
 
+        //faq pages
+        Route::group(['prefix' => 'faq'], function () {
+            Route::get('/index', 'FaqsController@index')->name('faq.index');
+            Route::post('/get-faqs-data', 'FaqsController@getFaqs')->name('faq.list');
+            Route::get('/create', 'FaqsController@create')->name('faq.create');
+            Route::post('/store', 'FaqsController@store')->name('faq.store');
+            Route::get('/{id}/edit', 'FaqsController@edit')->name('faq.edit');
+            Route::post('/{id}/update', 'FaqsController@update')->name('faq.update');
+            Route::get('/{id}/delete', 'FaqsController@destroy')->name('faq.delete');
+        });
+
         //settings
         Route::group(['prefix' => 'setting'], function () {
             Route::get('/index', 'SettingsController@index')->name('setting.index');
