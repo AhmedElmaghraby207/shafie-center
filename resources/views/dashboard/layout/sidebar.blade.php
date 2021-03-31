@@ -8,6 +8,14 @@
                     <span class="menu-title">@lang('dashboard.title')</span>
                 </a>
             </li>
+            @if(session()->get('user_admin')->can('doctor-show'))
+                <li class="nav-item {{ (request()->is('dashboard/doctor*')) ? 'active' : '' }}">
+                    <a href="{{url('/dashboard/doctor/show')}}">
+                        <i class="la la-stethoscope"></i>
+                        <span class="menu-title">@lang('Doctor.title_show')</span>
+                    </a>
+                </li>
+            @endif
             @if(session()->get('user_admin')->can('admin-list'))
                 <li class="nav-item {{ (request()->is('dashboard/admin*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/admin/index')}}">

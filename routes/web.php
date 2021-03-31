@@ -57,6 +57,13 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::get('/{id}/delete', 'AdminsController@destroy')->name('admin.delete');
         });
 
+        //doctor pages
+        Route::group(['prefix' => 'doctor'], function () {
+            Route::get('/show', 'DoctorController@show')->name('doctor.show');
+            Route::get('/edit', 'DoctorController@edit')->name('doctor.edit');
+            Route::post('/{id}/update', 'DoctorController@update')->name('doctor.update');
+        });
+
         //patient pages
         Route::group(['prefix' => 'patient'], function () {
             Route::get('/index', 'PatientsController@index')->name('patient.index');

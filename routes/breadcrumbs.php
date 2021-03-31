@@ -33,6 +33,18 @@ Breadcrumbs::for('admins-profile', function ($trail, $id) {
 });
 
 //***************************************************************
+// Dashboard > doctor > show
+Breadcrumbs::for('doctor-show', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('doctor.title_show'), route('doctor.show'));
+});
+// Dashboard > doctor > Edit
+Breadcrumbs::for('doctor-edit', function ($trail) {
+    $trail->parent('doctor-show');
+    $trail->push(trans('doctor.title_edit'), route('doctor.edit'));
+});
+
+//***************************************************************
 // Dashboard > Patients
 Breadcrumbs::for('patients', function ($trail) {
     $trail->parent('dashboard');
