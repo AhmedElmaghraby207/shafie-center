@@ -310,4 +310,16 @@ class AuthController extends PatientApiController
         return false;
     }
 
+    public function logout(Request $request)
+    {
+        $token = $request->header('x-auth-token');
+        $patient_device = PatientDevice::where('token', $token)->first();
+
+        if ($patient_device != null) {
+            $patient_device->delete();
+            return response()->json(['msg' => 'OK']);
+        } else {
+            return self::errify(400, ['errors' => [__('auth.invalid_token')]]);
+        }
+    }
 }

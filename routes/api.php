@@ -21,6 +21,7 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
         Route::post('/update_password', 'AuthController@updatePassword');
         Route::post('/resend_email_verification', 'AuthController@resendEmailVerification');
         Route::post('/signup_social', 'AuthController@signupSocial');
+        Route::post('/logout', 'AuthController@logout');
     });
 
     Route::group(['prefix' => 'message'], function () {
