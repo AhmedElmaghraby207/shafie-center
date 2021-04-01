@@ -104,6 +104,17 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::get('/{id}/delete', 'FaqsController@destroy')->name('faq.delete');
         });
 
+        //branch pages
+        Route::group(['prefix' => 'branch'], function () {
+            Route::get('/index', 'BranchesController@index')->name('branch.index');
+            Route::post('/list', 'BranchesController@list')->name('branch.list');
+            Route::get('/create', 'BranchesController@create')->name('branch.create');
+            Route::post('/store', 'BranchesController@store')->name('branch.store');
+            Route::get('/{id}/edit', 'BranchesController@edit')->name('branch.edit');
+            Route::post('/{id}/update', 'BranchesController@update')->name('branch.update');
+            Route::get('/{id}/delete', 'BranchesController@destroy')->name('branch.delete');
+        });
+
         //settings
         Route::group(['prefix' => 'setting'], function () {
             Route::get('/index', 'SettingsController@index')->name('setting.index');

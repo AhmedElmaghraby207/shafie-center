@@ -2,7 +2,7 @@
     {{--Name--}}
     <div class="form-group">
         <label class="label-control" for="name">@lang('role.name')</label>
-        <input type="text" id="name" class="form-control border-primary"
+        <input type="text" id="name" class="form-control"
                placeholder="@lang('role.name')" name="name"
                value="{{ old('name', isset($role) ? $role->name : '')}}">
         @if ($errors->has('name'))

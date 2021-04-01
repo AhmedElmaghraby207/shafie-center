@@ -140,6 +140,25 @@ Breadcrumbs::for('faqs-profile', function ($trail, $id) {
 });
 
 //***************************************************************
+// Dashboard > branches
+Breadcrumbs::for('branches', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('branch.title_list'), route('branch.index'));
+});
+
+// Dashboard > branches > Create
+Breadcrumbs::for('branches-create', function ($trail) {
+    $trail->parent('branches');
+    $trail->push(trans('branch.title_create'), route('branch.create'));
+});
+
+// Dashboard > branches > Edit
+Breadcrumbs::for('branches-edit', function ($trail, $id) {
+    $trail->parent('branches');
+    $trail->push(trans('branch.title_edit'), route('branch.edit', $id));
+});
+
+//***************************************************************
 // Dashboard > messages
 Breadcrumbs::for('messages', function ($trail) {
     $trail->parent('dashboard');

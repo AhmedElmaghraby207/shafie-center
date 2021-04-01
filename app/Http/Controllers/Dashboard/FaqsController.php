@@ -100,11 +100,6 @@ class FaqsController extends BaseController
             ],
             'answer' => 'required',
         ];
-
-        if ($request->password) {
-            $validator_array['password'] = 'required|confirmed|min:6';
-        }
-
         $validator = Validator::make($request->all(), $validator_array);
 
         if ($validator->fails()) {
@@ -120,8 +115,8 @@ class FaqsController extends BaseController
             'answer' => $request->answer,
         ];
 
-        $faq_query = Faq::query();
-        $updated_faq = $faq_query->create($faq_array);
+        $faq = Faq::find($id);
+        $updated_faq = $faq->update($faq_array);
 
         if ($updated_faq) {
             session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('faq.attribute_name')]));

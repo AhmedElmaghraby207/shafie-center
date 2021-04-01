@@ -134,6 +134,10 @@
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
       <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/vendor/geo-io/interface" />
+      <path value="$PROJECT_DIR$/vendor/geo-io/wkb-parser" />
+      <path value="$PROJECT_DIR$/vendor/grimzy/laravel-mysql-spatial" />
+      <path value="$PROJECT_DIR$/vendor/jmikola/geojson" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

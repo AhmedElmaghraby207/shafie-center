@@ -5,7 +5,7 @@
             <div class="form-group row">
                 <label class="col-md-2 label-control" for="name">@lang('admin.name')</label>
                 <div class="col-md-10">
-                    <input type="text" id="name" class="form-control border-primary"
+                    <input type="text" id="name" class="form-control"
                            placeholder="@lang('admin.name')" name="name"
                            value="{{ old('name', isset($admin) ? $admin->name : '')}}">
                     @if ($errors->has('name'))
@@ -21,7 +21,7 @@
                 <label class="col-md-2 label-control"
                        for="email">@lang('admin.email')</label>
                 <div class="col-md-10">
-                    <input type="email" id="email" class="form-control border-primary"
+                    <input type="email" id="email" class="form-control"
                            placeholder="@lang('admin.email')" name="email"
                            value="{{ old('email', isset($admin) ? $admin->email : '')}}">
                     @if ($errors->has('email'))
@@ -37,7 +37,7 @@
                 <label class="col-md-2 label-control"
                        for="password">@lang('admin.password')</label>
                 <div class="col-md-10">
-                    <input type="password" id="password" class="form-control border-primary"
+                    <input type="password" id="password" class="form-control"
                            placeholder="@lang('admin.password')"
                            name="password">
                     @if ($errors->has('password'))
@@ -53,8 +53,7 @@
                 <label class="col-md-2 label-control"
                        for="password_confirmation">@lang('admin.password_confirm')</label>
                 <div class="col-md-10">
-                    <input type="password" id="password_confirmation"
-                           class="form-control border-primary"
+                    <input type="password" id="password_confirmation" class="form-control"
                            placeholder="@lang('admin.password_confirm')"
                            name="password_confirmation">
                     @if ($errors->has('password_confirmation'))
