@@ -63,10 +63,10 @@ Breadcrumbs::for('patients-edit', function ($trail, $id) {
     $trail->push(trans('patient.title_edit'), route('patient.edit', $id));
 });
 
-// Dashboard > Patients > Profile
-Breadcrumbs::for('patients-profile', function ($trail, $id) {
+// Dashboard > Patients > show
+Breadcrumbs::for('patients-show', function ($trail, $id) {
     $trail->parent('patients');
-    $trail->push(trans('patient.title_profile'), route('patient.show', $id));
+    $trail->push(trans('patient.title_show'), route('patient.show', $id));
 });
 
 //***************************************************************

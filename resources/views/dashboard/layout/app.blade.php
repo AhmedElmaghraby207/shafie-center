@@ -85,6 +85,7 @@
         <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style-rtl.css')}}">
         <!-- END Custom CSS-->
     @endif
+    @include('dashboard.partials.styles.other-styles')
     @yield('styles')
 </head>
 

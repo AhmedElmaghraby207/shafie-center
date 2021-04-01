@@ -43,6 +43,14 @@ class Patient extends Model
         'email_verified_at' => 'datetime',
     ];
 
+    public function getImageAttribute($value)
+    {
+        if ($value) {
+            return asset($value);
+        }
+        return asset("/uploads/defaults/admin.png");
+    }
+
     public function firebase_tokens()
     {
         $tokens = Patient::where('email', $this->email)

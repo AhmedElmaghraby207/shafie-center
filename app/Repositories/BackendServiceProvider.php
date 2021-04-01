@@ -15,6 +15,12 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\Admins\AdminsRepository'
         );
 
+        // Patients
+        $this->app->bind(
+            'App\Repositories\Patients\PatientsRepositoryInterface',
+            'App\Repositories\Patients\PatientsRepository'
+        );
+
         // Notifications
         $this->app->bind(
             'App\Repositories\Notifications\NotificationsRepositoryInterface',

@@ -11,7 +11,7 @@
             @if(session()->get('user_admin')->can('doctor-show'))
                 <li class="nav-item {{ (request()->is('dashboard/doctor*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/doctor/show')}}">
-                        <i class="la la-stethoscope"></i>
+                        <i class="fa fa-user-md"></i> 
                         <span class="menu-title">@lang('Doctor.title_show')</span>
                     </a>
                 </li>
@@ -21,6 +21,14 @@
                     <a href="{{url('/dashboard/admin/index')}}">
                         <i class="la la-user-secret"></i>
                         <span class="menu-title">@lang('admin.title_list')</span>
+                    </a>
+                </li>
+            @endif
+            @if(session()->get('user_admin')->can('patient-list'))
+                <li class="nav-item {{ (request()->is('dashboard/patient*')) ? 'active' : '' }}">
+                    <a href="{{url('/dashboard/patient/index')}}">
+                        <i class="la la-user"></i>
+                        <span class="menu-title">@lang('patient.title_list')</span>
                     </a>
                 </li>
             @endif

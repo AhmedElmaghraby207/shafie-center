@@ -49,6 +49,26 @@ return [
     'delete_success_title' => 'Deleted!',
     'delete_success_content' => 'Your data has been deleted.',
 
+    //activate messages
+    'confirm_activate_question' => 'Are you sure?',
+    'confirm_activate_message' => 'You are about to activate this user!',
+    'button_activate_no' => 'No, cancel',
+    'button_activate_yes' => 'Yes, activate',
+    'activate_fail_title' => 'Canceled!',
+    'activate_fail_content' => 'Sorry this user con\'t be activated',
+    'activate_success_title' => 'Activated!',
+    'activate_success_content' => 'User has been activated.',
+
+    //deactivate messages
+    'confirm_deactivate_question' => 'Are you sure?',
+    'confirm_deactivate_message' => 'You are about to deactivate this user!',
+    'button_deactivate_no' => 'No, cancel',
+    'button_deactivate_yes' => 'Yes, deactivate',
+    'deactivate_fail_title' => 'Canceled!',
+    'deactivate_fail_content' => 'Sorry this user con\'t be deactivated',
+    'deactivate_success_title' => 'Deactivated!',
+    'deactivate_success_content' => 'User has been deactivated.',
+
     //main sidebar collections
     'reports' => 'Enterprise Reports',
     'alarms' => 'Alarms',
@@ -64,6 +84,11 @@ return [
 
     //page loader text
     'page_loader' => 'Please wait...',
+
+    //kg - cm - year
+    'kg' => 'kg',
+    'cm' => 'cm',
+    'year' => 'years',
 
 ];
 

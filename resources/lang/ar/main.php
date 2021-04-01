@@ -49,6 +49,26 @@ return [
     'delete_success_title' => 'تم الحذف!',
     'delete_success_content' => 'تم حذف العنصر بنجاح.',
 
+    //activate messages
+    'confirm_activate_question' => 'هل أنت متأكد؟',
+    'confirm_activate_message' => 'أنت على وشك تفعيل هذا المستخدم',
+    'button_activate_no' => 'لا ألغى التفعيل',
+    'button_activate_yes' => 'نعم تفعيل',
+    'activate_fail_title' => 'تم الغاء التفعيل',
+    'activate_fail_content' => 'عذرا هذا المستخدم لا يمكن تفعيله.',
+    'activate_success_title' => 'تم التفعيل!',
+    'activate_success_content' => 'تم تفعيل المستخدم بنجاح.',
+
+    //deactivate messages
+    'confirm_deactivate_question' => 'هل أنت متأكد؟',
+    'confirm_deactivate_message' => 'أنت على وشك تعطيل هذا المستخدم',
+    'button_deactivate_no' => 'لا ألغى التعطيل',
+    'button_deactivate_yes' => 'نعم تعطيل',
+    'deactivate_fail_title' => 'تم الغاء التعطيل',
+    'deactivate_fail_content' => 'عذرا هذا المستخدم لا يمكن تعطيله.',
+    'deactivate_success_title' => 'تم التعطيل!',
+    'deactivate_success_content' => 'تم تعطيل المستخدم بنجاح.',
+
     //main sidebar collections
     'reports' => 'التقارير',
     'alarms' => 'التنبيهات',
@@ -65,4 +85,8 @@ return [
     //page loader text
     'page_loader' => 'إنتظر من فظلك...',
 
+    //kg - cm - year
+    'kg' => 'كجم',
+    'cm' => 'سم',
+    'year' => 'سنة',
 ];

@@ -70,7 +70,10 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::post('/get-patients-data', 'PatientsController@getPatients')->name('patient.list');
             Route::get('/create', 'PatientsController@create')->name('patient.create');
             Route::post('/store', 'PatientsController@store')->name('patient.store');
+            Route::get('/{id}/show', 'PatientsController@show')->name('patient.show');
             Route::get('/{id}/edit', 'PatientsController@edit')->name('patient.edit');
+            Route::get('/{id}/activate', 'PatientsController@activate')->name('patient.activate');
+            Route::get('/{id}/deactivate', 'PatientsController@deactivate')->name('patient.deactivate');
             Route::post('/{id}/update', 'PatientsController@update')->name('patient.update');
             Route::get('/{id}/delete', 'PatientsController@destroy')->name('patient.delete');
         });
