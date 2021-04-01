@@ -1,10 +1,22 @@
 @extends('dashboard.layout.app')
 
-@section('title') @lang('admin.title_edit') @endsection
+@section('title')
+    @if(session()->get('user_admin')->id == $admin->id)
+        @lang('admin.title_edit_profile')
+    @else
+        @lang('admin.title_edit')
+    @endif
+@endsection
 
 @section('content_header')
     <div class="content-header-left col-md-6 col-12 mb-1">
-        <h3 class="content-header-title">@lang('admin.title_edit')</h3>
+        <h3 class="content-header-title">
+            @if(session()->get('user_admin')->id == $admin->id)
+                @lang('admin.title_edit_profile')
+            @else
+                @lang('admin.title_edit')
+            @endif
+        </h3>
     </div>
     <div class="content-header-right breadcrumbs-right breadcrumbs-top col-md-6 col-12">
         <div class="breadcrumb-wrapper col-12">

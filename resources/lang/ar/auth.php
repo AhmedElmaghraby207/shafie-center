@@ -21,6 +21,7 @@ return [
     'login_header' => 'تسجيل الدخول لحسابك الشخصى',
     'login_button' => 'تسجيل الدخول',
     'remember_me' => 'تذكرنى',
+    'logout_button' => 'تسجيل خروج',
     'forgot_password_button' => 'نسيت كلمة المرور؟',
     'forgot_password_title' => 'نسيت كلمة المرور',
     'forgot_password_header' => 'ادخل البريد الالكترونى لاعادة تعيين كلمة المرور',

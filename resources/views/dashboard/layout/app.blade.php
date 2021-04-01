@@ -125,24 +125,6 @@
                 <ul class="nav navbar-nav mr-auto float-left">
                 </ul>
                 <ul class="nav navbar-nav float-right">
-                    <li class="dropdown dropdown-user nav-item">
-                        <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                            <span class="mr-1">
-                                Hello, <span class="user-name text-bold-700">{{App\Admin::find(session()->get('user_admin')->id)->name}}</span>
-                            </span>
-                            <span class="avatar avatar-online">
-                                <img src="{{url(App\Admin::find(session()->get('user_admin')->id)->image)}}" style="height: 37px"
-                                     alt="avatar"><i></i>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{ route('admin.edit', session()->get('user_admin')->id) }}">
-                                <i class="ft-user"></i> Edit Profile
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="ft-power"></i> Logout</a>
-                        </div>
-                    </li>
                     <li class="dropdown dropdown-language nav-item">
                         <a class="dropdown-toggle nav-link" id="dropdown-flag" href="#"
                            data-toggle="dropdown" aria-haspopup="true"
@@ -162,44 +144,23 @@
                                     class="flag-icon flag-icon-us"></i> English</a>
                         </div>
                     </li>
-                    <li class="dropdown dropdown-notification nav-item">
-                        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
-                            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">5</span>
+                    <li class="dropdown dropdown-user nav-item">
+                        <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                            <span class="mr-1">
+                                @lang('admin.hello_text'), <span class="user-name text-bold-700">{{App\Admin::find(session()->get('user_admin')->id)->name}}</span>
+                            </span>
+                            <span class="avatar avatar-online">
+                                <img src="{{url(App\Admin::find(session()->get('user_admin')->id)->image)}}" style="height: 37px"
+                                     alt="avatar"><i></i>
+                            </span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                            <li class="dropdown-menu-header">
-                                <h6 class="dropdown-header m-0">
-                                    <span class="grey darken-2">Notifications</span>
-                                </h6>
-                                <span class="notification-tag badge badge-default badge-danger float-right m-0">5 New
-                                </span>
-                            </li>
-                            <li class="scrollable-container media-list w-100">
-                                <a href="javascript:void(0)">
-                                    <div class="media">
-                                        <div class="media-left align-self-center">
-                                            <i class="ft-plus-square icon-bg-circle bg-cyan"></i>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading">You have new order!</h6>
-                                            <p class="notification-text font-small-3 text-muted">
-                                                Lorem ipsum dolor sit amet, consectetuer elit.
-                                            </p>
-                                            <small>
-                                                <time class="media-meta text-muted"
-                                                      datetime="2015-06-11T18:29:20+08:00">30 minutes ago
-                                                </time>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="dropdown-menu-footer">
-                                <a class="dropdown-item text-muted text-center" href="javascript:void(0)">
-                                    Read all notifications
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ route('admin.show', session()->get('user_admin')->id) }}">
+                                <i class="ft-user"></i> @lang('admin.title_profile')
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="ft-power"></i> @lang('auth.logout_button')</a>
+                        </div>
                     </li>
                 </ul>
             </div>

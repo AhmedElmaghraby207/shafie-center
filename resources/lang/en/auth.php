@@ -21,6 +21,7 @@ return [
     'login_header' => 'Sign in to your Account',
     'login_button' => 'Login',
     'remember_me' => 'Remember me',
+    'logout_button' => 'Logout',
     'forgot_password_button' => 'Forgot password?',
     'forgot_password_title' => 'Forgot password',
     'forgot_password_header' => 'Enter your e-mail address below to reset your password.',

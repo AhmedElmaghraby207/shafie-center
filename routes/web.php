@@ -52,6 +52,7 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::post('/get-admins-data', 'AdminsController@getAdmins')->name('admin.list');
             Route::get('/create', 'AdminsController@create')->name('admin.create');
             Route::post('/store', 'AdminsController@store')->name('admin.store');
+            Route::get('/{id}/show', 'AdminsController@show')->name('admin.show');
             Route::get('/{id}/edit', 'AdminsController@edit')->name('admin.edit');
             Route::post('/{id}/update', 'AdminsController@update')->name('admin.update');
             Route::get('/{id}/delete', 'AdminsController@destroy')->name('admin.delete');

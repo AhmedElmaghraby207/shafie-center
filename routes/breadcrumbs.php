@@ -26,10 +26,10 @@ Breadcrumbs::for('admins-edit', function ($trail, $id) {
     $trail->push(trans('admin.title_edit'), route('admin.edit', $id));
 });
 
-// Dashboard > Admins > Profile
-Breadcrumbs::for('admins-profile', function ($trail, $id) {
+// Dashboard > Admins > Show
+Breadcrumbs::for('admins-show', function ($trail, $id) {
     $trail->parent('admins');
-    $trail->push(trans('admin.title_profile'), route('admin.show', $id));
+    $trail->push(trans('admin.title_show'), route('admin.show', $id));
 });
 
 //***************************************************************

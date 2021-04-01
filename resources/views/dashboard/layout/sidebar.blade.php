@@ -11,7 +11,7 @@
             @if(session()->get('user_admin')->can('doctor-show'))
                 <li class="nav-item {{ (request()->is('dashboard/doctor*')) ? 'active' : '' }}">
                     <a href="{{url('/dashboard/doctor/show')}}">
-                        <i class="fa fa-user-md"></i> 
+                        <i class="fa fa-user-md"></i>
                         <span class="menu-title">@lang('Doctor.title_show')</span>
                     </a>
                 </li>

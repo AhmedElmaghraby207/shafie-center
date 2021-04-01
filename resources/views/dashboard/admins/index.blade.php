@@ -213,7 +213,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/dashboard/admin')}}' + '/' + oData.id + '/edit' + ' ">' +
+                                '<a href="{{url('/dashboard/admin')}}' + '/' + oData.id + '/show' + ' ">' +
                                 '<img style="width: 36px; height: 36px" src="' + oData.image + '" data-id="' + oData.id + '" class="img-fluid img-thumbnail">' +
                                 '</a>'
                             );
@@ -225,7 +225,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/dashboard/admin')}}' + '/' + oData.id + '/edit' + ' ">' + oData.name + '</a>'
+                                '<a href="{{url('/dashboard/admin')}}' + '/' + oData.id + '/show' + ' ">' + oData.name + '</a>'
                             );
                         }
                     },
