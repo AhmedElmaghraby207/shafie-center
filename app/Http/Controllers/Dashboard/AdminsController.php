@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Input;
 use Spatie\Permission\Models\Role;
 
 class AdminsController extends BaseController
@@ -19,7 +18,7 @@ class AdminsController extends BaseController
     function __construct(AdminsRepositoryInterface $adminRep)
     {
         parent::__construct();
-        $this->middleware('permission:admin-list', ['only' => ['index', 'getAdmins', 'show']]);
+        $this->middleware('permission:admin-list', ['only' => ['index', 'list', 'show']]);
         $this->middleware('permission:admin-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:admin-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:admin-delete', ['only' => ['destroy']]);
@@ -31,7 +30,7 @@ class AdminsController extends BaseController
         return view('dashboard.admins.index');
     }
 
-    public function getAdmins(Request $request)
+    public function list(Request $request)
     {
         $name = $request->name;
         $email = $request->email;
@@ -71,7 +70,7 @@ class AdminsController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -102,7 +101,7 @@ class AdminsController extends BaseController
             return redirect()->route('admin.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
     }
 

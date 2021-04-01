@@ -6,7 +6,6 @@ use App\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
-use Input;
 
 class DoctorController extends BaseController
 {
@@ -59,7 +58,7 @@ class DoctorController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -105,7 +104,7 @@ class DoctorController extends BaseController
             return redirect()->route('doctor.show');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
     }
 }

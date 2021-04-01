@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Repositories\NotificationTemplates\NotificationTemplatesRepositoryInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 
@@ -47,7 +46,7 @@ class NotificationTemplatesController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -77,7 +76,7 @@ class NotificationTemplatesController extends BaseController
             return redirect('/dashboard/notification-templates/index');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
     }
 }

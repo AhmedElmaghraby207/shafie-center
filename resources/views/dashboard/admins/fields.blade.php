@@ -81,6 +81,12 @@
                             >{{$role->name}}</option>
                         @endforeach
                     </select>
+                    @if ($errors->has('roles'))
+                        <div class="error" style="color: red">
+                            <i class="fa fa-sm fa-times-circle"></i>
+                            {{ $errors->first('roles') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

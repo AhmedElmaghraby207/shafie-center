@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Input;
 
 class BranchesController extends BaseController
 {
@@ -62,7 +61,7 @@ class BranchesController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -82,7 +81,7 @@ class BranchesController extends BaseController
             return redirect()->route('branch.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
     }
 
@@ -107,7 +106,7 @@ class BranchesController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -127,7 +126,7 @@ class BranchesController extends BaseController
             return redirect()->route('branch.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
 
     }

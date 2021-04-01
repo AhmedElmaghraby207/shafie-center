@@ -102,7 +102,7 @@
                         class="nav-link nav-menu-main menu-toggle hidden-xs"
                         href="#"><i class="ft-menu font-large-1"></i></a></li>
                 <li class="nav-item mr-auto">
-                    <a class="navbar-brand" href="{{url('/')}}">
+                    <a class="navbar-brand" href="{{route('home')}}">
                         <img class="brand-logo" alt="modern admin logo"
                              src="{{url('/app-assets/images/logo/logo.png')}}">
                         <h3 class="brand-text">Modern Admin</h3>

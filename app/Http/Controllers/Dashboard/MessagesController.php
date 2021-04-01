@@ -14,7 +14,7 @@ class MessagesController extends BaseController
     function __construct()
     {
         parent::__construct();
-        $this->middleware('permission:message-list', ['only' => ['index', 'getMessages']]);
+        $this->middleware('permission:message-list', ['only' => ['index', 'list']]);
         $this->middleware('permission:message-show', ['only' => ['show']]);
         $this->middleware('permission:message-read', ['only' => ['read']]);
         $this->middleware('permission:message-delete', ['only' => ['destroy']]);
@@ -26,7 +26,7 @@ class MessagesController extends BaseController
         return view('dashboard.messages.index')->with('patients', $patients);
     }
 
-    public function getMessages(Request $request)
+    public function list(Request $request)
     {
         $message = $request->message;
         $patient_id = $request->patient_id;

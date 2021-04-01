@@ -6,13 +6,14 @@ use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
-use Input;
 
 class SettingsController extends BaseController
 {
     function __construct()
     {
         parent::__construct();
+        $this->middleware('permission:setting-list', ['only' => ['index', 'list']]);
+        $this->middleware('permission:setting-edit', ['only' => ['edit', 'update']]);
     }
 
     public function index()
@@ -20,7 +21,7 @@ class SettingsController extends BaseController
         return view('dashboard.settings.index');
     }
 
-    public function getSettings(Request $request)
+    public function list(Request $request)
     {
         $settings = Setting::query();
         if ($request->key) {
@@ -50,7 +51,7 @@ class SettingsController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -74,7 +75,7 @@ class SettingsController extends BaseController
             return redirect()->to(route('setting.index'));
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
 
 

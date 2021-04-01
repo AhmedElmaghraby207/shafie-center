@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Input;
 
 class FaqsController extends BaseController
 {
@@ -15,7 +14,7 @@ class FaqsController extends BaseController
     function __construct()
     {
         parent::__construct();
-        $this->middleware('permission:faq-list', ['only' => ['index', 'getFaqs']]);
+        $this->middleware('permission:faq-list', ['only' => ['index', 'list']]);
         $this->middleware('permission:faq-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:faq-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:faq-delete', ['only' => ['destroy']]);
@@ -26,7 +25,7 @@ class FaqsController extends BaseController
         return view('dashboard.faqs.index');
     }
 
-    public function getFaqs(Request $request)
+    public function list(Request $request)
     {
         $question = $request->question;
         $answer = $request->answer;
@@ -63,7 +62,7 @@ class FaqsController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -80,7 +79,7 @@ class FaqsController extends BaseController
             return redirect()->route('faq.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
     }
 
@@ -106,7 +105,7 @@ class FaqsController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -123,7 +122,7 @@ class FaqsController extends BaseController
             return redirect()->route('faq.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
 
     }

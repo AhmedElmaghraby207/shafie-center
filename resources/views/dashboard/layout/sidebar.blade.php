@@ -3,14 +3,14 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
             <li class="nav-item {{ (request()->is('/')) || (request()->is('dashboard')) ? 'active' : '' }}">
-                <a href="{{url('/')}}">
+                <a href="{{route('home')}}">
                     <i class="la la-home"></i>
                     <span class="menu-title">@lang('dashboard.title')</span>
                 </a>
             </li>
             @if(session()->get('user_admin')->can('doctor-show'))
                 <li class="nav-item {{ (request()->is('dashboard/doctor*')) ? 'active' : '' }}">
-                    <a href="{{url('/dashboard/doctor/show')}}">
+                    <a href="{{route('doctor.show')}}">
                         <i class="fa fa-user-md"></i>
                         <span class="menu-title">@lang('Doctor.title_show')</span>
                     </a>
@@ -18,7 +18,7 @@
             @endif
             @if(session()->get('user_admin')->can('admin-list'))
                 <li class="nav-item {{ (request()->is('dashboard/admin*')) ? 'active' : '' }}">
-                    <a href="{{url('/dashboard/admin/index')}}">
+                    <a href="{{route('admin.index')}}">
                         <i class="la la-user-secret"></i>
                         <span class="menu-title">@lang('admin.title_list')</span>
                     </a>
@@ -26,15 +26,23 @@
             @endif
             @if(session()->get('user_admin')->can('patient-list'))
                 <li class="nav-item {{ (request()->is('dashboard/patient*')) ? 'active' : '' }}">
-                    <a href="{{url('/dashboard/patient/index')}}">
+                    <a href="{{route('patient.index')}}">
                         <i class="la la-user"></i>
                         <span class="menu-title">@lang('patient.title_list')</span>
                     </a>
                 </li>
             @endif
+            @if(session()->get('user_admin')->can('branch-list'))
+                <li class="nav-item {{ (request()->is('dashboard/branch*')) ? 'active' : '' }}">
+                    <a href="{{route('branch.index')}}">
+                        <i class="la la-map-marker"></i>
+                        <span class="menu-title">@lang('branch.title_list')</span>
+                    </a>
+                </li>
+            @endif
             @if(session()->get('user_admin')->can('announcement-create'))
                 <li class="nav-item {{ (request()->is('dashboard/announcement*')) ? 'active' : '' }}">
-                    <a href="{{url('/dashboard/announcement/create')}}">
+                    <a href="{{route('announcement.create')}}">
                         <i class="la la-bullhorn"></i>
                         <span class="menu-title">@lang('announcement.attribute_name')</span>
                     </a>
@@ -42,7 +50,7 @@
             @endif
             @if(session()->get('user_admin')->can('message-list'))
                 <li class="nav-item {{ (request()->is('dashboard/message*')) ? 'active' : '' }}">
-                    <a href="{{url('/dashboard/message/index')}}">
+                    <a href="{{route('message.index')}}">
                         <i class="la la-envelope"></i>
                         <span class="menu-title">@lang('message.title_list')</span>
                     </a>
@@ -50,7 +58,7 @@
             @endif
             @if(session()->get('user_admin')->can('faq-list'))
                 <li class="nav-item {{ (request()->is('dashboard/faq*')) ? 'active' : '' }}">
-                    <a href="{{url('/dashboard/faq/index')}}">
+                    <a href="{{route('faq.index')}}">
                         <i class="la la-question"></i>
                         <span class="menu-title">@lang('faq.title_list')</span>
                     </a>
@@ -58,7 +66,7 @@
             @endif
             @if(session()->get('user_admin')->can('role-list'))
                 <li class="nav-item {{ (request()->is('dashboard/role*')) ? 'active' : '' }}">
-                    <a href="{{url('/dashboard/role/index')}}">
+                    <a href="{{route('role.index')}}">
                         <i class="la la-unlock"></i>
                         <span class="menu-title">@lang('role.title_list')</span>
                     </a>
@@ -66,7 +74,7 @@
             @endif
             @if(session()->get('user_admin')->can('setting-list'))
                 <li class="nav-item {{ (request()->is('dashboard/setting*')) ? 'active' : '' }}">
-                    <a href="{{url('/dashboard/setting/index')}}">
+                    <a href="{{route('setting.index')}}">
                         <i class="la la-cog"></i>
                         <span class="menu-title">@lang('setting.title_list')</span>
                     </a>

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Input;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -16,7 +15,7 @@ class RolesController extends BaseController
     function __construct()
     {
         parent::__construct();
-        $this->middleware('permission:role-list', ['only' => ['index', 'getRoles', 'show']]);
+        $this->middleware('permission:role-list', ['only' => ['index', 'list', 'show']]);
         $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
@@ -27,7 +26,7 @@ class RolesController extends BaseController
         return view('dashboard.roles.index');
     }
 
-    public function getRoles(Request $request)
+    public function list(Request $request)
     {
         $name = $request->name;
 
@@ -55,7 +54,7 @@ class RolesController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -101,7 +100,7 @@ class RolesController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 

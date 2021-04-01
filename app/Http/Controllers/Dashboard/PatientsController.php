@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Input;
 
 class PatientsController extends BaseController
 {
@@ -17,7 +16,7 @@ class PatientsController extends BaseController
     function __construct(PatientsRepositoryInterface $patientRep)
     {
         parent::__construct();
-        $this->middleware('permission:patient-list', ['only' => ['index', 'getPatients', 'show']]);
+        $this->middleware('permission:patient-list', ['only' => ['index', 'list', 'show']]);
         $this->middleware('permission:patient-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:patient-edit', ['only' => ['edit', 'update', 'activate', 'deactivate']]);
         $this->middleware('permission:patient-delete', ['only' => ['destroy']]);
@@ -29,7 +28,7 @@ class PatientsController extends BaseController
         return view('dashboard.patients.index');
     }
 
-    public function getPatients(Request $request)
+    public function list(Request $request)
     {
         $first_name = $request->first_name;
         $last_name = $request->last_name;
@@ -70,7 +69,7 @@ class PatientsController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -102,7 +101,7 @@ class PatientsController extends BaseController
             return redirect()->route('patient.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
     }
 
@@ -134,7 +133,7 @@ class PatientsController extends BaseController
             if ($request->ajax()) {
                 return response()->json(['status' => 'fail', 'error_message' => 'validation error', 'errors' => $validator->errors()]);
             } else {
-                return redirect()->back()->withInput(Input::all())->withErrors($validator);
+                return redirect()->back()->withInput($request->all())->withErrors($validator);
             }
         }
 
@@ -170,7 +169,7 @@ class PatientsController extends BaseController
             return redirect()->route('patient.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
-            return redirect()->back()->withInput(Input::all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
     }
 
