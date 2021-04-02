@@ -34,7 +34,7 @@ class AnnouncementsController extends BaseController
             "notify_checkbox" => 'required_without:mail_checkbox',
         ]);
         if ($validator->fails())
-            return redirect()->to(route('announcement.create'))->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
 
         if (empty($request->mail_checkbox) && empty($request->notify_checkbox))
             return redirect()->back()->with('error_message', 'You must select Method to send (Mail Or Notification)!');
@@ -46,8 +46,7 @@ class AnnouncementsController extends BaseController
         $patients_ids_for_tokens = array();
         if ($request->patients) {
             $patients_ids = '';
-            $array_ids = explode(',', $request->patients);
-            foreach ($array_ids as $key => $id) {
+            foreach ($request->patients as $key => $id) {
                 $patients_ids .= '[' . $id . ']';
                 $patients_ids_for_tokens[] = (int)$id;
             }

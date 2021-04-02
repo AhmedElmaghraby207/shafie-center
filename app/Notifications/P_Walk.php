@@ -6,18 +6,18 @@ use App\Channels\FireBaseChannel;
 use App\NotificationTemplate;
 use Illuminate\Support\Facades\Config;
 
-class P_Announcement extends _BaseNotification
+class P_Walk extends _BaseNotification
 {
     public $subject;
     public $content;
 
-    public function __construct($subject = null, $content = null)
+    public function __construct()
     {
-        parent::__construct('P_Announcement');
-
-        $this->subject = $subject;
-        $this->content = $content;
+        parent::__construct('P_Walk');
         $this->template = NotificationTemplate::where('name', $this->template_Name)->first();
+
+        $this->subject = $this->template->subject;
+        $this->content = $this->template->template;
     }
 
     public function via($notifiable)
@@ -59,7 +59,7 @@ class P_Announcement extends _BaseNotification
         $res = $this->object;
         $res['subject'] = $this->subject;
         $res['content'] = $this->content;
-        $res['entity_id'] = Config::get('constants.ENTITY_ID_Announcement');
+        $res['entity_id'] = Config::get('constants.ENTITY_ID_Walk');
 //        $res['popup'] = $this->template->is_popup;
 //        $res['popup_image'] = Setting::where('key', 'announcement_popup_image_url')->first()->value;
 //        $res['popup_image'] = $this->template->popup_image;

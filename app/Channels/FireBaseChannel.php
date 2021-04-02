@@ -8,16 +8,8 @@ use Illuminate\Notifications\Notification;
 
 class FireBaseChannel
 {
-    /**
-     * Send the given notification.
-     *
-     * @param mixed $notifiable
-     * @param Notification $notification
-     * @return void
-     */
     public function send($notifiable, Notification $notification)
     {
-        //\Log::info('==== FireBaseChannel - Send ===');
         $subject = $notification->toSubject($notifiable);
         $data = $notification->toArray($notifiable);
         $message = $notification->toString($data);
@@ -31,11 +23,9 @@ class FireBaseChannel
 
         $data = $notification->toObject($data);
         $tokens = $notifiable->firebase_tokens();
-        $badge = $notifiable->get_new_notifications_count();
 
         if (sizeof($tokens) > 0) {
-            FCMHelper::Send_Downstream_Message_Multiple($tokens, $subject, $message, ["data" => $data], $badge);
+            FCMHelper::Send_Downstream_Message_Multiple($tokens, $subject, $message, ["data" => $data]);
         }
-
     }
 }

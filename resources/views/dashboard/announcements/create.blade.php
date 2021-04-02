@@ -32,7 +32,7 @@
                                         {{--Patients--}}
                                         <div class="form-group">
                                             <label for="patients">@lang('announcement.patients')</label>
-                                            <select id="patients" name="patients" class="select2 form-control"
+                                            <select id="patients" name="patients[]" class="select2 form-control"
                                                     multiple="multiple">
                                                 @foreach($patients as $patient)
                                                     <option
@@ -44,7 +44,9 @@
                                         <div class="form-group">
                                             <label for="subject">@lang('announcement.subject')</label>
                                             <input type="text" id="subject" class="form-control"
-                                                   placeholder="@lang('announcement.subject')" name="subject">
+                                                   placeholder="@lang('announcement.subject')" name="subject"
+                                                   value="{{ old('subject')}}"
+                                            >
                                             @if ($errors->has('subject'))
                                                 <div class="error" style="color: red">
                                                     <i class="fa fa-sm fa-times-circle"></i>
@@ -56,7 +58,7 @@
                                         <div class="form-group">
                                             <label for="message">@lang('announcement.message')</label>
                                             <textarea id="message" rows="5" class="form-control" name="message"
-                                                      placeholder="@lang('announcement.message')"></textarea>
+                                                      placeholder="@lang('announcement.message')">{{ old('message')}}</textarea>
                                             @if ($errors->has('message'))
                                                 <div class="error" style="color: red">
                                                     <i class="fa fa-sm fa-times-circle"></i>
@@ -70,7 +72,8 @@
                                             <div class="col-md-3">
                                                 <fieldset>
                                                     <input type="checkbox" name="mail_checkbox" id="mail_checkbox">
-                                                    <label for="mail_checkbox">@lang('announcement.mail_checkbox')</label>
+                                                    <label
+                                                        for="mail_checkbox">@lang('announcement.mail_checkbox')</label>
                                                     @if ($errors->has('mail_checkbox'))
                                                         <div class="error" style="color: red">
                                                             <i class="fa fa-sm fa-times-circle"></i>
@@ -83,7 +86,8 @@
                                             <div class="col-md-3">
                                                 <fieldset>
                                                     <input type="checkbox" name="notify_checkbox" id="notify_checkbox">
-                                                    <label for="notify_checkbox">@lang('announcement.notify_checkbox')</label>
+                                                    <label
+                                                        for="notify_checkbox">@lang('announcement.notify_checkbox')</label>
                                                     @if ($errors->has('notify_checkbox'))
                                                         <div class="error" style="color: red">
                                                             <i class="fa fa-sm fa-times-circle"></i>

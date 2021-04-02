@@ -2,10 +2,8 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 
 class Patient extends Model
@@ -38,15 +36,6 @@ class Patient extends Model
             ->get()
             ->pluck('firebase_token')
             ->toArray();
-    }
-
-    public function get_new_notifications_count()
-    {
-        $notifications_query = Notification::where("notifiable_id", $this->id)
-            ->where("notifiable_type", "App\Patient")
-            ->whereRaw(DB::raw("TIMESTAMP(`created_at`) >  TIMESTAMP('" . Carbon::parse($this->viewed_notifications_at) . "')"))
-            ->whereNull('read_at')->get();
-        return $notifications_query->count();
     }
 
     public function weights(): \Illuminate\Database\Eloquent\Relations\HasMany
