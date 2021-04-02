@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Patient;
+use App\PatientWeight;
 use App\Repositories\Patients\PatientsRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -61,6 +62,10 @@ class PatientsController extends BaseController
                 Rule::unique('patients'),
             ],
             'password' => 'required|confirmed|min:6',
+            'age' => "required|numeric",
+            'weight' => "required|numeric",
+            'height' => "numeric",
+            'gender' => "in:0,1",
         ];
 
         $validator = Validator::make($request->all(), $validator_array);
@@ -97,6 +102,13 @@ class PatientsController extends BaseController
                 $created_patient->image = $path . $image_new_name;
                 $created_patient->save();
             }
+            if ($weight = $request->weight) {
+                $patient_weight = [
+                    'PatientId' => $created_patient->id,
+                    'weight' => $weight
+                ];
+                PatientWeight::query()->create($patient_weight);
+            }
             session()->flash('success_message', trans('main.created_alert_message', ['attribute' => Lang::get('patient.attribute_name')]));
             return redirect()->route('patient.index');
         } else {
@@ -121,6 +133,10 @@ class PatientsController extends BaseController
                 'max:255',
                 Rule::unique('patients')->ignore($id),
             ],
+            'age' => "required|numeric",
+            'weight' => "required|numeric",
+            'height' => "numeric",
+            'gender' => "in:0,1",
         ];
 
         if ($request->password) {
@@ -164,6 +180,13 @@ class PatientsController extends BaseController
                 $image->move($path, $image_new_name);
                 $updated_patient->image = $path . $image_new_name;
                 $updated_patient->save();
+            }
+            if ($weight = $request->weight) {
+                $patient_weight = [
+                    'PatientId' => $updated_patient->id,
+                    'weight' => $weight
+                ];
+                PatientWeight::query()->create($patient_weight);
             }
             session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('patient.attribute_name')]));
             return redirect()->route('patient.index');

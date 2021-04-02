@@ -25,6 +25,8 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
     });
     Route::post('/profile', 'PatientsController@profile');
     Route::post('/update-profile', 'PatientsController@updateProfile');
+    Route::post('/update-weight', 'PatientsController@updateWeight');
+    Route::post('/weight-history', 'PatientsController@weightHistory');
 
     Route::group(['prefix' => 'message'], function () {
         Route::post('/create', 'MessagesController@create');

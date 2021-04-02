@@ -12,28 +12,7 @@ class Patient extends Model
 {
     use Notifiable, HasRoles;
 
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'email_verified_at',
-        'password',
-        'phone',
-        'phone_verified_at',
-        'remember_token',
-        'is_active',
-        'image',
-        'age',
-        'weight',
-        'height',
-        'gender',
-        'address',
-        'facebook_id',
-        'google_id',
-        'apple_id',
-        'mobile_os',
-        'mobile_model'
-    ];
+    protected $guarded = ['id'];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -43,7 +22,7 @@ class Patient extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function getImageAttribute($value)
+    public function getImageAttribute($value): string
     {
         if ($value) {
             return asset($value);
@@ -53,14 +32,12 @@ class Patient extends Model
 
     public function firebase_tokens()
     {
-        $tokens = Patient::where('email', $this->email)
+        return Patient::where('email', $this->email)
             ->join('patient_devices', 'patients.id', '=', 'patient_devices.PatientId')
             ->where('is_logged_in', '1')
             ->get()
             ->pluck('firebase_token')
             ->toArray();
-
-        return $tokens;
     }
 
     public function get_new_notifications_count()
@@ -70,5 +47,10 @@ class Patient extends Model
             ->whereRaw(DB::raw("TIMESTAMP(`created_at`) >  TIMESTAMP('" . Carbon::parse($this->viewed_notifications_at) . "')"))
             ->whereNull('read_at')->get();
         return $notifications_query->count();
+    }
+
+    public function weights(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\PatientWeight', 'PatientId');
     }
 }
