@@ -4,24 +4,17 @@ namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
-use App\Helpers\CommonHelper; 
-use App\Models\ClientProfile;
-use DateTime;
-use Fractal;
 
-trait Response {
-
-    public static function errify($code, $errors = NULL) {
-
+trait Response
+{
+    public static function errify($code, $errors = NULL)
+    {
         $customErrors = [];
 
         if ($errors) {
-
             $validator = array_key_exists('validator', $errors) ? $errors['validator'] : NULL;
 
             if ($validator) {
-
                 $validationErrors = $validator->errors()->toArray();
                 $failedFields = $validator->failed();
 
@@ -29,13 +22,12 @@ trait Response {
 
                     for ($i = 0; $i < count($fieldErrors); $i++) {
                         $_code = Config::get('errify.' . strtolower(array_keys($failedFields[$field])[0]));
-                        if ($_code==null)
-                        {
-                            $_code=1;
+                        if ($_code == null) {
+                            $_code = 1;
                         }
                         $customError = [
                             'message' => $fieldErrors[$i],
-                            'code' => $_code 
+                            'code' => $_code
                         ];
 
                         $customErrors[] = $customError;
@@ -49,9 +41,8 @@ trait Response {
 
                 foreach ($otherErrors as $error) {
                     $_code = Config::get('errify.' . $error);
-                    if ($_code==null)
-                    {
-                        $_code=1;
+                    if ($_code == null) {
+                        $_code = 1;
                     }
                     $customError = [
                         'message' => trans($error),
@@ -64,6 +55,6 @@ trait Response {
         }
 
         return new JsonResponse(['errors' => $customErrors], $code);
-    } 
-   
+    }
+
 }

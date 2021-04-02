@@ -17,6 +17,8 @@ class PatientTransformer extends Fractal\TransformerAbstract
 
     public function transform($item)
     {
+        $lang = $this->fields['lang'];
+
         $res = [
             'id' => $item['id'],
             'first_name' => $item['first_name'],
@@ -27,7 +29,7 @@ class PatientTransformer extends Fractal\TransformerAbstract
             'image' => $item['image'],
             'age' => $item['age'],
             'weight' => $item['weight'],
-            'gender' => $item['gender'] == 1 ? "Male" : "Female",
+            'height' => $item['height'],
             'address' => $item['address'],
             'facebook_id' => $item['facebook_id'],
             'google_id' => $item['google_id'],
@@ -37,6 +39,11 @@ class PatientTransformer extends Fractal\TransformerAbstract
             'created_at' => $item['created_at'],
             'token' => $item['token'],
         ];
+        if ($lang == 'en') {
+            $res['gender'] = $item['gender'] == 1 ? "Male" : "Female";
+        } else if ($lang == 'ar') {
+            $res['gender'] = $item['gender'] == 1 ? "مذكر" : "مئنث";
+        }
 
         if ($this->fields != null) {
             return Arr::only($res, $this->fields);

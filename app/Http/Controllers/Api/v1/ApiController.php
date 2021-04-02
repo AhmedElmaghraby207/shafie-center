@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Traits\Response;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller;
 
-abstract class ApiController extends BaseController
+abstract class ApiController extends Controller
 {
     use Response;
 }
