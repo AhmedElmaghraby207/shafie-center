@@ -22,11 +22,15 @@ class HomeController extends BaseController
         $branches_count = Branch::all()->count();
         $messages_count = Message::all()->count();
         $faqs_count = Faq::all()->count();
+
+        $latest_patients = Patient::query()->orderBy('created_at', 'desc')->take(5)->get();
         return view('dashboard.dashboard')->with([
             'patients_count' => $patients_count,
             'branches_count' => $branches_count,
             'messages_count' => $messages_count,
             'faqs_count' => $faqs_count,
+
+            'latest_patients' => $latest_patients,
         ]);
     }
 
