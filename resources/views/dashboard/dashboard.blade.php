@@ -3,13 +3,12 @@
 @section('title') Home @endsection
 
 @section('styles')
-    @if(App::isLocale('en'))
-        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/dashboard-ecommerce.css')}}">
-    @elseif(App::isLocale('ar'))
-        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/pages/dashboard-ecommerce.css')}}">
-    @endif
+{{--    @if(App::isLocale('en'))--}}
+{{--        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/dashboard-ecommerce.css')}}">--}}
+{{--    @elseif(App::isLocale('ar'))--}}
+{{--        <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/pages/dashboard-ecommerce.css')}}">--}}
+{{--    @endif--}}
 
-    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/morris.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/chartist.css')}}">
     <link rel="stylesheet" type="text/css"
           href="{{url('/app-assets/vendors/css/charts/chartist-plugin-tooltip.css')}}">
@@ -35,7 +34,7 @@
                         </div>
                         <hr>
                         <div class="text-center">
-                            <a href="{{ route('patient.list') }}" target="_blank"
+                            <a href="{{ route('patient.index') }}" target="_blank"
                                class="btn btn-success">@lang('dashboard.show_all_btn')</a>
                         </div>
                     </div>
@@ -57,7 +56,7 @@
                         </div>
                         <hr>
                         <div class="text-center">
-                            <a href="{{ route('branch.list') }}" target="_blank"
+                            <a href="{{ route('branch.index') }}" target="_blank"
                                class="btn btn-info">@lang('dashboard.show_all_btn')</a>
                         </div>
                     </div>
@@ -79,7 +78,7 @@
                         </div>
                         <hr>
                         <div class="text-center">
-                            <a href="{{ route('message.list') }}" target="_blank"
+                            <a href="{{ route('message.index') }}" target="_blank"
                                class="btn btn-warning">@lang('dashboard.show_all_btn')</a>
                         </div>
                     </div>
@@ -101,7 +100,7 @@
                         </div>
                         <hr>
                         <div class="text-center">
-                            <a href="{{ route('faq.list') }}" target="_blank"
+                            <a href="{{ route('faq.index') }}" target="_blank"
                                class="btn btn-danger">@lang('dashboard.show_all_btn')</a>
                         </div>
                     </div>
@@ -115,21 +114,17 @@
             <div class="card card-shadow">
                 <div class="card-header card-header-transparent py-20">
                     <div class="btn-group dropdown">
-                        <a href="#" class="text-body dropdown-toggle blue-grey-700" data-toggle="dropdown">PRODUCTS
-                            SALES</a>
-                        <div class="dropdown-menu animate" role="menu">
-                            <a class="dropdown-item" href="#" role="menuitem">Sales</a>
-                            <a class="dropdown-item" href="#" role="menuitem">Total sales</a>
-                            <a class="dropdown-item" href="#" role="menuitem">profit</a>
-                        </div>
+                        <h5>@lang('dashboard.patients_chart')</h5>
                     </div>
                     <ul class="nav nav-pills nav-pills-rounded chart-action float-right btn-group"
                         role="group">
                         <li class="nav-item"><a class="active nav-link" data-toggle="tab"
-                                                href="#scoreLineToDay">Day</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#scoreLineToWeek">Week</a>
+                                                href="#scoreLineToDay">@lang('dashboard.chart_day')</a></li>
+                        {{--<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#scoreLineToWeek">Week</a>--}}
+                        {{--</li>--}}
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#scoreLineToMonth">@lang('dashboard.chart_month')</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#scoreLineToMonth">Month</a>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#scoreLineToYear">@lang('dashboard.chart_year')</a>
                         </li>
                     </ul>
                 </div>
@@ -137,6 +132,7 @@
                     <div class="ct-chart tab-pane active scoreLineShadow" id="scoreLineToDay"></div>
                     <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToWeek"></div>
                     <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToMonth"></div>
+                    <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToYear"></div>
                 </div>
             </div>
         </div>
@@ -187,12 +183,188 @@
     <script src="{{url('/app-assets/vendors/js/charts/chartist.min.js')}}" type="text/javascript"></script>
     <script src="{{url('/app-assets/vendors/js/charts/chartist-plugin-tooltip.min.js')}}"
             type="text/javascript"></script>
-    <script src="{{url('/app-assets/vendors/js/charts/chart.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('/app-assets/vendors/js/charts/raphael-min.js')}}" type="text/javascript"></script>
-    <script src="{{url('/app-assets/vendors/js/charts/morris.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('/app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js')}}"
-            type="text/javascript"></script>
-    <script src="{{url('/app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js')}}"
-            type="text/javascript"></script>
-    <script src="{{url('/app-assets/js/scripts/pages/dashboard-ecommerce.js')}}" type="text/javascript"></script>
+
+    <script>
+        /*************************************************
+         *               Score Chart                      *
+         *************************************************/
+        (function () {
+            var scoreChart = function scoreChart(id, labelList, series1List) {
+                var scoreChart = new Chartist.Line('#' + id, {
+                    labels: labelList,
+                    series: [series1List]
+                }, {
+                    lineSmooth: Chartist.Interpolation.simple({
+                        divisor: 2
+                    }),
+                    fullWidth: true,
+                    chartPadding: {
+                        right: 25
+                    },
+                    series: {
+                        "series-1": {
+                            showArea: false
+                        }
+                    },
+                    axisX: {
+                        showGrid: false,
+                    },
+                    axisY: {
+                        labelInterpolationFnc: function labelInterpolationFnc(value) {
+                            return value / 1;
+                        },
+                        scaleMinSpace: 50,
+                    },
+                    plugins: [Chartist.plugins.tooltip()],
+                    low: 0,
+                    showPoint: false,
+                    height: 300
+                });
+
+                scoreChart.on('created', function (data) {
+                    var defs = data.svg.querySelector('defs') || data.svg.elem('defs');
+                    var width = data.svg.width();
+                    var height = data.svg.height();
+
+                    var filter = defs.elem('filter', {
+                        x: 0,
+                        y: "-10%",
+                        id: 'shadow' + id
+                    }, '', true);
+
+                    filter.elem('feGaussianBlur', {
+                        in: "SourceAlpha",
+                        stdDeviation: "24",
+                        result: 'offsetBlur'
+                    });
+                    filter.elem('feOffset', {
+                        dx: "0",
+                        dy: "32"
+                    });
+
+                    filter.elem('feBlend', {
+                        in: "SourceGraphic",
+                        mode: "multiply"
+                    });
+
+                    defs.elem('linearGradient', {
+                        id: id + '-gradient',
+                        x1: 0,
+                        y1: 0,
+                        x2: 1,
+                        y2: 0
+                    }).elem('stop', {
+                        offset: 0,
+                        'stop-color': 'rgba(22, 141, 238, 1)'
+                    }).parent().elem('stop', {
+                        offset: 1,
+                        'stop-color': 'rgba(98, 188, 246, 1)'
+                    });
+
+                    return defs;
+                }).on('draw', function (data) {
+                    if (data.type === 'line') {
+                        data.element.attr({
+                            filter: 'url(#shadow' + id + ')'
+                        });
+                    } else if (data.type === 'point') {
+
+                        var parent = new Chartist.Svg(data.element._node.parentNode);
+                        parent.elem('line', {
+                            x1: data.x,
+                            y1: data.y,
+                            x2: data.x + 0.01,
+                            y2: data.y,
+                            "class": 'ct-point-content'
+                        });
+                    }
+                    if (data.type === 'line' || data.type === 'area') {
+                        data.element.animate({
+                            d: {
+                                begin: 1000 * data.index,
+                                dur: 1000,
+                                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                        });
+                    }
+                });
+            };
+
+            //patients per day
+            var DayLabelList = [];
+            var DayData = [];
+            @foreach($patients_per_day as $day_arr)
+            DayLabelList.push('{{Carbon\Carbon::parse($day_arr->day)->format('d - M')}}')
+            DayData.push('{{$day_arr->patients}}')
+            @endforeach
+            var DaySeries1List = {
+                name: "series-1",
+                data: DayData
+            };
+
+            //patients per week
+            var WeekLabelList = [];
+            var WeekData = [];
+            @foreach($patients_per_week as $week_arr)
+            WeekLabelList.push('{{Carbon\Carbon::parse($week_arr->week)->format('d - M')}}')
+            WeekData.push('{{$week_arr->patients}}')
+            @endforeach
+            var WeekSeries1List = {
+                name: "series-1",
+                data: WeekData
+            };
+
+            //patients per month
+            var MonthLabelList = [];
+            var MonthData = [];
+            @foreach($patients_per_month as $month_arr)
+            MonthLabelList.push('{{date("F", mktime(0, 0, 0, $month_arr->month, 1))}}')
+            MonthData.push('{{$month_arr->patients}}')
+            @endforeach
+            var MonthSeries1List = {
+                name: "series-1",
+                data: MonthData
+            };
+
+            //patients per year
+            var YearLabelList = [];
+            var YearData = [];
+            @foreach($patients_per_year as $year_arr)
+            YearLabelList.push('{{$year_arr->year}}')
+            YearData.push('{{$year_arr->patients}}')
+            @endforeach
+            var YearSeries1List = {
+                name: "series-1",
+                data: YearData
+            };
+
+
+            var createChart = function createChart(button) {
+                var btn = button || $("#ecommerceChartView .chart-action").find(".active");
+
+                var chartId = btn.attr("href");
+                switch (chartId) {
+                    case "#scoreLineToDay":
+                        scoreChart("scoreLineToDay", DayLabelList, DaySeries1List);
+                        break;
+                    case "#scoreLineToWeek":
+                        scoreChart("scoreLineToWeek", WeekLabelList, WeekSeries1List);
+                        break;
+                    case "#scoreLineToMonth":
+                        scoreChart("scoreLineToMonth", MonthLabelList, MonthSeries1List);
+                        break;
+                    case "#scoreLineToYear":
+                        scoreChart("scoreLineToYear", YearLabelList, YearSeries1List);
+                        break;
+                }
+            };
+
+            createChart();
+            $(".chart-action li a").on("click", function () {
+                createChart($(this));
+            });
+        })();
+    </script>
 @endsection

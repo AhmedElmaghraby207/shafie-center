@@ -7,6 +7,7 @@ use App\Faq;
 use App\Message;
 use App\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends BaseController
 {
@@ -24,6 +25,31 @@ class HomeController extends BaseController
         $faqs_count = Faq::all()->count();
 
         $latest_patients = Patient::query()->orderBy('created_at', 'desc')->take(5)->get();
+
+        $patients_per_day = DB::table('patients')
+            ->select(DB::raw('DATE(created_at) as day'), DB::raw('count(*) as patients'))
+            ->groupBy('day')
+            ->take(10)
+            ->get();
+
+        $patients_per_week = DB::table('patients')
+            ->select(DB::raw('WEEK(created_at) as week'), DB::raw('count(*) as patients'))
+            ->groupBy('week')
+            ->take(10)
+            ->get();
+
+        $patients_per_month = DB::table('patients')
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('count(*) as patients'))
+            ->groupBy('month')
+            ->take(10)
+            ->get();
+
+        $patients_per_year = DB::table('patients')
+            ->select(DB::raw('YEAR(created_at) as year'), DB::raw('count(*) as patients'))
+            ->groupBy('year')
+            ->take(10)
+            ->get();
+
         return view('dashboard.dashboard')->with([
             'patients_count' => $patients_count,
             'branches_count' => $branches_count,
@@ -31,6 +57,11 @@ class HomeController extends BaseController
             'faqs_count' => $faqs_count,
 
             'latest_patients' => $latest_patients,
+            'patients_per_day' => $patients_per_day,
+            'patients_per_week' => $patients_per_week,
+            'patients_per_month' => $patients_per_month,
+            'patients_per_year' => $patients_per_year,
+
         ]);
     }
 
