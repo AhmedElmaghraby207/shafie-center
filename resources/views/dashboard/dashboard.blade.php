@@ -26,17 +26,16 @@
                     <div class="card-body">
                         <div class="media d-flex">
                             <div class="media-body text-left">
-                                <h3 class="info">850</h3>
-                                <h6>Products Sold</h6>
+                                <h2 class="success">{{$patients_count}}</h2>
+                                <h6>@lang('patient.title_list')</h6>
                             </div>
                             <div>
-                                <i class="icon-basket-loaded info font-large-2 float-right"></i>
+                                <i class="fa fa-4x fa-user-tie success"></i>
                             </div>
                         </div>
-                        <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                            <div class="progress-bar bg-gradient-x-info" role="progressbar"
-                                 style="width: 80%"
-                                 aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        <hr>
+                        <div class="text-center">
+                            <a href="{{ route('patient.list') }}" class="btn btn-success">View all</a>
                         </div>
                     </div>
                 </div>
@@ -48,17 +47,16 @@
                     <div class="card-body">
                         <div class="media d-flex">
                             <div class="media-body text-left">
-                                <h3 class="warning">$748</h3>
-                                <h6>Net Profit</h6>
+                                <h2 class="info">{{$branches_count}}</h2>
+                                <h6>@lang('branch.title_list')</h6>
                             </div>
                             <div>
-                                <i class="icon-pie-chart warning font-large-2 float-right"></i>
+                                <i class="fa fa-map-marker-alt fa-4x info"></i>
                             </div>
                         </div>
-                        <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                            <div class="progress-bar bg-gradient-x-warning" role="progressbar"
-                                 style="width: 65%"
-                                 aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                        <hr>
+                        <div class="text-center">
+                            <a href="{{ route('branch.list') }}" class="btn btn-info">View all</a>
                         </div>
                     </div>
                 </div>
@@ -70,17 +68,16 @@
                     <div class="card-body">
                         <div class="media d-flex">
                             <div class="media-body text-left">
-                                <h3 class="success">146</h3>
-                                <h6>New Customers</h6>
+                                <h2 class="warning">{{$messages_count}}</h2>
+                                <h6>@lang('message.title_list')</h6>
                             </div>
                             <div>
-                                <i class="icon-user-follow success font-large-2 float-right"></i>
+                                <i class="fa fa-envelope fa-4x warning"></i>
                             </div>
                         </div>
-                        <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                            <div class="progress-bar bg-gradient-x-success" role="progressbar"
-                                 style="width: 75%"
-                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        <hr>
+                        <div class="text-center">
+                            <a href="{{ route('message.list') }}" class="btn btn-warning">View all</a>
                         </div>
                     </div>
                 </div>
@@ -92,17 +89,16 @@
                     <div class="card-body">
                         <div class="media d-flex">
                             <div class="media-body text-left">
-                                <h3 class="danger">99.89 %</h3>
-                                <h6>Customer Satisfaction</h6>
+                                <h2 class="danger">{{$faqs_count}}</h2>
+                                <h6>@lang('faq.title_list')</h6>
                             </div>
                             <div>
-                                <i class="icon-heart danger font-large-2 float-right"></i>
+                                <i class="fa fa-question fa-4x danger"></i>
                             </div>
                         </div>
-                        <div class="progress progress-sm mt-1 mb-0 box-shadow-2">
-                            <div class="progress-bar bg-gradient-x-danger" role="progressbar"
-                                 style="width: 85%"
-                                 aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        <hr>
+                        <div class="text-center">
+                            <a href="{{ route('faq.list') }}" class="btn btn-danger">View all</a>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Branch;
+use App\Faq;
+use App\Message;
 use App\Patient;
 use Illuminate\Http\Request;
 
@@ -15,7 +18,16 @@ class HomeController extends BaseController
 
     public function dashboard(Request $request)
     {
-        return view('dashboard.dashboard')->with([]);
+        $patients_count = Patient::all()->count();
+        $branches_count = Branch::all()->count();
+        $messages_count = Message::all()->count();
+        $faqs_count = Faq::all()->count();
+        return view('dashboard.dashboard')->with([
+            'patients_count' => $patients_count,
+            'branches_count' => $branches_count,
+            'messages_count' => $messages_count,
+            'faqs_count' => $faqs_count,
+        ]);
     }
 
     public function emailTempView(Request $request)
