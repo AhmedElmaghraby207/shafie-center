@@ -23,7 +23,9 @@ class SettingsController extends BaseController
 
     public function list(Request $request)
     {
-        $settings = Setting::query();
+        $settings = Setting::query()
+            ->where('key', '!=', 'FCM_SERVER_KEY')
+            ->where('key', '!=', 'FCM_SENDER_ID');
         if ($request->key) {
             $settings = $settings->where('key', 'like', '%' . $request->key . '%');
         }

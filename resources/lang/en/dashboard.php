@@ -10,4 +10,7 @@ return [
     'chart_day' => 'Day',
     'chart_month' => 'Month',
     'chart_year' => 'Year',
+
+    'copyrights_word' => 'Copyright &copy;',
+    'copyrights_text' => ', All rights reserved.'
 ];

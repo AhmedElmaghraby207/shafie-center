@@ -10,4 +10,7 @@ return [
     'chart_day' => 'يوم',
     'chart_month' => 'شهر',
     'chart_year' => 'سنة',
+
+    'copyrights_word' => 'حقوق الملكية &copy;',
+    'copyrights_text' => ', جميع الحقوق محفوظة.'
 ];
