@@ -2,6 +2,19 @@
 
 @section('title') Home @endsection
 
+@section('styles')
+    @if(App::isLocale('en'))
+    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css/pages/dashboard-ecommerce.css')}}">
+    @elseif(App::isLocale('ar'))
+    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/css-rtl/pages/dashboard-ecommerce.css')}}">
+    @endif
+
+    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/morris.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url('/app-assets/vendors/css/charts/chartist.css')}}">
+    <link rel="stylesheet" type="text/css"
+          href="{{url('/app-assets/vendors/css/charts/chartist-plugin-tooltip.css')}}">
+@endsection
+
 @section('content_header')@endsection
 
 @section('content')
@@ -659,4 +672,17 @@
         </div>
     </div>
     <!--/Recent Orders & Monthly Sales -->
+@endsection
+
+@section('scripts')
+    <script src="{{url('/app-assets/vendors/js/charts/chartist.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('/app-assets/vendors/js/charts/chartist-plugin-tooltip.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('/app-assets/vendors/js/charts/chart.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('/app-assets/vendors/js/charts/raphael-min.js')}}" type="text/javascript"></script>
+    <script src="{{url('/app-assets/vendors/js/charts/morris.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('/app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js')}}"
+            type="text/javascript"></script>
+    <script src="{{url('/app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js')}}"
+            type="text/javascript"></script>
+    <script src="{{url('/app-assets/js/scripts/pages/dashboard-ecommerce.js')}}" type="text/javascript"></script>
 @endsection
