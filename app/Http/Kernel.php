@@ -21,7 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\lang::class,
+        \App\Http\Middleware\Lang::class,
     ];
 
     /**
@@ -38,7 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\lang::class,
+            \App\Http\Middleware\Lang::class,
         ],
 
         'api' => [
@@ -67,7 +67,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin.auth' => \App\Http\Middleware\AdminAuth::class,
         'patient.auth' => \App\Http\Middleware\PatientAuthenticate::class,
-        'lang' => \App\Http\Middleware\lang::class,
+        'lang' => \App\Http\Middleware\Lang::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'permission' => \App\Http\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \App\Http\Middleware\RoleOrPermissionMiddleware::class,

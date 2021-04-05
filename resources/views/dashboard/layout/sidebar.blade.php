@@ -12,7 +12,7 @@
                 <li class="nav-item {{ (request()->is('dashboard/doctor*')) ? 'active' : '' }}">
                     <a href="{{route('doctor.show')}}">
                         <i class="fa fa-user-md"></i>
-                        <span class="menu-title">@lang('Doctor.title_show')</span>
+                        <span class="menu-title">@lang('doctor.title_show')</span>
                     </a>
                 </li>
             @endif

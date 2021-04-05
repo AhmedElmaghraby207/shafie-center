@@ -130,7 +130,7 @@
                 </div>
                 <div class="widget-content tab-content bg-white p-20">
                     <div class="ct-chart tab-pane active scoreLineShadow" id="scoreLineToDay"></div>
-                    <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToWeek"></div>
+{{--                    <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToWeek"></div>--}}
                     <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToMonth"></div>
                     <div class="ct-chart tab-pane scoreLineShadow" id="scoreLineToYear"></div>
                 </div>
@@ -305,16 +305,16 @@
             };
 
             //patients per week
-            var WeekLabelList = [];
-            var WeekData = [];
-            @foreach($patients_per_week as $week_arr)
-            WeekLabelList.push('{{Carbon\Carbon::parse($week_arr->week)->format('d - M')}}')
-            WeekData.push('{{$week_arr->patients}}')
-            @endforeach
-            var WeekSeries1List = {
-                name: "series-1",
-                data: WeekData
-            };
+            {{--var WeekLabelList = [];--}}
+            {{--var WeekData = [];--}}
+            {{--@foreach($patients_per_week as $week_arr)--}}
+            {{--WeekLabelList.push('{{Carbon\Carbon::parse($week_arr->week)->format('d - M')}}')--}}
+            {{--WeekData.push('{{$week_arr->patients}}')--}}
+            {{--@endforeach--}}
+            {{--var WeekSeries1List = {--}}
+            {{--    name: "series-1",--}}
+            {{--    data: WeekData--}}
+            {{--};--}}
 
             //patients per month
             var MonthLabelList = [];
@@ -349,9 +349,9 @@
                     case "#scoreLineToDay":
                         scoreChart("scoreLineToDay", DayLabelList, DaySeries1List);
                         break;
-                    case "#scoreLineToWeek":
-                        scoreChart("scoreLineToWeek", WeekLabelList, WeekSeries1List);
-                        break;
+                    // case "#scoreLineToWeek":
+                    //     scoreChart("scoreLineToWeek", WeekLabelList, WeekSeries1List);
+                    //     break;
                     case "#scoreLineToMonth":
                         scoreChart("scoreLineToMonth", MonthLabelList, MonthSeries1List);
                         break;
