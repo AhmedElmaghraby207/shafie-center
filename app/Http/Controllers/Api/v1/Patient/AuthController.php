@@ -18,10 +18,12 @@ use Spatie\Fractal\Facades\Fractal;
 
 class AuthController extends PatientApiController
 {
+    protected $lang;
 
     function __construct(Request $request)
     {
         parent::__construct();
+        $this->lang = $request->header('x-lang-code');
     }
 
     public function signup(Request $request)
@@ -121,7 +123,7 @@ class AuthController extends PatientApiController
                     \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENT_FIREBASE_TOPIC'), [$request->firebase_token]);
                 }
                 $patient = Fractal::item($patient)
-                    ->transformWith(new PatientTransformer([
+                    ->transformWith(new PatientTransformer($this->lang, [
                         'id', 'first_name', 'last_name', 'is_active', 'email', 'token'
                     ]))
                     ->withResourceName('')

@@ -32,10 +32,10 @@ class PatientsController extends PatientApiController
             return response()->json(['error' => [__('auth.invalid_token')]]);
 
         $patient = Fractal::item($patient)
-            ->transformWith(new PatientTransformer([
+            ->transformWith(new PatientTransformer($this->lang, [
                 'id', 'first_name', 'last_name', 'email', 'phone', 'image',
                 'age', 'weight', 'height', 'gender', 'address',
-                'lang' => $this->lang
+                $this->lang
             ]))
             ->withResourceName('')
             ->parseIncludes([])->toArray();
@@ -100,10 +100,10 @@ class PatientsController extends PatientApiController
             }
 
             $patient = Fractal::item($patient)
-                ->transformWith(new PatientTransformer([
+                ->transformWith(new PatientTransformer($this->lang, [
                     'id', 'first_name', 'last_name', 'email', 'phone', 'image',
                     'age', 'weight', 'height', 'gender', 'address',
-                    'lang' => $this->lang
+                    $this->lang
                 ]))
                 ->withResourceName('')
                 ->parseIncludes([])->toArray();

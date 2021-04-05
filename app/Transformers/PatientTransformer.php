@@ -7,18 +7,18 @@ use League\Fractal;
 
 class PatientTransformer extends Fractal\TransformerAbstract
 {
+    protected $lang;
     protected $fields;
     protected $availableIncludes = [];
 
-    public function __construct($fields = null)
+    public function __construct($lang = 'en', $fields = null)
     {
+        $this->lang = $lang;
         $this->fields = $fields;
     }
 
     public function transform($item)
     {
-        $lang = $this->fields['lang'];
-
         $res = [
             'id' => $item['id'],
             'first_name' => $item['first_name'],
@@ -39,9 +39,9 @@ class PatientTransformer extends Fractal\TransformerAbstract
             'created_at' => $item['created_at'],
             'token' => $item['token'],
         ];
-        if ($lang == 'en') {
+        if ($this->lang == 'en') {
             $res['gender'] = $item['gender'] == 1 ? "Male" : "Female";
-        } else if ($lang == 'ar') {
+        } else if ($this->lang == 'ar') {
             $res['gender'] = $item['gender'] == 1 ? "مذكر" : "مئنث";
         }
 
