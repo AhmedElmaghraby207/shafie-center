@@ -29,8 +29,20 @@
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        {{--select patients--}}
+                                        <fieldset class="mb-1">
+                                            <input type="checkbox" name="specify_patients" id="specify_patients"
+                                                   value="{{ old('subject', 'true')}}">
+                                            <label for="specify_patients">@lang('announcement.specify_patients')</label>
+                                            @if ($errors->has('patients'))
+                                                <div class="error" style="color: red">
+                                                    <i class="fa fa-sm fa-times-circle"></i>
+                                                    {{ $errors->first('patients') }}
+                                                </div>
+                                            @endif
+                                        </fieldset>
                                         {{--Patients--}}
-                                        <div class="form-group">
+                                        <div class="form-group" id="patients_div">
                                             <label for="patients">@lang('announcement.patients')</label>
                                             <select id="patients" name="patients[]" class="select2 form-control"
                                                     multiple="multiple">
@@ -119,5 +131,21 @@
 @endsection
 
 @section('scripts')
+
+    <script>
+        $(document).ready(function () {
+            specifyPatients();
+        })
+
+        $('#specify_patients').on('change click', specifyPatients);
+
+        function specifyPatients() {
+            if ($('#specify_patients:checkbox:checked').length > 0) {
+                $('#patients_div').css('display', 'inline-block');
+            } else {
+                $('#patients_div').css('display', 'none');
+            }
+        }
+    </script>
 
 @endsection

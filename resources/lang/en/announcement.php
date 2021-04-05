@@ -5,6 +5,7 @@ return [
     'title_create' => 'Create Announcement',
 
     'patients' => 'Patients',
+    'specify_patients' => 'Send to specify patients',
     'subject' => 'Subject',
     'message' => 'Message',
     'published_at' => 'Published at',

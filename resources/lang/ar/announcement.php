@@ -5,6 +5,7 @@ return [
     'title_create' => 'اضافة اعلان',
 
     'patients' => 'المرضى',
+    'specify_patients' => 'إرسال لمرضى محددين',
     'subject' => 'الموضوع',
     'message' => 'الرسالة',
     'published_at' => 'تاريخ الاصدار',

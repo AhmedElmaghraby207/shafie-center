@@ -28,6 +28,7 @@ class AnnouncementsController extends BaseController
     public function send(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            "patients" => "required_if:specify_patients,==,true",
             "subject" => "required|min:3|max:500",
             "message" => "required|min:3|max:2000",
             "mail_checkbox" => 'required_without:notify_checkbox',
