@@ -45,7 +45,7 @@
                 </div>
                 <div class="card-content collpase show">
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST"
+                        <form class="form form-horizontal" method="POST" id="update_form"
                               action="{{ route('admin.update', $admin->id) }}" enctype="multipart/form-data">
                             @csrf
                             @include('dashboard.admins.fields')
@@ -53,7 +53,7 @@
                                 <a href="{{route('admin.index')}}" class="btn btn-warning mr-1">
                                     <i class="ft-x"></i> @lang('main.cancel_button')
                                 </a>
-                                <button type="submit" class="btn btn-primary" style="height: 40px">
+                                <button type="submit" class="btn btn-primary" style="height: 40px" id="update_btn">
                                     <i class="la la-check-square-o"></i> @lang('main.save_button')
                                 </button>
                             </div>

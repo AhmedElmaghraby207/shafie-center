@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-content collpase show">
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST"
+                        <form class="form form-horizontal" method="POST" id="add_form"
                               action="{{ route('announcement.send') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-body">
@@ -118,7 +118,7 @@
                                 <a href="{{url('/dashboard')}}" class="btn btn-warning mr-1">
                                     <i class="ft-x"></i> @lang('main.cancel_button')
                                 </a>
-                                <button type="submit" class="btn btn-primary" style="height: 40px">
+                                <button type="button" class="btn btn-primary" style="height: 40px" id="add_btn">
                                     <i class="la la-check-square-o"></i> @lang('main.add_button')
                                 </button>
                             </div>

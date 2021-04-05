@@ -56,82 +56,25 @@
     })
 
     //Disable Add & Save buttons
-    {{--$('#add_btn').on('click', function () {--}}
-    {{--    let btn = $(this);--}}
-    {{--    $(btn).prop("disabled", true);--}}
-    {{--    // add spinner to button--}}
-    {{--    $(btn).html(--}}
-    {{--        `<i class="fa fa-circle-o-notch fa-spin"></i> @lang('main.saving_button')`--}}
-    {{--    );--}}
-    {{--    $("#add_form").submit();--}}
-    {{--});--}}
-    {{--$('#update_btn').on('click', function () {--}}
-    {{--    let btn = $(this);--}}
-    {{--    $(btn).prop("disabled", true);--}}
-    {{--    // add spinner to button--}}
-    {{--    $(btn).html(--}}
-    {{--        `<i class="fa fa-circle-o-notch fa-spin"></i> @lang('main.saving_button')`--}}
-    {{--    );--}}
-    {{--    $("#update_form").submit();--}}
-    {{--});--}}
-
-    {{--function destroy(id) {--}}
-    {{--    swal({--}}
-    {{--        title: "@lang('main.confirm_delete_question')",--}}
-    {{--        text: "@lang('main.confirm_delete_message')",--}}
-    {{--        type: "warning",--}}
-    {{--        showCancelButton: true,--}}
-    {{--        confirmButtonColor: "#f2af4e",--}}
-    {{--        confirmButtonText: "@lang('main.button_delete_yes')",--}}
-    {{--        cancelButtonText: "@lang('main.button_delete_no')",--}}
-    {{--        closeOnConfirm: false,--}}
-    {{--        closeOnCancel: false--}}
-    {{--    }, function (isConfirm) {--}}
-    {{--        if (isConfirm) {--}}
-    {{--            swal("@lang('main.delete_success_title')", "@lang('main.delete_success_content')", "success");--}}
-    {{--            window.location.href = $('#delete_' + id).attr('url');--}}
-    {{--        } else {--}}
-    {{--            swal.close();--}}
-    {{--        }--}}
-    {{--    });--}}
-    {{--}--}}
-
-    {{--function checkHasRelations(id) {--}}
-    {{--    swal({--}}
-    {{--        title: "@lang('main.confirm_delete_question')",--}}
-    {{--        text: "@lang('main.confirm_delete_message')",--}}
-    {{--        type: "warning",--}}
-    {{--        showCancelButton: true,--}}
-    {{--        confirmButtonColor: "#f2af4e",--}}
-    {{--        confirmButtonText: "@lang('main.button_delete_yes')",--}}
-    {{--        cancelButtonText: "@lang('main.button_delete_no')",--}}
-    {{--        closeOnConfirm: false,--}}
-    {{--        closeOnCancel: false--}}
-    {{--    }, function (isConfirm) {--}}
-    {{--        if (isConfirm) {--}}
-    {{--            $.ajax({--}}
-    {{--                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},--}}
-    {{--                type: 'POST',--}}
-    {{--                url: $('#delete_' + id).attr('relation_url'),--}}
-    {{--                data: {},--}}
-    {{--                success: function (data) {--}}
-    {{--                    if (data.data === true) {--}}
-    {{--                        swal("@lang('main.delete_fail_title')", "@lang('main.delete_fail_content')", "error");--}}
-    {{--                    } else if (data.data === false) {--}}
-    {{--                        swal("@lang('main.delete_success_title')", "@lang('main.delete_success_content')", "success");--}}
-    {{--                        window.location.href = $('#delete_' + id).attr('url');--}}
-    {{--                    }--}}
-    {{--                },--}}
-    {{--                error: function (xhr, status, error) {--}}
-    {{--                    alert('Sorry, Server error happened!');--}}
-    {{--                    console.log(error);--}}
-    {{--                }--}}
-    {{--            });--}}
-    {{--        } else {--}}
-    {{--            swal.close();--}}
-    {{--        }--}}
-    {{--    });--}}
-    {{--}--}}
+    $('#add_btn').on('click', function () {
+        console.log('fff');
+        let btn = $(this);
+        $(btn).prop("disabled", true);
+        // add spinner to button
+        $(btn).html(
+            `<i class="fa fa-circle-o-notch fa-spin"></i> @lang('main.saving_button')`
+        );
+        $("#add_form").submit();
+    });
+    $('#update_btn').on('click', function () {
+        let btn = $(this);
+        $(btn).prop("disabled", true);
+        // add spinner to button
+        $(btn).html(
+            `<i class="fa fa-circle-o-notch fa-spin"></i> @lang('main.saving_button')`
+        );
+        $("#update_form").submit();
+    });
 
     let msg;
     @if(Session::has('success_message'))
