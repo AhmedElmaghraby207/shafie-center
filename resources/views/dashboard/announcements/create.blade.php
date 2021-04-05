@@ -141,7 +141,7 @@
 
         function specifyPatients() {
             if ($('#specify_patients:checkbox:checked').length > 0) {
-                $('#patients_div').css('display', 'inline-block');
+                $('#patients_div').css('display', 'block');
             } else {
                 $('#patients_div').css('display', 'none');
             }
