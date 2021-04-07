@@ -34,11 +34,14 @@ class DoctorController extends BaseController
         $updated_doctor = Doctor::query()->find($id);
 
         $validator_array = [
-            'name' => 'required',
+            'name_en' => 'required',
+            'name_ar' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
-            'about' => 'required',
-            'clinic_name' => 'required',
+            'about_en' => 'required',
+            'about_ar' => 'required',
+            'clinic_name_en' => 'required',
+            'clinic_name_ar' => 'required',
             'facebook' => 'required',
             'instagram' => 'required',
             'twitter' => 'required',
@@ -63,11 +66,14 @@ class DoctorController extends BaseController
         }
 
         $doctor_array = [
-            'name' => $request->name,
+            'name_en' => $request->name_en,
+            'name_ar' => $request->name_ar,
             'email' => $request->email,
             'phone' => $request->phone,
-            'about' => $request->about,
-            'clinic_name' => $request->clinic_name,
+            'about_en' => $request->about_en,
+            'about_ar' => $request->about_ar,
+            'clinic_name_en' => $request->clinic_name_en,
+            'clinic_name_ar' => $request->clinic_name_ar,
             'facebook' => $request->facebook,
             'instagram' => $request->instagram,
             'youtube' => $request->youtube,

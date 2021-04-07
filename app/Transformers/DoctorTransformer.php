@@ -7,11 +7,13 @@ use League\Fractal;
 
 class DoctorTransformer extends Fractal\TransformerAbstract
 {
+    protected $lang;
     protected $fields;
     protected $availableIncludes = [];
 
-    public function __construct($fields = null)
+    public function __construct($lang = 'en', $fields = null)
     {
+        $this->lang = $lang;
         $this->fields = $fields;
     }
 
@@ -19,13 +21,13 @@ class DoctorTransformer extends Fractal\TransformerAbstract
     {
         $res = [
             'id' => $item['id'],
-            'name' => $item['name'],
+            'name' => $this->lang == 'en' ? $item['name_en'] : $item['name_ar'],
             'email' => $item['email'],
             'phone' => $item['phone'],
             'image' => $item['image'],
             'signature' => $item['signature'],
-            'about' => $item['about'],
-            'clinic_name' => $item['clinic_name'],
+            'about' => $this->lang == 'en' ? $item['about_en'] : $item['about_ar'],
+            'clinic_name' => $this->lang == 'en' ? $item['clinic_name_en'] : $item['clinic_name_ar'],
             'facebook' => $item['facebook'],
             'instagram' => $item['instagram'],
             'twitter' => $item['twitter'],

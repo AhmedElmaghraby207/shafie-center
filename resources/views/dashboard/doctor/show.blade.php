@@ -29,10 +29,15 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
-                                {{--Name--}}
+                                {{--Name en--}}
                                 <div class="form-group">
-                                    <span class="text-primary"><i class="la la-user"></i> @lang('doctor.name'):&nbsp;&nbsp; </span>
-                                    <span>{{isset($doctor) && $doctor->name ? $doctor->name : '----'}}</span>
+                                    <span class="text-primary"><i class="la la-user"></i> @lang('doctor.name_en'):&nbsp;&nbsp; </span>
+                                    <span>{{isset($doctor) && $doctor->name_en ? $doctor->name_en : '----'}}</span>
+                                </div>
+                                {{--Name ar--}}
+                                <div class="form-group">
+                                    <span class="text-primary"><i class="la la-user"></i> @lang('doctor.name_ar'):&nbsp;&nbsp; </span>
+                                    <span>{{isset($doctor) && $doctor->name_ar ? $doctor->name_ar : '----'}}</span>
                                 </div>
                                 <hr>
                                 {{--email--}}
@@ -47,16 +52,26 @@
                                     <span>{{isset($doctor) && $doctor->phone ? $doctor->phone : '----'}}</span>
                                 </div>
                                 <hr>
-                                {{--clinic_name--}}
+                                {{--clinic_name_en--}}
                                 <div class="form-group">
-                                    <span class="text-primary"><i class="la la-hospital-o"></i> @lang('doctor.clinic_name'):&nbsp;&nbsp; </span>
-                                    <span>{{isset($doctor) && $doctor->clinic_name ? $doctor->clinic_name : '----'}}</span>
+                                    <span class="text-primary"><i class="la la-hospital-o"></i> @lang('doctor.clinic_name_en'):&nbsp;&nbsp; </span>
+                                    <span>{{isset($doctor) && $doctor->clinic_name_en ? $doctor->clinic_name_en : '----'}}</span>
+                                </div>
+                                {{--clinic_name_ar--}}
+                                <div class="form-group">
+                                    <span class="text-primary"><i class="la la-hospital-o"></i> @lang('doctor.clinic_name_ar'):&nbsp;&nbsp; </span>
+                                    <span>{{isset($doctor) && $doctor->clinic_name_ar ? $doctor->clinic_name_ar : '----'}}</span>
                                 </div>
                                 <hr>
-                                {{--about--}}
+                                {{--about_en--}}
                                 <div class="form-group">
-                                    <span class="text-primary"><i class="la la-info-circle"></i> @lang('doctor.about'):&nbsp;&nbsp; </span>
-                                    <span>{{isset($doctor) && $doctor->about ? $doctor->about : '----'}}</span>
+                                    <span class="text-primary"><i class="la la-info-circle"></i> @lang('doctor.about_en'):&nbsp;&nbsp; </span>
+                                    <span>{{isset($doctor) && $doctor->about_en ? $doctor->about_en : '----'}}</span>
+                                </div>
+                                {{--about_ar--}}
+                                <div class="form-group">
+                                    <span class="text-primary"><i class="la la-info-circle"></i> @lang('doctor.about_ar'):&nbsp;&nbsp; </span>
+                                    <span>{{isset($doctor) && $doctor->about_ar ? $doctor->about_ar : '----'}}</span>
                                 </div>
                                 <hr>
                                 {{--facebook--}}

@@ -9,10 +9,12 @@ use Spatie\Fractal\Facades\Fractal;
 
 class DoctorController extends PatientApiController
 {
+    protected $lang;
 
     function __construct(Request $request)
     {
         parent::__construct();
+        $this->lang = $request->header('x-lang-code');
     }
 
     public function aboutUs(Request $request)
@@ -20,7 +22,7 @@ class DoctorController extends PatientApiController
         $doctor = Doctor::first();
 
         $doctor = Fractal::item($doctor)
-            ->transformWith(new DoctorTransformer([
+            ->transformWith(new DoctorTransformer($this->lang, [
                 'name', 'email', 'phone', 'clinic_name', 'about', 'image', 'about', 'signature', 'facebook', 'instagram', 'twitter', 'youtube', 'website'
             ]))
             ->parseIncludes([])->toArray();

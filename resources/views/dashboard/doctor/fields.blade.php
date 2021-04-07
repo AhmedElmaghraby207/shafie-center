@@ -1,16 +1,29 @@
 <div class="form-body">
     <div class="row">
         <div class="col-md-8">
-            {{--Name--}}
+            {{--Name En--}}
             <div class="form-group">
-                <label class="label-control" for="name">@lang('doctor.name')</label>
-                <input type="text" id="name" class="form-control"
-                       placeholder="@lang('doctor.name')" name="name"
-                       value="{{ old('name', isset($doctor) ? $doctor->name : '')}}">
-                @if ($errors->has('name'))
+                <label class="label-control" for="name_en">@lang('doctor.name_en')</label>
+                <input type="text" id="name_en" class="form-control"
+                       placeholder="@lang('doctor.name_en')" name="name_en"
+                       value="{{ old('name_en', isset($doctor) ? $doctor->name_en : '')}}">
+                @if ($errors->has('name_en'))
                     <div class="error" style="color: red">
                         <i class="fa fa-sm fa-times-circle"></i>
-                        {{ $errors->first('name') }}
+                        {{ $errors->first('name_en') }}
+                    </div>
+                @endif
+            </div>
+            {{--Name Ar--}}
+            <div class="form-group">
+                <label class="label-control" for="name_ar">@lang('doctor.name_ar')</label>
+                <input type="text" id="name_ar" class="form-control"
+                       placeholder="@lang('doctor.name_ar')" name="name_ar"
+                       value="{{ old('name_ar', isset($doctor) ? $doctor->name_ar : '')}}">
+                @if ($errors->has('name_ar'))
+                    <div class="error" style="color: red">
+                        <i class="fa fa-sm fa-times-circle"></i>
+                        {{ $errors->first('name_ar') }}
                     </div>
                 @endif
             </div>
@@ -42,29 +55,55 @@
                     </div>
                 @endif
             </div>
-            {{--Clinic_name--}}
+            {{--clinic_name_en--}}
             <div class="form-group">
                 <label class="label-control"
-                       for="clinic_name">@lang('doctor.clinic_name')</label>
-                <input type="text" id="clinic_name" class="form-control"
-                       placeholder="@lang('doctor.clinic_name')" name="clinic_name"
-                       value="{{ old('clinic_name', isset($doctor) ? $doctor->clinic_name : '')}}">
-                @if ($errors->has('clinic_name'))
+                       for="clinic_name_en">@lang('doctor.clinic_name_en')</label>
+                <input type="text" id="clinic_name_en" class="form-control"
+                       placeholder="@lang('doctor.clinic_name_en')" name="clinic_name_en"
+                       value="{{ old('clinic_name_en', isset($doctor) ? $doctor->clinic_name_en : '')}}">
+                @if ($errors->has('clinic_name_en'))
                     <div class="error" style="color: red">
                         <i class="fa fa-sm fa-times-circle"></i>
-                        {{ $errors->first('clinic_name') }}
+                        {{ $errors->first('clinic_name_en') }}
                     </div>
                 @endif
             </div>
-            {{--About--}}
+            {{--clinic_name_ar--}}
             <div class="form-group">
-                <label for="about">@lang('doctor.about')</label>
-                <textarea id="about" rows="5" class="form-control" name="about"
-                          placeholder="@lang('doctor.about')">{{ old('about', isset($doctor) ? $doctor->about : '')}}</textarea>
-                @if ($errors->has('about'))
+                <label class="label-control"
+                       for="clinic_name_ar">@lang('doctor.clinic_name_ar')</label>
+                <input type="text" id="clinic_name_ar" class="form-control"
+                       placeholder="@lang('doctor.clinic_name_ar')" name="clinic_name_ar"
+                       value="{{ old('clinic_name_ar', isset($doctor) ? $doctor->clinic_name_ar : '')}}">
+                @if ($errors->has('clinic_name_ar'))
                     <div class="error" style="color: red">
                         <i class="fa fa-sm fa-times-circle"></i>
-                        {{ $errors->first('about') }}
+                        {{ $errors->first('clinic_name_ar') }}
+                    </div>
+                @endif
+            </div>
+            {{--about_en--}}
+            <div class="form-group">
+                <label for="about_en">@lang('doctor.about_en')</label>
+                <textarea id="about_en" rows="5" class="form-control" name="about_en"
+                          placeholder="@lang('doctor.about_en')">{{ old('about_en', isset($doctor) ? $doctor->about_en : '')}}</textarea>
+                @if ($errors->has('about_en'))
+                    <div class="error" style="color: red">
+                        <i class="fa fa-sm fa-times-circle"></i>
+                        {{ $errors->first('about_en') }}
+                    </div>
+                @endif
+            </div>
+            {{--about_ar--}}
+            <div class="form-group">
+                <label for="about_ar">@lang('doctor.about_ar')</label>
+                <textarea id="about_ar" rows="5" class="form-control" name="about_ar"
+                          placeholder="@lang('doctor.about_ar')">{{ old('about_ar', isset($doctor) ? $doctor->about_ar : '')}}</textarea>
+                @if ($errors->has('about_ar'))
+                    <div class="error" style="color: red">
+                        <i class="fa fa-sm fa-times-circle"></i>
+                        {{ $errors->first('about_ar') }}
                     </div>
                 @endif
             </div>
