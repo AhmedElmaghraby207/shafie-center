@@ -1,14 +1,27 @@
 <div class="form-body">
-    {{--Name--}}
+    {{--Name en--}}
     <div class="form-group">
-        <label class="label-control" for="name">@lang('branch.name')</label>
-        <input type="text" id="name" class="form-control"
-               placeholder="@lang('branch.name')" name="name"
-               value="{{ old('name', isset($branch) ? $branch->name : '')}}">
-        @if ($errors->has('name'))
+        <label class="label-control" for="name_en">@lang('branch.name_en')</label>
+        <input type="text" id="name_en" class="form-control"
+               placeholder="@lang('branch.name_en')" name="name_en"
+               value="{{ old('name_en', isset($branch) ? $branch->name_en : '')}}">
+        @if ($errors->has('name_en'))
             <div class="error" style="color: red">
                 <i class="fa fa-sm fa-times-circle"></i>
-                {{ $errors->first('name') }}
+                {{ $errors->first('name_en') }}
+            </div>
+        @endif
+    </div>
+    {{--Name ar--}}
+    <div class="form-group">
+        <label class="label-control" for="name_ar">@lang('branch.name_ar')</label>
+        <input type="text" id="name_ar" class="form-control"
+               placeholder="@lang('branch.name_ar')" name="name_ar"
+               value="{{ old('name_ar', isset($branch) ? $branch->name_ar : '')}}">
+        @if ($errors->has('name_ar'))
+            <div class="error" style="color: red">
+                <i class="fa fa-sm fa-times-circle"></i>
+                {{ $errors->first('name_ar') }}
             </div>
         @endif
     </div>
@@ -25,15 +38,27 @@
             </div>
         @endif
     </div>
-    {{--Address--}}
+    {{--AddressEn--}}
     <div class="form-group">
-        <label for="address">@lang('branch.address')</label>
-        <textarea id="address" rows="5" class="form-control" name="address"
-                  placeholder="@lang('branch.address')">{{ old('address', isset($branch) ? $branch->address : '')}}</textarea>
-        @if ($errors->has('address'))
+        <label for="address_en">@lang('branch.address_en')</label>
+        <textarea id="address_en" rows="5" class="form-control" name="address_en"
+                  placeholder="@lang('branch.address_en')">{{ old('address_en', isset($branch) ? $branch->address_en : '')}}</textarea>
+        @if ($errors->has('address_en'))
             <div class="error" style="color: red">
                 <i class="fa fa-sm fa-times-circle"></i>
-                {{ $errors->first('address') }}
+                {{ $errors->first('address_en') }}
+            </div>
+        @endif
+    </div>
+    {{--AddressAr--}}
+    <div class="form-group">
+        <label for="address_ar">@lang('branch.address_ar')</label>
+        <textarea id="address_ar" rows="5" class="form-control" name="address_ar"
+                  placeholder="@lang('branch.address_ar')">{{ old('address_ar', isset($branch) ? $branch->address_ar : '')}}</textarea>
+        @if ($errors->has('address_ar'))
+            <div class="error" style="color: red">
+                <i class="fa fa-sm fa-times-circle"></i>
+                {{ $errors->first('address_ar') }}
             </div>
         @endif
     </div>

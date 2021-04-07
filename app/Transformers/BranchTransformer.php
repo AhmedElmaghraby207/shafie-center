@@ -7,10 +7,12 @@ use League\Fractal;
 
 class BranchTransformer extends Fractal\TransformerAbstract
 {
+    protected $lang;
     protected $fields;
 
-    public function __construct($fields = null)
+    public function __construct($lang = 'en', $fields = null)
     {
+        $this->lang = $lang;
         $this->fields = $fields;
     }
 
@@ -18,9 +20,9 @@ class BranchTransformer extends Fractal\TransformerAbstract
     {
         $res = [
             'id' => $item['id'],
-            'name' => $item['name'],
+            'name' => $this->lang == 'en' ? $item['name_en'] : $item['name_ar'],
             'phone' => $item['phone'],
-            'address' => $item['address'],
+            'address' => $this->lang == 'en' ? $item['address_en'] : $item['address_ar'],
             'location' => [
                 'lat' => $item['lat'],
                 'lng' => $item['lng']

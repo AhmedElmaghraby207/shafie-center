@@ -33,10 +33,12 @@ class BranchesController extends BaseController
 
         $branches = Branch::query();
         if ($name) {
-            $branches = $branches->where('name', 'like', '%' . $name . '%');
+            $branches = $branches->where('name_en', 'like', '%' . $name . '%')
+                ->orWhere('name_ar', 'like', '%' . $name . '%');
         }
         if ($address) {
-            $branches = $branches->where('address', 'like', '%' . $address . '%');
+            $branches = $branches->where('address_en', 'like', '%' . $address . '%')
+                ->orWhere('address_ar', 'like', '%' . $address . '%');
         }
         return datatables()->of($branches)->toJson();
     }
@@ -49,11 +51,16 @@ class BranchesController extends BaseController
     public function store(Request $request)
     {
         $validator_array = [
-            'name' => [
+            'name_en' => [
                 'required',
                 Rule::unique('branches'),
             ],
-            'address' => 'required',
+            'name_ar' => [
+                'required',
+                Rule::unique('branches'),
+            ],
+            'address_en' => 'required',
+            'address_ar' => 'required',
         ];
         $validator = Validator::make($request->all(), $validator_array);
 
@@ -66,8 +73,10 @@ class BranchesController extends BaseController
         }
 
         $branch_array = [
-            'name' => $request->name,
-            'address' => $request->address,
+            'name_en' => $request->name_en,
+            'name_ar' => $request->name_ar,
+            'address_en' => $request->address_en,
+            'address_ar' => $request->address_ar,
             'phone' => $request->phone,
             'location' => new Point($request->lat, $request->lng),
             'location_url' => $request->location_url
@@ -94,11 +103,16 @@ class BranchesController extends BaseController
     public function update($id, Request $request)
     {
         $validator_array = [
-            'name' => [
+            'name_en' => [
                 'required',
                 Rule::unique('branches')->ignore($id),
             ],
-            'address' => 'required',
+            'name_ar' => [
+                'required',
+                Rule::unique('branches')->ignore($id),
+            ],
+            'address_en' => 'required',
+            'address_ar' => 'required',
         ];
         $validator = Validator::make($request->all(), $validator_array);
 
@@ -111,8 +125,10 @@ class BranchesController extends BaseController
         }
 
         $branch_array = [
-            'name' => $request->name,
-            'address' => $request->address,
+            'name_en' => $request->name_en,
+            'name_ar' => $request->name_ar,
+            'address_en' => $request->address_en,
+            'address_ar' => $request->address_ar,
             'phone' => $request->phone,
             'location' => new Point($request->lat, $request->lng),
             'location_url' => $request->location_url

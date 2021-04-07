@@ -10,10 +10,12 @@ use Spatie\Fractal\Facades\Fractal;
 
 class BranchesController extends PatientApiController
 {
+    protected $lang;
 
     function __construct(Request $request)
     {
         parent::__construct();
+        $this->lang = $request->header('x-lang-code');
     }
 
     public function list(Request $request)
@@ -28,7 +30,7 @@ class BranchesController extends PatientApiController
         $branches = $branches->get();
 
         $branches = Fractal::collection($branches)
-            ->transformWith(new BranchTransformer([
+            ->transformWith(new BranchTransformer($this->lang, [
                 'id', 'name', 'phone', 'address', 'location', 'location_url'
             ]))
             ->withResourceName('')

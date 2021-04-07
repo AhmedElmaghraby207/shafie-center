@@ -45,19 +45,20 @@
                                     {{--Name search field--}}
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="form-group">
-                                            <label for="name">@lang('branch.name')</label>
+                                            <label
+                                                for="name">@if(App::isLocale('en')) @lang('branch.name_en') @else @lang('branch.name_ar') @endif</label>
                                             <input type="text" id="name" name="name"
                                                    class="form-control font-size-small"
-                                                   placeholder="@lang('branch.name')">
+                                                   placeholder="@if(App::isLocale('en')) @lang('branch.name_en') @else @lang('branch.name_ar') @endif">
                                         </div>
                                     </div>
                                     {{--Address search field--}}
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="form-group">
-                                            <label for="address">@lang('branch.address')</label>
+                                            <label for="address">@if(App::isLocale('en')) @lang('branch.address_en') @else @lang('branch.address_ar') @endif</label>
                                             <input type="text" id="address" name="address"
                                                    class="form-control font-size-small"
-                                                   placeholder="@lang('branch.address')">
+                                                   placeholder="@if(App::isLocale('en')) @lang('branch.address_en') @else @lang('branch.address_ar') @endif">
                                         </div>
                                     </div>
                                     {{--Filter & clrear buttons--}}
@@ -102,9 +103,9 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>@lang('branch.name')</th>
+                                    <th>@if(App::isLocale('en')) @lang('branch.name_en') @else @lang('branch.name_ar') @endif</th>
+                                    <th>@if(App::isLocale('en')) @lang('branch.address_en') @else @lang('branch.address_ar') @endif</th>
                                     <th>@lang('branch.phone')</th>
-                                    <th>@lang('branch.address')</th>
                                     <th>@lang('branch.location')</th>
                                     @if(session()->get('user_admin')->can('branch-edit') || session()->get('user_admin')->can('branch-delete'))
                                         <th>@lang('main.table_actions')</th>
@@ -204,18 +205,31 @@
                             $(nTd).html(oData.id);
                         }
                     },
+                        @if(App::isLocale('en'))
                     {
-                        data: 'name', name: 'name',
+                        data: 'name_en', name: 'name_en',
                         "searchable": true,
                         "sortable": true,
                     },
+                    {
+                        data: 'address_en', name: 'address_en',
+                        "searchable": true,
+                        "sortable": true,
+                    },
+                        @elseif(App::isLocale('ar'))
+                    {
+                        data: 'name_ar', name: 'name_ar',
+                        "searchable": true,
+                        "sortable": true,
+                    },
+                    {
+                        data: 'address_ar', name: 'address_ar',
+                        "searchable": true,
+                        "sortable": true,
+                    },
+                        @endif
                     {
                         data: 'phone', name: 'phone',
-                        "searchable": true,
-                        "sortable": true,
-                    },
-                    {
-                        data: 'address', name: 'address',
                         "searchable": true,
                         "sortable": true,
                     },
@@ -225,7 +239,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             if (oData.location_url) {
-                                $(nTd).html("<a href='"+oData.location_url+"' class='btn btn-sm btn-primary' title='@lang('branch.location_url')' target='_blank'><i class='fa fa-location-arrow'></i></a>");
+                                $(nTd).html("<a href='" + oData.location_url + "' class='btn btn-sm btn-primary' title='@lang('branch.location_url')' target='_blank'><i class='fa fa-location-arrow'></i></a>");
                             } else {
                                 $(nTd).html("----");
                             }
