@@ -43,4 +43,6 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
 
     Route::get('/about-us', 'DoctorController@aboutUs');
 
+    Route::post('/termsAndPrivacy', 'CommonController@termsAndPrivacy');
+
 });
