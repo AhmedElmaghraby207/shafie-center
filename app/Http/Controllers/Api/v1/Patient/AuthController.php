@@ -34,6 +34,7 @@ class AuthController extends PatientApiController
             "email" => "required|email|unique:patients",
             "password" => "required|min:6",
             "phone" => "required",
+            "gender" => "in:0,1",
             "mobile_os" => "required",
             "mobile_model" => "required",
         ]);
@@ -53,6 +54,8 @@ class AuthController extends PatientApiController
         $patient->token = md5(rand() . time());
         $patient->hash = $hash;
         $patient->phone = $request->phone;
+        $patient->age = $request->age;
+        $patient->gender = $request->gender;
         $patient->mobile_os = $request->mobile_os;
         $patient->mobile_model = $request->mobile_model;
         $patient->facebook_id = $request->facebook_id ?? null;
@@ -234,6 +237,7 @@ class AuthController extends PatientApiController
             "mobile_os" => "required",
             "mobile_model" => "required",
             "email" => "required|email",
+            "gender" => "in:0,1",
             "social_type" => "required|numeric|in:1,2,3",
             "social_id" => "required",
         ]);
@@ -270,6 +274,8 @@ class AuthController extends PatientApiController
         $newPatient->token = md5(rand() . time());
         $newPatient->hash = md5(uniqid(rand(), true));
         $newPatient->phone = $request->phone;
+        $newPatient->age = $request->age;
+        $newPatient->gender = $request->gender;
         $newPatient->mobile_os = $request->mobile_os;
         $newPatient->mobile_model = $request->mobile_model;
         $newPatient->facebook_id = $request->facebook_id ?? "";

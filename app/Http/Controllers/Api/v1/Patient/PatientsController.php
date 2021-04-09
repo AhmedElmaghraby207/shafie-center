@@ -34,7 +34,7 @@ class PatientsController extends PatientApiController
         $patient = Fractal::item($patient)
             ->transformWith(new PatientTransformer($this->lang, [
                 'id', 'first_name', 'last_name', 'email', 'phone', 'image',
-                'age', 'weight', 'height', 'gender', 'address',
+                'age', 'weight', 'height', 'gender', /*'address',*/
                 $this->lang
             ]))
             ->withResourceName('')
@@ -59,7 +59,7 @@ class PatientsController extends PatientApiController
             'last_name' => "required",
             'phone' => "required",
             'age' => "required|numeric",
-            'weight' => "required|numeric",
+//            'weight' => "required|numeric",
             'height' => "numeric",
             'gender' => "in:0,1",
         ]);
@@ -71,10 +71,10 @@ class PatientsController extends PatientApiController
             'last_name' => $request->last_name ?: $patient->last_name,
             'phone' => $request->phone ?: $patient->phone,
             'age' => $request->age ?: $patient->age,
-            'weight' => $request->weight ?: $patient->height,
+//            'weight' => $request->weight ?: $patient->height,
             'height' => $request->height ?: $patient->height,
             'gender' => $request->gender ?: $patient->gender,
-            'address' => $request->address ?: $patient->address,
+//            'address' => $request->address ?: $patient->address,
         ];
 
         $patient->update($patient_array);
@@ -91,18 +91,18 @@ class PatientsController extends PatientApiController
                 $patient->save();
             }
 
-            if ($weight = $request->weight) {
-                $patient_weight = [
-                    'PatientId' => $patient->id,
-                    'weight' => $weight
-                ];
-                PatientWeight::query()->create($patient_weight);
-            }
+//            if ($weight = $request->weight) {
+//                $patient_weight = [
+//                    'PatientId' => $patient->id,
+//                    'weight' => $weight
+//                ];
+//                PatientWeight::query()->create($patient_weight);
+//            }
 
             $patient = Fractal::item($patient)
                 ->transformWith(new PatientTransformer($this->lang, [
                     'id', 'first_name', 'last_name', 'email', 'phone', 'image',
-                    'age', 'weight', 'height', 'gender', 'address',
+                    'age', 'weight', 'height', 'gender', /*'address',*/
                     $this->lang
                 ]))
                 ->withResourceName('')

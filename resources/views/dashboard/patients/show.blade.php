@@ -94,10 +94,10 @@
                                 </div>
                                 <hr>
                                 {{--address--}}
-                                <div class="form-group">
-                                    <span class="text-primary"><i class="fa fa-map-marked-alt"></i> @lang('patient.address'):&nbsp;&nbsp; </span>
-                                    <span>{{isset($patient) && $patient->address ? $patient->address : '----'}}</span>
-                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <span class="text-primary"><i class="fa fa-map-marked-alt"></i> @lang('patient.address'):&nbsp;&nbsp; </span>--}}
+{{--                                    <span>{{isset($patient) && $patient->address ? $patient->address : '----'}}</span>--}}
+{{--                                </div>--}}
                             </div>
 
                             {{--Spliter div--}}

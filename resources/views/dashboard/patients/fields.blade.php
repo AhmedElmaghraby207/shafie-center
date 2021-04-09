@@ -147,17 +147,17 @@
                 </div>
             </div>
             {{--Address--}}
-            <div class="form-group">
-                <label for="address">@lang('patient.address')</label>
-                <textarea id="address" rows="5" class="form-control" name="address"
-                          placeholder="@lang('patient.address')">{{ old('address', isset($patient) ? $patient->address : '')}}</textarea>
-                @if ($errors->has('address'))
-                    <div class="error" style="color: red">
-                        <i class="fa fa-sm fa-times-circle"></i>
-                        {{ $errors->first('address') }}
-                    </div>
-                @endif
-            </div>
+{{--            <div class="form-group">--}}
+{{--                <label for="address">@lang('patient.address')</label>--}}
+{{--                <textarea id="address" rows="5" class="form-control" name="address"--}}
+{{--                          placeholder="@lang('patient.address')">{{ old('address', isset($patient) ? $patient->address : '')}}</textarea>--}}
+{{--                @if ($errors->has('address'))--}}
+{{--                    <div class="error" style="color: red">--}}
+{{--                        <i class="fa fa-sm fa-times-circle"></i>--}}
+{{--                        {{ $errors->first('address') }}--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--            </div>--}}
         </div>
         {{--Spliter div--}}
         <div class="col-md-1 ml-auto mr-auto">

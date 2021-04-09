@@ -88,7 +88,7 @@ class PatientsController extends BaseController
             'weight' => $request->weight,
             'height' => $request->height,
             'gender' => $request->gender,
-            'address' => $request->address,
+//            'address' => $request->address,
         ];
 
         $patient_query = Patient::query();
@@ -162,7 +162,7 @@ class PatientsController extends BaseController
             'weight' => $request->weight,
             'height' => $request->height,
             'gender' => $request->gender,
-            'address' => $request->address,
+//            'address' => $request->address,
         ];
         if ($request->password) {
             $patient_array['password'] = md5($request->password);
