@@ -38,11 +38,18 @@
             <div class="form-group">
                 <label for="branch_id">@lang('patient.branch')</label>
                 <select id="branch_id" name="branch_id" class="select2 form-control">
+                    <option value="">@lang("main.select_placeholder")</option>
                     @foreach($branches as $branch)
                         <option value="{{$branch->id}}"
                                 @if(isset($patient) && $patient->branch_id == $branch->id) selected @endif>@if(App::isLocale('en')) {{$branch->name_en}} @elseif(App::isLocale('ar')) {{$branch->name_ar}} @endif</option>
                     @endforeach
                 </select>
+                @if ($errors->has('branch_id'))
+                    <div class="error" style="color: red">
+                        <i class="fa fa-sm fa-times-circle"></i>
+                        {{ $errors->first('branch_id') }}
+                    </div>
+                @endif
             </div>
             {{--Email--}}
             <div class="form-group">
@@ -194,3 +201,13 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#branch_id').select2({
+                placeholder: '@lang("main.select_placeholder")'
+            })
+        })
+    </script>
+@endsection
