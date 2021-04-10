@@ -2,13 +2,13 @@
 
 return [
 
-    'attribute_name' => 'Setting',
+    'attribute_name' => 'Configuration',
 
-    'title_list' => 'Settings',
-    'title_edit' => 'Edit Setting',
+    'title_list' => 'Configurations',
+    'title_edit' => 'Edit Configuration',
 
-    'key' => 'Key',
-    'value' => 'Value',
+    'key' => 'Name',
+    'value' => 'Content',
     'type' => 'Type',
     'description' => 'Description',
 ];

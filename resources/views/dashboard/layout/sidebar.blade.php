@@ -64,6 +64,14 @@
                     </a>
                 </li>
             @endif
+            @if(session()->get('user_admin')->can('notification_template-list'))
+                <li class="nav-item {{ (request()->is('dashboard/notification_template*')) ? 'active' : '' }}">
+                    <a href="{{route('notification_template.index')}}">
+                        <i class="la la-list"></i>
+                        <span class="menu-title">@lang('notification_template.title_list')</span>
+                    </a>
+                </li>
+            @endif
             @if(session()->get('user_admin')->can('role-list'))
                 <li class="nav-item {{ (request()->is('dashboard/role*')) ? 'active' : '' }}">
                     <a href="{{route('role.index')}}">

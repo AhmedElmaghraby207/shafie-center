@@ -45,6 +45,18 @@ Breadcrumbs::for('doctor-edit', function ($trail) {
 });
 
 //***************************************************************
+// Dashboard > notification_template > show
+Breadcrumbs::for('notification_templates', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('notification_template.title_list'), route('notification_template.list'));
+});
+// Dashboard > notification_template > Edit
+Breadcrumbs::for('notification_template-edit', function ($trail, $id) {
+    $trail->parent('notification_templates');
+    $trail->push(trans('notification_template.title_edit'), route('notification_template.edit', $id));
+});
+
+//***************************************************************
 // Dashboard > Patients
 Breadcrumbs::for('patients', function ($trail) {
     $trail->parent('dashboard');

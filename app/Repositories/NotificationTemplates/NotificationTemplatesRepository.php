@@ -17,7 +17,7 @@ class NotificationTemplatesRepository extends BaseRepository implements Notifica
         $name = $param["name"] ?? null;
         $subject = $param["subject"] ?? null;
 
-        $templates = $this->query();
+        $templates = $this->query()->where('name', '!=', 'P_Announcement');
 
         if ($name) {
             $templates = $templates->where('name', 'like', '%' . $name . '%');

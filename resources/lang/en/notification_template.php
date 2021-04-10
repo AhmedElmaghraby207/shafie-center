@@ -9,7 +9,7 @@ return [
 
     'name' => 'Name',
     'subject' => 'Subject',
-    'template' => 'Template',
+    'template' => 'Content',
     'is_popup' => 'Is popup',
     'popup_image' => 'Popup image',
 

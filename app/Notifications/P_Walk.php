@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Channels\FireBaseChannel;
 use App\NotificationTemplate;
+use App\Setting;
 use Illuminate\Support\Facades\Config;
 
 class P_Walk extends _BaseNotification
@@ -60,10 +61,7 @@ class P_Walk extends _BaseNotification
         $res['subject'] = $this->subject;
         $res['content'] = $this->content;
         $res['entity_id'] = Config::get('constants.ENTITY_ID_Walk');
-//        $res['popup'] = $this->template->is_popup;
-//        $res['popup_image'] = Setting::where('key', 'announcement_popup_image_url')->first()->value;
-//        $res['popup_image'] = $this->template->popup_image;
-//        $res['thumbnail'] = Setting::where('key', 'announcement_image_url')->first()->value;
+        $res['thumbnail'] = url(Setting::where('key', 'walk_notification_image')->first()->value);
         return $res;
     }
 }

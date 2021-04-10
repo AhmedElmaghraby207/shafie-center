@@ -9,7 +9,7 @@ return [
 
     'name' => 'الاسم',
     'subject' => 'الموضوع',
-    'template' => 'النموذج',
+    'template' => 'المحتوى',
     'is_popup' => 'ظهور الاشعار',
     'popup_image' => 'صورة الظهور',
 

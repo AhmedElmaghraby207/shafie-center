@@ -15,6 +15,8 @@ class NotificationTemplatesController extends BaseController
     {
         parent::__construct();
         $this->templateRep = $templateRep;
+        $this->middleware('permission:notification_template-list', ['only' => ['index', 'list']]);
+        $this->middleware('permission:notification_template-edit', ['only' => ['edit', 'update']]);
     }
 
     public function index()
@@ -22,7 +24,7 @@ class NotificationTemplatesController extends BaseController
         return view('dashboard.notificationTemplates.index');
     }
 
-    public function getTemplates(Request $request)
+    public function list(Request $request)
     {
         $name = $request->name;
         $subject = $request->subject;
@@ -31,8 +33,8 @@ class NotificationTemplatesController extends BaseController
 
     public function edit($id)
     {
-        $template = $this->templateRep->get($id);
-        return view('dashboard.notificationTemplates.edit')->with(['template' => $template]);
+        $notification_template = $this->templateRep->get($id);
+        return view('dashboard.notificationTemplates.edit')->with(['notification_template' => $notification_template]);
     }
 
     public function update($id, Request $request)
@@ -73,7 +75,7 @@ class NotificationTemplatesController extends BaseController
                 $updated_template->save();
             }
             session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('notification_template.attribute_name')]));
-            return redirect('/dashboard/notification-templates/index');
+            return redirect()->route('notification_template.index');
         } else {
             session()->flash('error_message', 'Something went wrong');
             return redirect()->back()->withInput($request->all())->withErrors($validator);
