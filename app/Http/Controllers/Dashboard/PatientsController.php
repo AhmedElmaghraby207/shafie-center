@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Branch;
 use App\Patient;
 use App\PatientWeight;
 use App\Repositories\Patients\PatientsRepositoryInterface;
@@ -26,7 +27,8 @@ class PatientsController extends BaseController
 
     public function index()
     {
-        return view('dashboard.patients.index');
+        $branches = Branch::all();
+        return view('dashboard.patients.index')->with(['branches' => $branches]);
     }
 
     public function list(Request $request)
@@ -34,9 +36,10 @@ class PatientsController extends BaseController
         $first_name = $request->first_name;
         $last_name = $request->last_name;
         $email = $request->email;
+        $branch_id = $request->branch_id;
         $status = $request->status;
 
-        $patients = $this->patientRep->list(false, ['first_name' => $first_name, 'last_name' => $last_name, 'email' => $email, 'status' => $status]);
+        $patients = $this->patientRep->list(false, ['first_name' => $first_name, 'last_name' => $last_name, 'email' => $email, 'branch_id' => $branch_id, 'status' => $status]);
         return datatables()->of($patients)->toJson();
     }
 
@@ -48,7 +51,8 @@ class PatientsController extends BaseController
 
     public function create()
     {
-        return view('dashboard.patients.create');
+        $branches = Branch::all();
+        return view('dashboard.patients.create')->with(['branches' => $branches]);
     }
 
     public function store(Request $request)
@@ -56,6 +60,7 @@ class PatientsController extends BaseController
         $validator_array = [
             'first_name' => 'required',
             'last_name' => 'required',
+            'branch_id' => 'required',
             'email' => [
                 'required',
                 'max:255',
@@ -81,6 +86,7 @@ class PatientsController extends BaseController
         $patient_array = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'branch_id' => $request->branch_id,
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => md5($request->password),
@@ -120,7 +126,8 @@ class PatientsController extends BaseController
     public function edit($id)
     {
         $patient = Patient::find($id);
-        return view('dashboard.patients.edit')->with(['patient' => $patient]);
+        $branches = Branch::all();
+        return view('dashboard.patients.edit')->with(['patient' => $patient, 'branches' => $branches]);
     }
 
     public function update($id, Request $request)
@@ -128,6 +135,7 @@ class PatientsController extends BaseController
         $validator_array = [
             'first_name' => 'required',
             'last_name' => 'required',
+            'branch_id' => 'required',
             'email' => [
                 'required',
                 'max:255',
@@ -156,6 +164,7 @@ class PatientsController extends BaseController
         $patient_array = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'branch_id' => $request->branch_id,
             'email' => $request->email,
             'phone' => $request->phone,
             'age' => $request->age,

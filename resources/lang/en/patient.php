@@ -10,6 +10,7 @@ return [
 
     'first_name' => 'First name',
     'last_name' => 'Last name',
+    'branch' => 'Branch',
     'email' => 'Email',
     'phone' => 'Phone',
     'password' => 'Password',

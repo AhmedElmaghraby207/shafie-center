@@ -32,6 +32,7 @@ class AuthController extends PatientApiController
         $validator = Validator::make($request->all(), [
             "first_name" => "required",
             "last_name" => "required",
+            "branch_id" => "required|numeric",
             "email" => "required|email|unique:patients",
             "password" => "required|min:6",
             "phone" => "required",
@@ -53,6 +54,7 @@ class AuthController extends PatientApiController
         $patient = new Patient;
         $patient->first_name = $request->first_name;
         $patient->last_name = $request->last_name;
+        $patient->branch_id = $request->branch_id;
         $patient->password = md5($request->password);
         $patient->email = $request->email;
         $patient->token = md5(rand() . time());
@@ -249,6 +251,7 @@ class AuthController extends PatientApiController
         $validator = Validator::make($request->all(), [
             "first_name" => "required",
             "last_name" => "required",
+            "branch_id" => "required|numeric",
             "mobile_os" => "required",
             "mobile_model" => "required",
             "email" => "required|email",
@@ -288,6 +291,7 @@ class AuthController extends PatientApiController
         }
         $newPatient->first_name = $request->last_name;
         $newPatient->last_name = $request->last_name;
+        $newPatient->branch_id = $request->branch_id;
         $newPatient->email = $request->email;
         $newPatient->token = md5(rand() . time());
         $newPatient->hash = md5(uniqid(rand(), true));
@@ -304,6 +308,17 @@ class AuthController extends PatientApiController
         $newPatient->email_verified_at = Carbon::now()->toDateTimeString();
         $newPatient->phone_verified_at = Carbon::now()->toDateTimeString();
         $newPatient->is_active = true;
+        switch ($request->social_type) {
+            case config('constants.SOCIAL_SIGNUP_FACEBOOK'):
+                $newPatient->facebook_id = $request->social_id;
+                break;
+            case config('constants.SOCIAL_SIGNUP_GOOGLE'):
+                $newPatient->google_id = $request->social_id;
+                break;
+            case config('constants.SOCIAL_SIGNUP_APPLE'):
+                $newPatient->apple_id = $request->social_id;
+                break;
+        }
         //social image url
         if ($request->image) {
             $newPatient->image = $request->image;

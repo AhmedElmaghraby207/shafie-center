@@ -28,6 +28,11 @@ class Patient extends Model
         return asset("/uploads/defaults/admin.png");
     }
 
+    public function branch()
+    {
+        return $this->belongsTo('App\Branch', 'branch_id');
+    }
+
     public function firebase_tokens()
     {
         return Patient::where('email', $this->email)

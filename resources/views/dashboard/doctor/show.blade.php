@@ -120,10 +120,10 @@
                                     </div>
                                     <span class="text-primary"><i class="la la-image"></i> @lang('doctor.image')</span>
                                 </div>
-                                <div class="mt-5 text-center">
+                                <div class="text-center" style="margin-top: 100px">
                                     <div class="mb-1">
                                         <img id="signature_preview"
-                                             style="height: 160px; width: 200px; border-radius: 10px"
+                                             style="height: 100px; width: 270px; border-radius: 10px"
                                              src="{{isset($doctor) && $doctor->signature ? url($doctor->signature) : url('/app-assets/images/portrait/medium/avatar-m-4.png')}}"
                                              class="" alt="@lang('doctor.signature')">
                                     </div>

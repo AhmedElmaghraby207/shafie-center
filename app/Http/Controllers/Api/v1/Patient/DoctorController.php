@@ -21,6 +21,9 @@ class DoctorController extends PatientApiController
     {
         $doctor = Doctor::first();
 
+        $doctor->image = url($doctor->image);
+        $doctor->signature = url($doctor->signature);
+
         $doctor = Fractal::item($doctor)
             ->transformWith(new DoctorTransformer($this->lang, [
                 'name', 'email', 'phone', 'clinic_name', 'about', 'image', 'about', 'signature', 'facebook', 'instagram', 'twitter', 'youtube', 'website'

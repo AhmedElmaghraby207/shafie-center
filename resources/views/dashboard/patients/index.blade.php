@@ -70,6 +70,19 @@
                                                    placeholder="@lang('patient.email')">
                                         </div>
                                     </div>
+                                    {{--Branch search field--}}
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="branch_id">@lang('patient.branch')</label>
+                                            <select id="branch_id" name="branch_id" class="select2 form-control">
+                                                <option value="">Select</option>
+                                                @foreach($branches as $branch)
+                                                    <option
+                                                        value="{{$branch->id}}">@if(App::isLocale('en')) {{$branch->name_en}} @elseif(App::isLocale('ar')) {{$branch->name_ar}} @endif</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     {{--Status search field--}}
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="form-group">
@@ -157,12 +170,16 @@
         let first_name_field = $('#first_name');
         let last_name_field = $('#last_name');
         let email_field = $('#email');
+        let branch_field = $('#branch_id');
         let status_field = $('#status');
         let form_patients_search = $('#form_patients_search');
         let clear_button = $('#clear_button');
         let reload_data_btn = $('#reload_data_btn');
 
         $(document).ready(function () {
+            $('#branch_id').select2({
+                placeholder: '@lang("main.select_placeholder")'
+            })
 
             // Draw table after Filter
             form_patients_search.on('submit', function (e) {
@@ -178,13 +195,17 @@
                 first_name_field.val("");
                 last_name_field.val("");
                 email_field.val("");
+                branch_field.prop('selectedIndex', 0);
+                branch_field.select2({
+                    placeholder: '@lang("main.select_placeholder")'
+                });
                 status_field.prop('selectedIndex', 0);
                 status_field.select2();
                 form_patients_search.submit();
                 check_inputs();
             });
 
-            first_name_field.add(last_name_field).add(email_field).add(status_field).bind("keyup change", function () {
+            first_name_field.add(last_name_field).add(email_field).add(branch_field).add(status_field).bind("keyup change", function () {
                 check_inputs();
             });
 
@@ -223,6 +244,7 @@
                         d.first_name = first_name_field.val();
                         d.last_name = last_name_field.val();
                         d.email = email_field.val();
+                        d.branch_id = branch_field.val();
                         d.status = status_field.val();
                     }
                 },
@@ -330,7 +352,7 @@
         }
 
         function check_inputs() {
-            if (first_name_field.val().length > 0 || last_name_field.val().length > 0 || email_field.val().length > 0 || status_field.val().length > 0) {
+            if (first_name_field.val().length > 0 || last_name_field.val().length > 0 || email_field.val().length > 0 || branch_field.val().length > 0 || status_field.val().length > 0) {
                 clear_button.attr('hidden', false)
             } else {
                 clear_button.attr('hidden', true)

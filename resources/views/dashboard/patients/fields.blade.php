@@ -34,6 +34,16 @@
                     </div>
                 </div>
             </div>
+            {{--branch_id--}}
+            <div class="form-group">
+                <label for="branch_id">@lang('patient.branch')</label>
+                <select id="branch_id" name="branch_id" class="select2 form-control">
+                    @foreach($branches as $branch)
+                        <option value="{{$branch->id}}"
+                                @if(isset($patient) && $patient->branch_id == $branch->id) selected @endif>@if(App::isLocale('en')) {{$branch->name_en}} @elseif(App::isLocale('ar')) {{$branch->name_ar}} @endif</option>
+                    @endforeach
+                </select>
+            </div>
             {{--Email--}}
             <div class="form-group">
                 <label class="label-control" for="email">@lang('patient.email')</label>
@@ -96,8 +106,10 @@
             <div class="form-group">
                 <label for="gender">@lang('patient.gender')</label>
                 <select id="gender" name="gender" class="select2 form-control">
-                    <option value="1" @if(isset($patient) && $patient->gender == 1) selected @endif>@lang('patient.gender_male')</option>
-                    <option value="0" @if(isset($patient) && $patient->gender == 0) selected @endif>@lang('patient.gender_female')</option>
+                    <option value="1"
+                            @if(isset($patient) && $patient->gender == 1) selected @endif>@lang('patient.gender_male')</option>
+                    <option value="0"
+                            @if(isset($patient) && $patient->gender == 0) selected @endif>@lang('patient.gender_female')</option>
                 </select>
             </div>
             {{--Age--}}
@@ -147,17 +159,17 @@
                 </div>
             </div>
             {{--Address--}}
-{{--            <div class="form-group">--}}
-{{--                <label for="address">@lang('patient.address')</label>--}}
-{{--                <textarea id="address" rows="5" class="form-control" name="address"--}}
-{{--                          placeholder="@lang('patient.address')">{{ old('address', isset($patient) ? $patient->address : '')}}</textarea>--}}
-{{--                @if ($errors->has('address'))--}}
-{{--                    <div class="error" style="color: red">--}}
-{{--                        <i class="fa fa-sm fa-times-circle"></i>--}}
-{{--                        {{ $errors->first('address') }}--}}
-{{--                    </div>--}}
-{{--                @endif--}}
-{{--            </div>--}}
+            {{--            <div class="form-group">--}}
+            {{--                <label for="address">@lang('patient.address')</label>--}}
+            {{--                <textarea id="address" rows="5" class="form-control" name="address"--}}
+            {{--                          placeholder="@lang('patient.address')">{{ old('address', isset($patient) ? $patient->address : '')}}</textarea>--}}
+            {{--                @if ($errors->has('address'))--}}
+            {{--                    <div class="error" style="color: red">--}}
+            {{--                        <i class="fa fa-sm fa-times-circle"></i>--}}
+            {{--                        {{ $errors->first('address') }}--}}
+            {{--                    </div>--}}
+            {{--                @endif--}}
+            {{--            </div>--}}
         </div>
         {{--Spliter div--}}
         <div class="col-md-1 ml-auto mr-auto">

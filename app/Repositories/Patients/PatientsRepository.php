@@ -17,6 +17,7 @@ class PatientsRepository extends BaseRepository implements PatientsRepositoryInt
         $first_name = $param["first_name"] ?? null;
         $last_name = $param["last_name"] ?? null;
         $email = $param["email"] ?? null;
+        $branch_id = $param["branch_id"] ?? null;
         $status = $param["status"] ?? null;
 
         $patients = $this->query();
@@ -29,6 +30,11 @@ class PatientsRepository extends BaseRepository implements PatientsRepositoryInt
         }
         if ($email) {
             $patients = $patients->where('email', 'like', '%' . $email . '%');
+        }
+        if ($branch_id) {
+            $patients = $patients->whereHas('branch', function ($query) use ($branch_id) {
+                $query->where('id', $branch_id);
+            });
         }
         if ($status == '1' || $status == '0') {
             $patients = $patients->where('is_active', '=', $status);
