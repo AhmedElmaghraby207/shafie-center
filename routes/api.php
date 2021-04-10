@@ -45,4 +45,8 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
 
     Route::post('/termsAndPrivacy', 'CommonController@termsAndPrivacy');
 
+    Route::group(['prefix' => 'notification'], function () {
+        Route::post('/list', 'NotificationsController@list');
+        Route::post('/mark-read', 'NotificationsController@markRead');
+    });
 });

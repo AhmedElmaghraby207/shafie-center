@@ -46,19 +46,50 @@ class P_Announcement extends _BaseNotification
 
     public function toSubject($data)
     {
-        return $this->subject;
+        $template = $this->template;
+        if (empty($template))
+            return '';
+
+        $dataObject = $this->reloadDataObject($data);
+
+        $res = view('template.P_Announcement_subject', [
+            "subject" => $dataObject['subject'],
+        ])->render();
+
+        return trim($res);
     }
 
     public function toString($data)
     {
-        return $this->content;
+        $template = $this->template;
+        if (empty($template))
+            return '';
+
+        $dataObject = $this->reloadDataObject($data);
+
+        $res = view('template.P_Announcement_content', [
+            "content" => $dataObject['content']
+        ])->render();
+
+        return trim($res);
+    }
+
+    public function reloadDataObject($data)
+    {
+        if ($this->dataObject == []) {
+            $this->dataObject['subject'] = $data['subject'];
+            $this->dataObject['content'] = $data['content'];
+        }
+        return $this->dataObject;
     }
 
     public function toObject($data)
     {
+        $dataObject = $this->reloadDataObject($data);
+
         $res = $this->object;
-        $res['subject'] = $this->subject;
-        $res['content'] = $this->content;
+        $res['subject'] = $dataObject['subject'];
+        $res['content'] = $dataObject['content'];
         $res['entity_id'] = Config::get('constants.ENTITY_ID_Announcement');
 //        $res['popup'] = $this->template->is_popup;
 //        $res['popup_image'] = Setting::where('key', 'announcement_popup_image_url')->first()->value;

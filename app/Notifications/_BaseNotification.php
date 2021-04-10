@@ -19,7 +19,6 @@ class _BaseNotification extends Notification
 
     public $dataObject = [];
     public $object = [
-        "message" => null,
         "date" => null,
         "is_read" => null,
 
@@ -27,6 +26,5 @@ class _BaseNotification extends Notification
         "popup_image" => "",
 
         "entity_id" => null,
-        "patient" => null,
     ];
 }
