@@ -15,6 +15,9 @@ return [
     'password_changed_success' => 'تم تغيير رمز المرور بنجاح',
     'page_expired' => 'الصفحة منتهية',
     'social_id_already_exist' => 'رقم حساب التواصل الاجتماعى موجود بالفعل',
+    'normal_signed_up_success_msg' => 'تم التسجيل بنجاح, من فضلك افحص البريد الالكترونى لتفعيل البريد',
+    'social_signed_in_success_msg' => 'تم الدخول بنجاح',
+    'social_signed_up_success_msg' => 'تم التسجيل بنجاح',
 
     'dashboard' => 'لوحة التحكم',
     'login_title' => 'تسجيل الدخول',

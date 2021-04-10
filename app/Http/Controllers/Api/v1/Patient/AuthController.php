@@ -8,6 +8,7 @@ use App\Mail\PatientResetPassword;
 use App\Patient;
 use App\PatientDevice;
 use App\PatientRecover;
+use App\PatientWeight;
 use App\Transformers\PatientTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,7 +35,10 @@ class AuthController extends PatientApiController
             "email" => "required|email|unique:patients",
             "password" => "required|min:6",
             "phone" => "required",
-            "gender" => "in:0,1",
+            "gender" => "required|in:0,1",
+            "age" => "required|numeric",
+            "weight" => "required|numeric",
+            "height" => "required|numeric",
             "mobile_os" => "required",
             "mobile_model" => "required",
         ]);
@@ -56,6 +60,8 @@ class AuthController extends PatientApiController
         $patient->phone = $request->phone;
         $patient->age = $request->age;
         $patient->gender = $request->gender;
+        $patient->weight = $request->weight;
+        $patient->height = $request->height;
         $patient->mobile_os = $request->mobile_os;
         $patient->mobile_model = $request->mobile_model;
         $patient->facebook_id = $request->facebook_id ?? null;
@@ -75,9 +81,17 @@ class AuthController extends PatientApiController
             $created_patient->save();
         }
 
+        if ($weight = $request->weight) {
+            $patient_weight = [
+                'PatientId' => $patient->id,
+                'weight' => $weight
+            ];
+            PatientWeight::query()->create($patient_weight);
+        }
+
         if ($created_patient) {
             $this->sendVerificationEmail($patient);
-            return response()->json(['token' => $patient->token]);
+            return response()->json(['message' => __('auth.normal_signed_up_success_msg')]);
         } else {
             return self::errify(400, ['errors' => ['Failed']]);
         }
@@ -234,10 +248,14 @@ class AuthController extends PatientApiController
     {
         $validator = Validator::make($request->all(), [
             "first_name" => "required",
+            "last_name" => "required",
             "mobile_os" => "required",
             "mobile_model" => "required",
             "email" => "required|email",
-            "gender" => "in:0,1",
+            "gender" => "required|in:0,1",
+            "age" => "required|numeric",
+            "weight" => "required|numeric",
+            "height" => "required|numeric",
             "social_type" => "required|numeric|in:1,2,3",
             "social_id" => "required",
         ]);
@@ -261,7 +279,7 @@ class AuthController extends PatientApiController
             $exsitingPatient->token = md5(rand() . time());
             $exsitingPatient->email_verified_at = Carbon::now()->toDateTimeString();
             $exsitingPatient->save();
-            return response()->json(['data' => $exsitingPatient]);
+            return response()->json(['message' => __('auth.social_signed_in_success_msg')]);
         }
 
         $newPatient = new Patient;
@@ -276,6 +294,8 @@ class AuthController extends PatientApiController
         $newPatient->phone = $request->phone;
         $newPatient->age = $request->age;
         $newPatient->gender = $request->gender;
+        $newPatient->weight = $request->weight;
+        $newPatient->height = $request->height;
         $newPatient->mobile_os = $request->mobile_os;
         $newPatient->mobile_model = $request->mobile_model;
         $newPatient->facebook_id = $request->facebook_id ?? "";
@@ -288,9 +308,17 @@ class AuthController extends PatientApiController
         if ($request->image) {
             $newPatient->image = $request->image;
         }
-        $saved = $newPatient->save();
-        if ($saved) {
-            return response()->json(['data' => $newPatient]);
+        $newPatient->save();
+
+        if ($newPatient) {
+            if ($weight = $request->weight) {
+                $patient_weight = [
+                    'PatientId' => $newPatient->id,
+                    'weight' => $weight
+                ];
+                PatientWeight::query()->create($patient_weight);
+            }
+            return response()->json(['message' => __('auth.social_signed_up_success_msg')]);
         } else
             return self::errify(400, ['errors' => ['Failed']]);
     }
