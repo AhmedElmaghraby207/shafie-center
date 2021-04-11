@@ -3,7 +3,7 @@
     <title>{{ $senderName or '' }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>
-        {{ file_get_contents(app_path() . '/../public/app-assets/css/mail.css') }}
+        {{ file_get_contents(url('/app-assets/css/mail.css')) }}
     </style>
 </head>
 <body>
