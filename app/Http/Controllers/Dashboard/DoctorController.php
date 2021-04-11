@@ -44,8 +44,6 @@ class DoctorController extends BaseController
             'clinic_name_ar' => 'required',
             'facebook' => 'required',
             'instagram' => 'required',
-            'twitter' => 'required',
-            'youtube' => 'required',
             'website' => 'required',
         ];
 
