@@ -6,6 +6,7 @@ use App\Branch;
 use App\Patient;
 use App\PatientWeight;
 use App\Repositories\Patients\PatientsRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
@@ -67,7 +68,7 @@ class PatientsController extends BaseController
                 Rule::unique('patients'),
             ],
             'password' => 'required|confirmed|min:6',
-            'age' => "required|numeric",
+            'birth_date' => "required|date",
             'weight' => "required|numeric",
             'height' => "numeric",
             'gender' => "in:0,1",
@@ -88,9 +89,10 @@ class PatientsController extends BaseController
             'last_name' => $request->last_name,
             'branch_id' => $request->branch_id,
             'email' => $request->email,
+            'email_verified_at' => date('Y-m-d H:i:s'),
             'phone' => $request->phone,
             'password' => md5($request->password),
-            'age' => $request->age,
+            'birth_date' => Carbon::parse($request->birth_date)->format('Y-m-d'),
             'weight' => $request->weight,
             'height' => $request->height,
             'gender' => $request->gender,
@@ -141,7 +143,7 @@ class PatientsController extends BaseController
                 'max:255',
                 Rule::unique('patients')->ignore($id),
             ],
-            'age' => "required|numeric",
+            'birth_date' => "required|date",
             'weight' => "required|numeric",
             'height' => "numeric",
             'gender' => "in:0,1",
@@ -167,7 +169,7 @@ class PatientsController extends BaseController
             'branch_id' => $request->branch_id,
             'email' => $request->email,
             'phone' => $request->phone,
-            'age' => $request->age,
+            'birth_date' => Carbon::parse($request->birth_date)->format('Y-m-d'),
             'weight' => $request->weight,
             'height' => $request->height,
             'gender' => $request->gender,

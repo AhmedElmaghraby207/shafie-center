@@ -22,7 +22,7 @@ return [
     'activate' => 'Activate',
     'deactivate' => 'Deactivate',
     'image' => 'Image',
-    'age' => 'Age',
+    'birth_date' => 'Birth date',
     'weight' => 'Weight',
     'height' => 'Height',
     'gender' => 'Gender',

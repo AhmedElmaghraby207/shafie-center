@@ -119,18 +119,16 @@
                             @if(isset($patient) && $patient->gender == 0) selected @endif>@lang('patient.gender_female')</option>
                 </select>
             </div>
-            {{--Age--}}
+            {{--birth date--}}
             <div class="form-group">
-                <label class="label-control" for="age">@lang('patient.age')</label>
-                <input type="number" min="1" id="age" class="form-control"
-                       placeholder="@lang('patient.age')" name="age"
-                       value="{{ old('age', isset($patient) ? $patient->age : '')}}">
-                @if ($errors->has('age'))
-                    <div class="error" style="color: red">
-                        <i class="fa fa-sm fa-times-circle"></i>
-                        {{ $errors->first('age') }}
+                <label for="birth_date">@lang('patient.birth_date')</label>
+                <div class="position-relative has-icon-left">
+                    <input type="date" id="birth_date" class="form-control" name="birth_date"
+                    value="{{ old('birth_date', isset($patient) ? Carbon\Carbon::parse($patient->birth_date)->format('Y-m-d') : '')}}">
+                    <div class="form-control-position">
+                        <i class="ft-message-square"></i>
                     </div>
-                @endif
+                </div>
             </div>
             {{--weight & height--}}
             <div class="row">

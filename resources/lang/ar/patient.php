@@ -22,7 +22,7 @@ return [
     'activate' => 'تفعيل',
     'deactivate' => 'تعطيل',
     'image' => 'الصورة',
-    'age' => 'العمر',
+    'birth_date' => 'تاريخ الميلاد',
     'weight' => 'الوزن',
     'height' => 'الطول',
     'gender' => 'النوع',
