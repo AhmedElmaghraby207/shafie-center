@@ -34,8 +34,7 @@ class PatientsController extends PatientApiController
         $patient = Fractal::item($patient)
             ->transformWith(new PatientTransformer($this->lang, [
                 'id', 'first_name', 'last_name', 'email', 'phone', 'image',
-                'age', 'weight', 'height', 'gender', /*'address',*/
-                $this->lang
+                'birth_date', 'weight', 'height', 'gender'
             ]))
             ->withResourceName('')
             ->parseIncludes([])->toArray();
@@ -129,8 +128,14 @@ class PatientsController extends PatientApiController
     public function weightHistory(Request $request)
     {
         $patient_auth = PatientAuth::patient();
-        if (!$patient_auth)
-            return response()->json(['error' => [__('auth.invalid_token')]]);
+        if (!$patient_auth) {
+            if ($this->lang == 'ar') {
+                $invalid_token_msg = 'الرمز منتهى او غير صحيح';
+            } else {
+                $invalid_token_msg = 'Invalid or expired Token';
+            }
+            return response()->json(['error' => [$invalid_token_msg]]);
+        }
 
         $weights = PatientWeight::query()->where('PatientId', $patient_auth->id)->get();
 

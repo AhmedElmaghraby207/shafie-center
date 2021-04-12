@@ -27,7 +27,7 @@ class PatientTransformer extends Fractal\TransformerAbstract
             'phone' => $item['phone'],
             'is_active' => $item['is_active'] == 1,
             'image' => $item['image'],
-            'age' => $item['age'],
+            'birth_date' => $item['birth_date'],
             'weight' => $item['weight'],
             'height' => $item['height'],
             'address' => $item['address'],

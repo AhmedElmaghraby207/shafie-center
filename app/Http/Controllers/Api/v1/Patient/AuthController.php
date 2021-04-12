@@ -37,7 +37,7 @@ class AuthController extends PatientApiController
             "password" => "required|min:6",
             "phone" => "required",
             "gender" => "required|in:0,1",
-//            "age" => "required|numeric",
+            "birth_date" => "required|date",
             "weight" => "required|numeric",
             "height" => "required|numeric",
             "mobile_os" => "required",
@@ -67,7 +67,7 @@ class AuthController extends PatientApiController
         $patient->token = md5(rand() . time());
         $patient->hash = $hash;
         $patient->phone = $request->phone;
-        $patient->age = $request->age;
+        $patient->birth_date = $request->birth_date;
         $patient->gender = $request->gender;
         $patient->weight = $request->weight;
         $patient->height = $request->height;
@@ -325,7 +325,7 @@ class AuthController extends PatientApiController
             "mobile_model" => "required",
             "email" => "required|email",
             "gender" => "required|in:0,1",
-            "age" => "required|numeric",
+            "birth_date" => "required|date",
             "weight" => "required|numeric",
             "height" => "required|numeric",
             "social_type" => "required|numeric|in:1,2,3",
@@ -376,7 +376,7 @@ class AuthController extends PatientApiController
         $newPatient->token = md5(rand() . time());
         $newPatient->hash = md5(uniqid(rand(), true));
         $newPatient->phone = $request->phone;
-        $newPatient->age = $request->age;
+        $newPatient->birth_date = $request->birth_date;
         $newPatient->gender = $request->gender;
         $newPatient->weight = $request->weight;
         $newPatient->height = $request->height;
