@@ -33,11 +33,11 @@ class AuthController extends PatientApiController
             "first_name" => "required",
             "last_name" => "required",
             "branch_id" => "required|numeric",
-            "email" => "required|email|unique:patients",
+            "email" => "required|email",
             "password" => "required|min:6",
             "phone" => "required",
             "gender" => "required|in:0,1",
-            "age" => "required|numeric",
+//            "age" => "required|numeric",
             "weight" => "required|numeric",
             "height" => "required|numeric",
             "mobile_os" => "required",
@@ -45,9 +45,16 @@ class AuthController extends PatientApiController
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);
+
         $patient = Patient::where('email', $request->email)->first();
+
         if ($patient != null) {
-            return self::errify(400, ['errors' => [__('auth.email_already_exist')]]);
+            if ($this->lang == 'ar') {
+                $email_exist_msg = 'البريد الإلكترونى موجود بالفعل';
+            } else {
+                $email_exist_msg = 'Email already exist.';
+            }
+            return self::errify(400, ['errors' => [$email_exist_msg]]);
         }
 
         $hash = md5(uniqid(rand(), true));
@@ -76,11 +83,11 @@ class AuthController extends PatientApiController
         $created_patient = $patient->save();
 
         if ($image = $request->image) {
-            $path = 'uploads/patients/patient_' . $created_patient->id . '/';
+            $path = 'uploads/patients/patient_' . $patient->id . '/';
             $image_new_name = time() . '_' . $image->getClientOriginalName();
             $image->move($path, $image_new_name);
-            $created_patient->image = $path . $image_new_name;
-            $created_patient->save();
+            $patient->image = $path . $image_new_name;
+            $patient->save();
         }
 
         if ($weight = $request->weight) {
@@ -93,7 +100,12 @@ class AuthController extends PatientApiController
 
         if ($created_patient) {
             $this->sendVerificationEmail($patient);
-            return response()->json(['message' => __('auth.normal_signed_up_success_msg')]);
+            if ($this->lang == 'ar') {
+                $saved_msg = 'تم التسجيل بنجاح, من فضلك افحص البريد الالكترونى لتفعيل البريد';
+            } else {
+                $saved_msg = 'You have been signed up successfully, Please check your email to confirm it.';
+            }
+            return response()->json(['msg' => $saved_msg]);
         } else {
             return self::errify(400, ['errors' => ['Failed']]);
         }
@@ -118,7 +130,12 @@ class AuthController extends PatientApiController
 
             if ($patient != null) {
                 if ($patient->email_verified_at == null) {
-                    return self::errify(400, ['errors' => [__('auth.email_not_verified')]]);
+                    if ($this->lang == 'ar') {
+                        $email_not_verified_msg = 'البريد الإلكترونى غير مفعل';
+                    } else {
+                        $email_not_verified_msg = 'Email not Verified.';
+                    }
+                    return self::errify(400, ['errors' => [$email_not_verified_msg]]);
                 }
                 $patient->token = md5(rand() . time());
 
@@ -143,14 +160,19 @@ class AuthController extends PatientApiController
                 }
                 $patient = Fractal::item($patient)
                     ->transformWith(new PatientTransformer($this->lang, [
-                        'id', 'first_name', 'last_name', 'is_active', 'email', 'token'
+                        'id', 'first_name', 'last_name', 'is_active', 'email', 'token', 'image'
                     ]))
                     ->withResourceName('')
                     ->parseIncludes([]);
 
                 return response()->json($patient);
             } else {
-                return self::errify(400, ['errors' => [__('auth.failed_credentials')]]);
+                if ($this->lang == 'ar') {
+                    $invalid_credentials_msg = 'بيانات الدخول غير صحيحة';
+                } else {
+                    $invalid_credentials_msg = 'Please enter correct email and password!';
+                }
+                return self::errify(400, ['errors' => [$invalid_credentials_msg]]);
             }
         }
     }
@@ -165,11 +187,22 @@ class AuthController extends PatientApiController
             $patient = Patient::where('email', '=', $email)->first();
 
             if ($patient == null) {
-                return self::errify(400, ['errors' => [__('auth.email_not_found')]]);
+                if ($this->lang == 'ar') {
+                    $email_not_found_msg = 'البريد غير صحيح او الحساب غير موجود';
+                } else {
+                    $email_not_found_msg = 'Invalid Email or account doesn\'t exist.';
+                }
+                return self::errify(400, ['errors' => [$email_not_found_msg]]);
             } else {
                 $recover = PatientRecover::where('email', $patient->email)->first();
-                if ($recover)
-                    return response()->json(['error' => __('auth.reset_email_already_sent')]);
+                if ($recover) {
+                    if ($this->lang == 'ar') {
+                        $email_already_sent_msg = 'تم ارسال البريد بالفعل من فضلك افحص بريدك';
+                    } else {
+                        $email_already_sent_msg = 'Reset email already sent, Please check your email';
+                    }
+                    return response()->json(['error' => $email_already_sent_msg]);
+                }
 
                 $hash = md5(uniqid(rand(), true));
                 $patientRecover = new PatientRecover();
@@ -184,7 +217,13 @@ class AuthController extends PatientApiController
                 $emailToName = $patient->first_name . ' ' . $patient->last_name;
                 $from = env('MAIL_FROM_ADDRESS');
                 Mail::to($emailTo)->send(new PatientResetPassword($patient, $hash, $from));
-                return response()->json(['status' => 'ok']);
+
+                if ($this->lang == 'ar') {
+                    $email_sent_msg = 'تم ارسال البريد من فضلك افحص بريدك';
+                } else {
+                    $email_sent_msg = 'Reset email sent, Please check your email';
+                }
+                return response()->json(['msg' => $email_sent_msg]);
             }
         }
     }
@@ -204,14 +243,29 @@ class AuthController extends PatientApiController
 
         if ($patient != null) {
             if ($patient->email_verified_at == null) {
-                return self::errify(400, ['errors' => [__('auth.email_not_verified')]]);
+                if ($this->lang == 'ar') {
+                    $email_not_verified_msg = 'البريد الإلكترونى غير مفعل';
+                } else {
+                    $email_not_verified_msg = 'Email not Verified.';
+                }
+                return self::errify(400, ['errors' => [$email_not_verified_msg]]);
             }
             $patient->password = md5($request->password);
             $patient->save();
 
-            return response()->json(['status' => 'ok', 'message' => __('auth.password_changed_success')]);
+            if ($this->lang == 'ar') {
+                $password_changed_msg = 'تم تغيير كلمة المرور بنجاح';
+            } else {
+                $password_changed_msg = 'Password changed successfully!';
+            }
+            return response()->json(['msg' => $password_changed_msg]);
         } else {
-            return self::errify(400, ['errors' => [__('auth.invalid_old_password')]]);
+            if ($this->lang == 'ar') {
+                $invalid_old_password_msg = 'كلمة المرور القديمة غير صحيحة';
+            } else {
+                $invalid_old_password_msg = 'The old password is not valid!';
+            }
+            return self::errify(400, ['errors' => [$invalid_old_password_msg]]);
         }
     }
 
@@ -224,13 +278,28 @@ class AuthController extends PatientApiController
             $email = $request["email"];
             $patient = Patient::where('email', '=', $email)->first();
             if ($patient == null) {
-                return self::errify(400, ['errors' => [__('auth.email_not_found')]]);
+                if ($this->lang == 'ar') {
+                    $email_not_found_msg = 'البريد غير صحيح او الحساب غير موجود';
+                } else {
+                    $email_not_found_msg = 'Invalid Email or account doesn\'t exist.';
+                }
+                return self::errify(400, ['errors' => [$email_not_found_msg]]);
             } else if ($patient->email_verified_at) {
-                return self::errify(400, ['errors' => [__('auth.email_already_verified')]]);
+                if ($this->lang == 'ar') {
+                    $email_already_verified_msg = 'البريد مفعل من قبل';
+                } else {
+                    $email_already_verified_msg = 'Email already verified.';
+                }
+                return self::errify(400, ['errors' => [$email_already_verified_msg]]);
             } else {
                 // send Email
                 $this->sendVerificationEmail($patient);
-                return response()->json(['status' => 'ok']);
+                if ($this->lang == 'ar') {
+                    $email_sent_msg = 'تم ارسال البريد, من فضلك افحص بريدك';
+                } else {
+                    $email_sent_msg = 'Reset email sent, Please check your email';
+                }
+                return response()->json(['msg' => $email_sent_msg]);
             }
         }
     }
@@ -282,12 +351,23 @@ class AuthController extends PatientApiController
             $exsitingPatient->token = md5(rand() . time());
             $exsitingPatient->email_verified_at = Carbon::now()->toDateTimeString();
             $exsitingPatient->save();
-            return response()->json(['message' => __('auth.social_signed_in_success_msg')]);
+
+            if ($this->lang == 'ar') {
+                $signed_in_msg = 'تم الدخول بنجاح';
+            } else {
+                $signed_in_msg = 'You have been signed in successfully';
+            }
+            return response()->json(['msg' => $signed_in_msg]);
         }
 
         $newPatient = new Patient;
         if ($this->getPatientForSocialId($request->social_type, $request->social_id)) {
-            return self::errify(400, ['errors' => [__('auth.social_id_already_exist')]]);
+            if ($this->lang == 'ar') {
+                $social_id_exist_msg = 'رقم حساب التواصل الاجتماعى موجود بالفعل';
+            } else {
+                $social_id_exist_msg = 'Social id is already taken';
+            }
+            return self::errify(400, ['errors' => [$social_id_exist_msg]]);
         }
         $newPatient->first_name = $request->last_name;
         $newPatient->last_name = $request->last_name;
@@ -333,14 +413,18 @@ class AuthController extends PatientApiController
                 ];
                 PatientWeight::query()->create($patient_weight);
             }
-            return response()->json(['message' => __('auth.social_signed_up_success_msg')]);
+            if ($this->lang == 'ar') {
+                $signed_up_msg = 'تم التسجيل بنجاح';
+            } else {
+                $signed_up_msg = 'You have been signed up successfully';
+            }
+            return response()->json(['msg' => $signed_up_msg]);
         } else
             return self::errify(400, ['errors' => ['Failed']]);
     }
 
     public function getPatientForSocialId($social_type, $social_id)
     {
-        $patient = null;
         switch ($social_type) {
             case config('constants.SOCIAL_SIGNUP_FACEBOOK'):
                 $patient = Patient::where('facebook_id', $social_id)->first();
@@ -368,9 +452,19 @@ class AuthController extends PatientApiController
 
         if ($patient_device != null) {
             $patient_device->delete();
-            return response()->json(['msg' => 'OK']);
+            if ($this->lang == 'ar') {
+                $signed_out_msg = 'تم تسجيل الخروج بنجاح';
+            } else {
+                $signed_out_msg = 'You have been signed out successfully';
+            }
+            return response()->json(['msg' => $signed_out_msg]);
         } else {
-            return self::errify(400, ['errors' => [__('auth.invalid_token')]]);
+            if ($this->lang == 'ar') {
+                $invalid_token_msg = 'الرمز منتهى او غير صحيح';
+            } else {
+                $invalid_token_msg = 'Invalid or expired Token';
+            }
+            return self::errify(400, ['errors' => [$invalid_token_msg]]);
         }
     }
 }

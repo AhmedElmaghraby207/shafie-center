@@ -27,7 +27,7 @@ trait Response
                         }
                         $customError = [
                             'message' => $fieldErrors[$i],
-                            'code' => $_code
+//                            'code' => $_code
                         ];
 
                         $customErrors[] = $customError;
@@ -46,7 +46,7 @@ trait Response
                     }
                     $customError = [
                         'message' => trans($error),
-                        'code' => $_code
+//                        'code' => $_code
                     ];
 
                     $customErrors[] = $customError;

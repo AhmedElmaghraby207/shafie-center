@@ -14,7 +14,7 @@ return [
     'invalid_old_password' => 'The old password is not valid!',
     'password_changed_success' => 'Password changed successfully!',
     'page_expired' => 'Page expired!',
-    'social_id_already_exist' => 'social id is already taken',
+    'social_id_already_exist' => 'Social id is already taken',
     'normal_signed_up_success_msg' => 'You have been signed up successfully, Please check your email to confirm it',
     'social_signed_in_success_msg' => 'You have been signed in successfully',
     'social_signed_up_success_msg' => 'You have been signed up successfully',

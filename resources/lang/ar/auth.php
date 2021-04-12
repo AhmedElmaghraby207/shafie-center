@@ -12,7 +12,7 @@ return [
     'reset_email_sent' => 'تم ارسال بريد اعادة التعيين بنجاح',
     'reset_email_already_sent' => 'تم ارسال البريد بالفعل من فضلك افحص بريدك',
     'invalid_old_password' => 'رمز المرور القديم غير صحيح',
-    'password_changed_success' => 'تم تغيير رمز المرور بنجاح',
+    'password_changed_success' => 'تم تغيير كلمة المرور بنجاح',
     'page_expired' => 'الصفحة منتهية',
     'social_id_already_exist' => 'رقم حساب التواصل الاجتماعى موجود بالفعل',
     'normal_signed_up_success_msg' => 'تم التسجيل بنجاح, من فضلك افحص البريد الالكترونى لتفعيل البريد',
