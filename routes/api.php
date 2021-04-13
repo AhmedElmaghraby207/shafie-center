@@ -52,5 +52,6 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
     Route::group(['prefix' => 'notification'], function () {
         Route::post('/list', 'NotificationsController@list');
         Route::post('/mark-read', 'NotificationsController@markRead');
+        Route::post('/check-new-notifications', 'NotificationsController@checkNewNotifications');
     });
 });

@@ -44,9 +44,23 @@ class NotificationsController extends PatientApiController
             $obj = $h->toObject($notification->data);
             $obj['id'] = $notification->id;
             $res[] = $obj;
+
+            if ($notification->read_at == null) {
+                $notification->read_at = date('Y-m-d H:i:s');
+                $notification->save();
+            }
         }
         $data = CommonHelper::customPaginationByTotal($res, $notifications->perPage(), $notifications->total());
         return response()->json(['data' => $data]);
+    }
+
+    public function checkNewNotifications(Request $request)
+    {
+        $patient = PatientAuth::patient();
+        $unread_notifications_count = Notification::query()->where("notifiable_id", $patient->id)
+            ->where("notifiable_type", "App\Patient")->where('read_at', null)->count();
+
+        return response()->json(['has_new_notifications' => $unread_notifications_count > 0]);
     }
 
     public function markRead(Request $request)

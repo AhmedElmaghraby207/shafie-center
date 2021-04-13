@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1\Patient;
 use App\Facades\PatientAuthenticateFacade as PatientAuth;
 use App\Mail\PatientEmailVerification;
 use App\Mail\PatientResetPassword;
+use App\Notification;
 use App\Patient;
 use App\PatientDevice;
 use App\PatientRecover;
@@ -165,7 +166,13 @@ class AuthController extends PatientApiController
                         'id', 'first_name', 'last_name', 'is_active', 'email', 'token', 'image'
                     ]))
                     ->withResourceName('')
-                    ->parseIncludes([]);
+                    ->parseIncludes([])->toArray();
+
+                $unread_notifications_count = Notification::query()
+                    ->where("notifiable_id", $patient['data']['id'])
+                    ->where("notifiable_type", "App\Patient")
+                    ->where('read_at', null)->count();
+                $patient['data']['has_new_notifications'] = $unread_notifications_count > 0;
 
                 return response()->json($patient);
             } else {
