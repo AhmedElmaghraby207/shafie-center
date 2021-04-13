@@ -17,7 +17,7 @@ class OperationsController extends PatientApiController
         $this->lang = $request->header('x-lang-code');
     }
 
-    public function list(Request $request)
+    public function operationsList(Request $request)
     {
         $operations = Operation::all();
 

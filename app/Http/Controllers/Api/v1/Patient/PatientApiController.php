@@ -14,6 +14,8 @@ abstract class PatientApiController extends BaseController
             'forgotPassword',
             'resendEmailVerification',
             'signupSocial',
+            'operationsList',
+            'branchesList'
         ]]);
     }
 }

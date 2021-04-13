@@ -18,7 +18,7 @@ class BranchesController extends PatientApiController
         $this->lang = $request->header('x-lang-code');
     }
 
-    public function list(Request $request)
+    public function branchesList(Request $request)
     {
         $branches = Branch::query();
 
