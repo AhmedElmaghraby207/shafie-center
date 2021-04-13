@@ -36,6 +36,10 @@ Route::group(['prefix' => 'patient', 'namespace' => 'Api\v1\Patient'], function 
         Route::post('/list', 'FaqsController@list');
     });
 
+    Route::group(['prefix' => 'operation'], function () {
+        Route::post('/list', 'OperationsController@list');
+    });
+
     Route::group(['prefix' => 'branch'], function () {
         Route::post('/list', 'BranchesController@list');
         Route::post('/get', 'BranchesController@get');

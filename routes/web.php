@@ -104,6 +104,17 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::get('/{id}/delete', 'FaqsController@destroy')->name('faq.delete');
         });
 
+        //operation pages
+        Route::group(['prefix' => 'operation'], function () {
+            Route::get('/index', 'OperationsController@index')->name('operation.index');
+            Route::post('/list', 'OperationsController@list')->name('operation.list');
+            Route::get('/create', 'OperationsController@create')->name('operation.create');
+            Route::post('/store', 'OperationsController@store')->name('operation.store');
+            Route::get('/{id}/edit', 'OperationsController@edit')->name('operation.edit');
+            Route::post('/{id}/update', 'OperationsController@update')->name('operation.update');
+            Route::get('/{id}/delete', 'OperationsController@destroy')->name('operation.delete');
+        });
+
         //notification_template pages
         Route::group(['prefix' => 'notification_template'], function () {
             Route::get('/index', 'NotificationTemplatesController@index')->name('notification_template.index');

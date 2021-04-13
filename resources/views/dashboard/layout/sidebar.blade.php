@@ -32,6 +32,14 @@
                     </a>
                 </li>
             @endif
+            @if(session()->get('user_admin')->can('operation-list'))
+                <li class="nav-item {{ (request()->is('dashboard/operation*')) ? 'active' : '' }}">
+                    <a href="{{route('operation.index')}}">
+                        <i class="la la-medkit"></i>
+                        <span class="menu-title">@lang('operation.title_list')</span>
+                    </a>
+                </li>
+            @endif
             @if(session()->get('user_admin')->can('branch-list'))
                 <li class="nav-item {{ (request()->is('dashboard/branch*')) ? 'active' : '' }}">
                     <a href="{{route('branch.index')}}">

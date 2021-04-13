@@ -33,6 +33,7 @@ class AuthController extends PatientApiController
             "first_name" => "required",
             "last_name" => "required",
             "branch_id" => "required|numeric",
+            "operation_id" => "required|numeric",
             "email" => "required|email",
             "password" => "required|min:6",
             "phone" => "required",
@@ -62,6 +63,7 @@ class AuthController extends PatientApiController
         $patient->first_name = $request->first_name;
         $patient->last_name = $request->last_name;
         $patient->branch_id = $request->branch_id;
+        $patient->operation_id = $request->operation_id;
         $patient->password = md5($request->password);
         $patient->email = $request->email;
         $patient->token = md5(rand() . time());
@@ -201,7 +203,7 @@ class AuthController extends PatientApiController
                     } else {
                         $email_already_sent_msg = 'Reset email already sent, Please check your email';
                     }
-                    return response()->json(['error' => $email_already_sent_msg]);
+                    return self::errify(400, ['errors' => [$email_already_sent_msg]]);
                 }
 
                 $hash = md5(uniqid(rand(), true));
@@ -321,6 +323,7 @@ class AuthController extends PatientApiController
             "first_name" => "required",
             "last_name" => "required",
             "branch_id" => "required|numeric",
+            "operation_id" => "required|numeric",
             "mobile_os" => "required",
             "mobile_model" => "required",
             "email" => "required|email",
@@ -372,6 +375,7 @@ class AuthController extends PatientApiController
         $newPatient->first_name = $request->last_name;
         $newPatient->last_name = $request->last_name;
         $newPatient->branch_id = $request->branch_id;
+        $newPatient->operation_id = $request->operation_id;
         $newPatient->email = $request->email;
         $newPatient->token = md5(rand() . time());
         $newPatient->hash = md5(uniqid(rand(), true));
