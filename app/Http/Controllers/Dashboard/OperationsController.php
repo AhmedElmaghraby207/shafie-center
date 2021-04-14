@@ -117,8 +117,10 @@ class OperationsController extends BaseController
         }
 
         $operation_array = [
-            'name' => $request->name,
-            'description' => $request->description,
+            'name_en' => $request->input('name_en'),
+            'name_ar' => $request->input('name_ar'),
+            'description_en' => $request->input('description_en'),
+            'description_ar' => $request->input('description_ar'),
         ];
 
         $operation = Operation::find($id);
