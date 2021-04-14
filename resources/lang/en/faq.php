@@ -7,6 +7,8 @@ return [
     'title_create' => 'Create FAQ',
     'title_edit' => 'Edit Faq',
 
-    'question' => 'Question',
-    'answer' => 'Answer',
+    'question_en' => 'English Question',
+    'question_ar' => 'Arabic Question',
+    'answer_en' => 'English Answer',
+    'answer_ar' => 'Arabic Answer',
 ];

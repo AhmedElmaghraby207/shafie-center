@@ -7,10 +7,12 @@ use League\Fractal;
 
 class FaqTransformer extends Fractal\TransformerAbstract
 {
+    protected $lang;
     protected $fields;
 
-    public function __construct($fields = null)
+    public function __construct($lang = 'en', $fields = null)
     {
+        $this->lang = $lang;
         $this->fields = $fields;
     }
 
@@ -18,8 +20,8 @@ class FaqTransformer extends Fractal\TransformerAbstract
     {
         $res = [
             'id' => $item['id'],
-            'question' => $item['question'],
-            'answer' => $item['answer'],
+            'question' => $this->lang == 'ar' ? $item['question_ar'] : $item['question_en'],
+            'answer' => $this->lang == 'ar' ? $item['answer_ar'] : $item['answer_en'],
         ];
 
         if ($this->fields != null) {

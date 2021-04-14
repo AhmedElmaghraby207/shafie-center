@@ -10,10 +10,12 @@ use Spatie\Fractal\Facades\Fractal;
 
 class FaqsController extends PatientApiController
 {
+    protected $lang;
 
     function __construct(Request $request)
     {
         parent::__construct();
+        $this->lang = $request->header('x-lang-code');
     }
 
     public function list(Request $request)
@@ -22,13 +24,16 @@ class FaqsController extends PatientApiController
 
         $faqs = Faq::query();
         if ($keyword) {
-            $faqs = $faqs->where('question', 'like', '%' . $keyword . '%')
-            ->orWhere('answer', 'like', '%' . $keyword . '%');
+            $faqs = $faqs
+                ->where('question_en', 'like', '%' . $keyword . '%')
+                ->orWhere('question_ar', 'like', '%' . $keyword . '%')
+                ->orWhere('answer_en', 'like', '%' . $keyword . '%')
+                ->orWhere('answer_ar', 'like', '%' . $keyword . '%');
         }
         $faqs = $faqs->get();
 
         $faqs = Fractal::collection($faqs)
-            ->transformWith(new FaqTransformer([
+            ->transformWith(new FaqTransformer($this->lang, [
                 'id', 'question', 'answer'
             ]))
             ->withResourceName('')

@@ -32,11 +32,15 @@ class FaqsController extends BaseController
 
         $faqs = Faq::query();
         if ($question) {
-            $faqs = $faqs->where('question', 'like', '%' . $question . '%');
+            $faqs = $faqs->where('question_en', 'like', '%' . $question . '%')
+                ->orWhere('question_ar', 'like', '%' . $question . '%');
         }
+
         if ($answer) {
-            $faqs = $faqs->where('answer', 'like', '%' . $answer . '%');
+            $faqs = $faqs->where('answer_en', 'like', '%' . $answer . '%')
+                ->orWhere('answer_ar', 'like', '%' . $answer . '%');
         }
+
         return datatables()->of($faqs)->toJson();
     }
 
@@ -48,12 +52,18 @@ class FaqsController extends BaseController
     public function store(Request $request)
     {
         $validator_array = [
-            'question' => [
+            'question_en' => [
                 'required',
                 'max:1000',
                 Rule::unique('faqs'),
             ],
-            'answer' => 'required',
+            'question_ar' => [
+                'required',
+                'max:1000',
+                Rule::unique('faqs'),
+            ],
+            'answer_en' => 'required',
+            'answer_ar' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validator_array);
@@ -67,8 +77,10 @@ class FaqsController extends BaseController
         }
 
         $faq_array = [
-            'question' => $request->question,
-            'answer' => $request->answer,
+            'question_en' => $request->question_en,
+            'question_ar' => $request->question_ar,
+            'answer_en' => $request->answer_en,
+            'answer_ar' => $request->answer_ar,
         ];
 
         $faq_query = Faq::query();
@@ -92,12 +104,18 @@ class FaqsController extends BaseController
     public function update($id, Request $request)
     {
         $validator_array = [
-            'question' => [
+            'question_en' => [
                 'required',
                 'max:1000',
                 Rule::unique('faqs')->ignore($id),
             ],
-            'answer' => 'required',
+            'question_ar' => [
+                'required',
+                'max:1000',
+                Rule::unique('faqs')->ignore($id),
+            ],
+            'answer_en' => 'required',
+            'answer_ar' => 'required',
         ];
         $validator = Validator::make($request->all(), $validator_array);
 
@@ -110,8 +128,10 @@ class FaqsController extends BaseController
         }
 
         $faq_array = [
-            'question' => $request->question,
-            'answer' => $request->answer,
+            'question_en' => $request->question_en,
+            'question_ar' => $request->question_ar,
+            'answer_en' => $request->answer_en,
+            'answer_ar' => $request->answer_ar,
         ];
 
         $faq = Faq::find($id);

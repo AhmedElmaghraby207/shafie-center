@@ -45,19 +45,21 @@
                                     {{--Question search field--}}
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="form-group">
-                                            <label for="question">@lang('faq.question')</label>
+                                            <label
+                                                for="question">@if(App::isLocale('ar')) @lang('faq.question_ar') @else @lang('faq.question_en') @endif</label>
                                             <input type="text" id="question" name="question"
                                                    class="form-control font-size-small"
-                                                   placeholder="@lang('faq.question')">
+                                                   placeholder="@if(App::isLocale('ar')) @lang('faq.question_ar') @else @lang('faq.question_en') @endif">
                                         </div>
                                     </div>
                                     {{--Answer search field--}}
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="form-group">
-                                            <label for="answer">@lang('faq.answer')</label>
+                                            <label
+                                                for="answer">@if(App::isLocale('ar')) @lang('faq.answer_ar') @else @lang('faq.answer_en') @endif</label>
                                             <input type="text" id="answer" name="answer"
                                                    class="form-control font-size-small"
-                                                   placeholder="@lang('faq.answer')">
+                                                   placeholder="@if(App::isLocale('ar')) @lang('faq.answer_ar') @else @lang('faq.answer_en') @endif">
                                         </div>
                                     </div>
                                     {{--Filter & clrear buttons--}}
@@ -102,8 +104,13 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>@lang('faq.question')</th>
-                                    <th>@lang('faq.answer')</th>
+                                    @if(App::isLocale('ar'))
+                                        <th>@lang('faq.question_ar')</th>
+                                        <th>@lang('faq.answer_ar')</th>
+                                    @else
+                                        <th>@lang('faq.question_en')</th>
+                                        <th>@lang('faq.answer_en')</th>
+                                    @endif
                                     @if(session()->get('user_admin')->can('faq-edit') || session()->get('user_admin')->can('faq-delete'))
                                         <th>@lang('main.table_actions')</th>
                                     @endif
@@ -202,16 +209,29 @@
                             $(nTd).html(oData.id);
                         }
                     },
+                        @if(App::isLocale('ar'))
                     {
-                        data: 'question', name: 'question',
+                        data: 'question_ar', name: 'question_ar',
                         "searchable": true,
                         "sortable": true,
                     },
                     {
-                        data: 'answer', name: 'answer',
+                        data: 'answer_ar', name: 'answer_ar',
                         "searchable": true,
                         "sortable": true,
                     },
+                        @else
+                    {
+                        data: 'question_en', name: 'question_en',
+                        "searchable": true,
+                        "sortable": true,
+                    },
+                    {
+                        data: 'answer_en', name: 'answer_en',
+                        "searchable": true,
+                        "sortable": true,
+                    },
+                        @endif
                         @if(session()->get('user_admin')->can('faq-edit') || session()->get('user_admin')->can('faq-delete'))
                     {
                         "data": "id",
