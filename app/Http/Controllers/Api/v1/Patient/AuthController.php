@@ -129,9 +129,18 @@ class AuthController extends PatientApiController
         } else {
 
             $patient = Patient::where('email', '=', $request->email)
-                ->where('password', md5($request->password))->where('is_active', true)->first();
+                ->where('password', md5($request->password))->first();
 
             if ($patient != null) {
+                if ($patient->is_active == 0) {
+                    if ($this->lang == 'ar') {
+                        $not_active_msg = 'الحساب معطل من قبل المسئول';
+                    } else {
+                        $not_active_msg = 'Account is inactive from the administrator';
+                    }
+                    return self::errify(400, ['errors' => [$not_active_msg]]);
+                }
+
                 if ($patient->email_verified_at == null) {
                     if ($this->lang == 'ar') {
                         $email_not_verified_msg = 'البريد الإلكترونى غير مفعل';

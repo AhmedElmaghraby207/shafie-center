@@ -57,7 +57,7 @@
                         <hr>
                         <div class="text-center">
                             <a href="{{ route('branch.index') }}" target="_blank"
-                               class="btn btn-sm btn-info">@lang('dashboard.show_all_btn')</a>
+                               class="btn btn-sm btn-success">@lang('dashboard.show_all_btn')</a>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <hr>
                         <div class="text-center">
                             <a href="{{ route('message.index') }}" target="_blank"
-                               class="btn btn-sm btn-warning">@lang('dashboard.show_all_btn')</a>
+                               class="btn btn-sm btn-success">@lang('dashboard.show_all_btn')</a>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                         <hr>
                         <div class="text-center">
                             <a href="{{ route('faq.index') }}" target="_blank"
-                               class="btn btn-sm btn-danger">@lang('dashboard.show_all_btn')</a>
+                               class="btn btn-sm btn-success">@lang('dashboard.show_all_btn')</a>
                         </div>
                     </div>
                 </div>

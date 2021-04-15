@@ -10,8 +10,8 @@
 
     <title> @yield('title') </title>
 
-    <link rel="apple-touch-icon" href="{{App\Setting::where('key', 'icon_imgae')->first()->value}}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{url('/app-assets/images/ico/favicon.ico')}}">
+    <link rel="apple-touch-icon" href="{{url(App\Setting::where('key', 'icon_imgae')->first()->value)}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{url(App\Setting::where('key', 'icon_imgae')->first()->value)}}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700">
     <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css">
@@ -58,7 +58,7 @@
                         href="#"><i class="ft-menu font-large-1"></i></a></li>
                 <li class="nav-item mr-auto">
                     <a class="navbar-brand" href="{{route('home')}}">
-                        <img class="brand-logo" alt="modern admin logo"
+                        <img class="brand-logo" alt="modern admin logo" style="border-radius: 50%"
                              src="{{url(App\Setting::where('key', 'logo_image')->first()->value)}}">
                         <h3 class="brand-text">{{App\Setting::where('key', 'website_name')->first()->value}}</h3>
                     </a>

@@ -244,6 +244,7 @@ class PatientsController extends BaseController
     public function destroy($id, Request $request)
     {
         $patient = Patient::find($id);
+        $patient->weights()->delete();
         $deleted_patient = $patient->delete();
 
         if ($deleted_patient) {
