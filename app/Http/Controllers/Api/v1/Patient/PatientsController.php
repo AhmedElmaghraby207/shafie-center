@@ -7,6 +7,7 @@ use App\Patient;
 use App\PatientWeight;
 use App\Transformers\PatientTransformer;
 use App\Transformers\WeightTransformer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Fractal\Facades\Fractal;
@@ -97,8 +98,27 @@ class PatientsController extends PatientApiController
     public function updateWeight(Request $request)
     {
         $patient_auth = PatientAuth::patient();
-        if (!$patient_auth)
-            return response()->json(['error' => [__('auth.invalid_token')]]);
+        if (!$patient_auth) {
+            if ($this->lang == 'ar') {
+                $account_not_found_msg = 'الرمز غير صحيح او منتهى';
+            } else {
+                $account_not_found_msg = 'Invalid or expired token';
+            }
+            return response()->json(['error' => [$account_not_found_msg]]);
+        }
+
+        $lastWeight = PatientWeight::query()->where('PatientId', $patient_auth->id)->orderBy('created_at', 'desc')->first();
+        $today = Carbon::now();
+        $diffDays =  Carbon::parse($lastWeight->created_at)->diffInDays($today);
+        $daysToUpdate = 30 - $diffDays;
+        if ($daysToUpdate >= 0) {
+            if ($this->lang == 'ar') {
+                $ms = "لا يمكن تحديث الوزن قبل مرور $daysToUpdate يوم ";
+            } else {
+                $ms = "You can not update weight before " . $daysToUpdate . ' days';
+            }
+            return response()->json(['error' => [$ms]]);
+        }
 
         $patient = Patient::find($patient_auth->id);
 
