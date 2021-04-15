@@ -349,6 +349,7 @@ class AuthController extends PatientApiController
             "height" => "required|numeric",
             "social_type" => "required|numeric|in:1,2,3",
             "social_id" => "required",
+            "device_id" => "required",
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);
@@ -371,12 +372,40 @@ class AuthController extends PatientApiController
             $exsitingPatient->email_verified_at = Carbon::now()->toDateTimeString();
             $exsitingPatient->save();
 
-            if ($this->lang == 'ar') {
-                $signed_in_msg = 'تم الدخول بنجاح';
-            } else {
-                $signed_in_msg = 'You have been signed in successfully';
+            //set device
+            $patient_device = PatientDevice::where('PatientId', $exsitingPatient->id)
+                ->where('device_unique_id', $request->device_id)
+                ->first();
+
+            if (!$patient_device) {
+                $patient_device = new PatientDevice();
+                $patient_device->created_at = date('Y-m-d H:i:s');
             }
-            return response()->json(['msg' => $signed_in_msg]);
+            $patient_device->PatientId = $exsitingPatient->id;
+            $patient_device->device_unique_id = $request->device_id;
+            $patient_device->is_logged_in = 1;
+            $patient_device->token = $exsitingPatient->token;
+            $patient_device->firebase_token = $request->firebase_token;
+            $patient_device->updated_at = date('Y-m-d H:i:s');
+            $patient_device->save();
+            if ($request->firebase_token) {
+                \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENT_FIREBASE_TOPIC'), [$request->firebase_token]);
+            }
+
+            $patient = Fractal::item($exsitingPatient)
+                ->transformWith(new PatientTransformer($this->lang, [
+                    'id', 'first_name', 'last_name', 'is_active', 'email', 'token', 'image'
+                ]))
+                ->withResourceName('')
+                ->parseIncludes([])->toArray();
+
+            $unread_notifications_count = Notification::query()
+                ->where("notifiable_id", $patient['data']['id'])
+                ->where("notifiable_type", "App\Patient")
+                ->where('read_at', null)->count();
+            $patient['data']['has_new_notifications'] = $unread_notifications_count > 0;
+
+            return response()->json($patient);
         }
 
         $newPatient = new Patient;
@@ -433,12 +462,41 @@ class AuthController extends PatientApiController
                 ];
                 PatientWeight::query()->create($patient_weight);
             }
-            if ($this->lang == 'ar') {
-                $signed_up_msg = 'تم التسجيل بنجاح';
-            } else {
-                $signed_up_msg = 'You have been signed up successfully';
+
+            //set device
+            $patient_device = PatientDevice::where('PatientId', $newPatient->id)
+                ->where('device_unique_id', $request->device_id)
+                ->first();
+
+            if (!$patient_device) {
+                $patient_device = new PatientDevice();
+                $patient_device->created_at = date('Y-m-d H:i:s');
             }
-            return response()->json(['msg' => $signed_up_msg]);
+            $patient_device->PatientId = $newPatient->id;
+            $patient_device->device_unique_id = $request->device_id;
+            $patient_device->is_logged_in = 1;
+            $patient_device->token = $newPatient->token;
+            $patient_device->firebase_token = $request->firebase_token;
+            $patient_device->updated_at = date('Y-m-d H:i:s');
+            $patient_device->save();
+            if ($request->firebase_token) {
+                \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENT_FIREBASE_TOPIC'), [$request->firebase_token]);
+            }
+
+            $patient = Fractal::item($newPatient)
+                ->transformWith(new PatientTransformer($this->lang, [
+                    'id', 'first_name', 'last_name', 'is_active', 'email', 'token', 'image'
+                ]))
+                ->withResourceName('')
+                ->parseIncludes([])->toArray();
+
+            $unread_notifications_count = Notification::query()
+                ->where("notifiable_id", $patient['data']['id'])
+                ->where("notifiable_type", "App\Patient")
+                ->where('read_at', null)->count();
+            $patient['data']['has_new_notifications'] = $unread_notifications_count > 0;
+
+            return response()->json($patient);
         } else
             return self::errify(400, ['errors' => ['Failed']]);
     }
