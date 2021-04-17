@@ -335,45 +335,26 @@ class AuthController extends PatientApiController
 
     public function signupSocial(Request $request)
     {
+        //validation for old account
         $validator = Validator::make($request->all(), [
-            "first_name" => "required",
-            "last_name" => "required",
-            "branch_id" => "required|numeric",
-            "operation_id" => "required|numeric",
-            "mobile_os" => "required",
-            "mobile_model" => "required",
-            "email" => "required|email",
-            "gender" => "required|in:0,1",
-            "birth_date" => "required|date",
-            "weight" => "required|numeric",
-            "height" => "required|numeric",
-            "social_type" => "required|numeric|in:1,2,3",
             "social_id" => "required",
             "device_id" => "required",
+            "firebase_token" => "required",
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);
 
-        $exsitingPatient = Patient::where('email', '=', $request->email)->first();
-        if ($exsitingPatient) {
-            switch ($request->social_type) {
-                case config('constants.SOCIAL_SIGNUP_FACEBOOK'):
-                    $exsitingPatient->facebook_id = $request->social_id;
-                    break;
-                case config('constants.SOCIAL_SIGNUP_GOOGLE'):
-                    $exsitingPatient->google_id = $request->social_id;
-                    break;
-                case config('constants.SOCIAL_SIGNUP_APPLE'):
-                    $exsitingPatient->apple_id = $request->social_id;
-                    break;
-            }
-
-            $exsitingPatient->token = md5(rand() . time());
-            $exsitingPatient->email_verified_at = Carbon::now()->toDateTimeString();
-            $exsitingPatient->save();
+        $existingPatient = Patient::query()
+            ->where('facebook_id', '=', $request->social_id)
+            ->orWhere('google_id', '=', $request->social_id)
+            ->orWhere('apple_id', '=', $request->social_id)
+            ->first();
+        if ($existingPatient) {
+            $existingPatient->token = md5(rand() . time());
+            $existingPatient->save();
 
             //set device
-            $patient_device = PatientDevice::where('PatientId', $exsitingPatient->id)
+            $patient_device = PatientDevice::where('PatientId', $existingPatient->id)
                 ->where('device_unique_id', $request->device_id)
                 ->first();
 
@@ -381,10 +362,10 @@ class AuthController extends PatientApiController
                 $patient_device = new PatientDevice();
                 $patient_device->created_at = date('Y-m-d H:i:s');
             }
-            $patient_device->PatientId = $exsitingPatient->id;
+            $patient_device->PatientId = $existingPatient->id;
             $patient_device->device_unique_id = $request->device_id;
             $patient_device->is_logged_in = 1;
-            $patient_device->token = $exsitingPatient->token;
+            $patient_device->token = $existingPatient->token;
             $patient_device->firebase_token = $request->firebase_token;
             $patient_device->updated_at = date('Y-m-d H:i:s');
             $patient_device->save();
@@ -392,7 +373,7 @@ class AuthController extends PatientApiController
                 \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENT_FIREBASE_TOPIC'), [$request->firebase_token]);
             }
 
-            $patient = Fractal::item($exsitingPatient)
+            $patient = Fractal::item($existingPatient)
                 ->transformWith(new PatientTransformer($this->lang, [
                     'id', 'first_name', 'last_name', 'is_active', 'email', 'token', 'image'
                 ]))
@@ -405,20 +386,41 @@ class AuthController extends PatientApiController
                 ->where('read_at', null)->count();
             $patient['data']['has_new_notifications'] = $unread_notifications_count > 0;
 
+            $patient['account_status'] = "Old account";
+
             return response()->json($patient);
         }
 
-        $newPatient = new Patient;
-        if ($this->getPatientForSocialId($request->social_type, $request->social_id)) {
+        //validation for new account
+        $validator = Validator::make($request->all(), [
+            "first_name" => "required",
+            "branch_id" => "required|numeric",
+            "operation_id" => "required|numeric",
+            "mobile_os" => "required",
+            "mobile_model" => "required",
+            "email" => "required|email",
+            "gender" => "required|in:0,1",
+            "birth_date" => "required|date",
+            "weight" => "required|numeric",
+            "height" => "required|numeric",
+            "social_type" => "required|numeric|in:1,2,3",
+            "social_id" => "required",
+            "device_id" => "required",
+            "firebase_token" => "required",
+        ]);
+        if ($validator->fails())
+            return self::errify(400, ['validator' => $validator]);
+
+        if (Patient::query()->where('email', $request->email)->first()) {
             if ($this->lang == 'ar') {
-                $social_id_exist_msg = 'رقم حساب التواصل الاجتماعى موجود بالفعل';
+                $email_exist_msg = 'البريد الإلكترونى موجود بالفعل';
             } else {
-                $social_id_exist_msg = 'Social id is already taken';
+                $email_exist_msg = 'Email already exist.';
             }
-            return self::errify(400, ['errors' => [$social_id_exist_msg]]);
+            return self::errify(400, ['errors' => [$email_exist_msg]]);
         }
-        $newPatient->first_name = $request->last_name;
-        $newPatient->last_name = $request->last_name;
+        $newPatient = new Patient;
+        $newPatient->first_name = $request->first_name;
         $newPatient->branch_id = $request->branch_id;
         $newPatient->operation_id = $request->operation_id;
         $newPatient->email = $request->email;
@@ -455,6 +457,7 @@ class AuthController extends PatientApiController
         $newPatient->save();
 
         if ($newPatient) {
+            //store patient weight
             if ($weight = $request->weight) {
                 $patient_weight = [
                     'PatientId' => $newPatient->id,
@@ -496,31 +499,11 @@ class AuthController extends PatientApiController
                 ->where('read_at', null)->count();
             $patient['data']['has_new_notifications'] = $unread_notifications_count > 0;
 
+            $patient['account_status'] = "New account";
+
             return response()->json($patient);
         } else
             return self::errify(400, ['errors' => ['Failed']]);
-    }
-
-    public function getPatientForSocialId($social_type, $social_id)
-    {
-        switch ($social_type) {
-            case config('constants.SOCIAL_SIGNUP_FACEBOOK'):
-                $patient = Patient::where('facebook_id', $social_id)->first();
-                break;
-            case config('constants.SOCIAL_SIGNUP_GOOGLE'):
-                $patient = Patient::where('google_id', $social_id)->first();
-                break;
-            case config('constants.SOCIAL_SIGNUP_APPLE'):
-                $patient = Patient::where('apple_id', $social_id)->first();
-                break;
-            default:
-                $patient = null;
-                break;
-        }
-
-        if ($patient)
-            return $patient->token;
-        return false;
     }
 
     public function logout(Request $request)
