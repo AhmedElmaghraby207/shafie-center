@@ -2,8 +2,8 @@
 
 namespace App\Console;
 
-use App\Jobs\DrinkWaterNotificationBackGround;
-use App\Jobs\WalkNotificationBackGround;
+use App\Console\Commands\DrinkWaterNotificationsCron;
+use App\Console\Commands\WalkNotificationsCron;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        WalkNotificationsCron::class,
+        DrinkWaterNotificationsCron::class
     ];
 
     /**
@@ -26,11 +27,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->job(new WalkNotificationBackGround, 'WalkNotificationBackGround')
-            ->weeklyOn(1, '10:00'); //monday
-        $schedule->job(new DrinkWaterNotificationBackGround, 'DrinkWaterNotificationBackGround')
-            ->weeklyOn(4, '10:00'); //wednesday
+//        $schedule->job(new WalkNotificationBackGround, 'WalkNotificationBackGround')->weeklyOn(1, '10:00'); //monday
+        $schedule->command('walk_notification:cron')->everyMinute();
+
+//        $schedule->job(new DrinkWaterNotificationBackGround, 'DrinkWaterNotificationBackGround')->weeklyOn(4, '10:00'); //wednesday
+        $schedule->command('drink_water_notification:cron')->everyMinute();
     }
 
     /**
