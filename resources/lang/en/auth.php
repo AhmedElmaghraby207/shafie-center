@@ -4,7 +4,7 @@ return [
     'failed_credentials' => 'Please enter correct email and password!',
     'email_not_found' => 'Invalid Email or account doesn\'t exist.',
     'email_already_exist' => 'Email already exist.',
-    'email_verified_success' => 'Email already verified.',
+    'email_verified_success' => 'Email verified successfully.',
     'email_already_verified' => 'Email already verified.',
     'email_not_verified' => 'Email not Verified.',
     'invalid_token' => 'Invalid or expired Token',

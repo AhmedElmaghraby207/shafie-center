@@ -1,5 +1,5 @@
 @extends('dashboard.layout.auth')
-@section('title') Forgot password @endsection
+@section('title') @lang('auth.forgot_password_title') @endsection
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -13,12 +13,13 @@
                                 <div class="card-header border-0">
                                     <div class="card-title text-center">
                                         <div class="p-1">
-                                            <img src="{{url('/app-assets/images/logo/logo-dark.png')}}"
+                                            <img src="{{url(App\Setting::where('key', 'logo_image')->first()->value)}}"
+                                                 width="55" style="border-radius: 5px"
                                                  alt="branding logo">
                                         </div>
                                     </div>
                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
-                                        <span>Send forgot password email</span>
+                                        <span>@lang('auth.forgot_password_header')</span>
                                     </h6>
                                 </div>
                                 <div class="card-content">
@@ -45,7 +46,7 @@
                                                 </div>
                                             </fieldset>
                                             <button type="submit" class="btn btn-info btn-lg btn-block"><i
-                                                    class="ft-unlock"></i> Send
+                                                    class="ft-unlock"></i> @lang('auth.reset_password_button')
                                             </button>
                                         </form>
                                     </div>

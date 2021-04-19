@@ -1,5 +1,5 @@
 @extends('dashboard.layout.auth')
-@section('title') Reset password @endsection
+@section('title') @lang('auth.reset_password_title') @endsection
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -18,7 +18,7 @@
                                         </div>
                                     </div>
                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
-                                        <span>Reset password</span>
+                                        <span>@lang('auth.reset_password_header')</span>
                                     </h6>
                                 </div>
                                 <div class="card-content">
@@ -62,7 +62,7 @@
                                                 </fieldset>
                                                 {{--Reset password field--}}
                                                 <button type="submit" class="btn btn-info btn-lg btn-block"><i
-                                                        class="ft-unlock"></i> Reset
+                                                        class="ft-unlock"></i> @lang('auth.reset_submit_button')
                                                 </button>
                                             @endif
                                         </form>
