@@ -78,8 +78,8 @@ class P_Announcement extends _BaseNotification
     public function reloadDataObject($data)
     {
         if ($this->dataObject == []) {
-            $this->dataObject['subject'] = $data['subject'];
-            $this->dataObject['content'] = $data['content'];
+            $this->dataObject['subject'] = $data->subject;
+            $this->dataObject['content'] = $data->content;
         }
         return $this->dataObject;
     }

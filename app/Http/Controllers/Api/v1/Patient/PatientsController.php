@@ -123,7 +123,7 @@ class PatientsController extends PatientApiController
         $patient = Patient::find($patient_auth->id);
 
         $validator = Validator::make($request->all(), [
-            'weight' => "required|numeric",
+            'weight' => "required|numeric|max:150",
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);

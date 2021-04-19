@@ -40,8 +40,11 @@ class FCMHelper
             $client->injectGuzzleHttpClient(new \GuzzleHttp\Client());
             $message = new Message();
             $message->setPriority('high');
-            foreach ($tokens as $key => $token)
-                $message->addRecipient(new Device($token));
+            foreach ($tokens as $key => $token) {
+                if ($token != null) {
+                    $message->addRecipient(new Device($token));
+                }
+            }
             if ($title != null) {
                 $message->setNotification(new Notification($title, $mess));
             }

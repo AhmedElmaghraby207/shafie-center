@@ -10,8 +10,8 @@ class FireBaseChannel
 {
     public function send($notifiable, Notification $notification)
     {
-        $subject = $notification->toSubject($notifiable);
-        $data = $notification->toArray($notifiable);
+        $subject = $notification->toSubject($notification);
+        $data = $notification->toArray($notification);
         $message = $notification->toString($data);
         $created_at = Carbon::now();
         $date = $created_at->toFormattedDateString();
@@ -24,7 +24,7 @@ class FireBaseChannel
         $data = $notification->toObject($data);
         $tokens = $notifiable->firebase_tokens();
 
-        if (sizeof($tokens) > 0) {
+        if (count($tokens) > 0) {
             FCMHelper::Send_Downstream_Message_Multiple($tokens, $subject, $message, ["data" => $data]);
         }
     }
