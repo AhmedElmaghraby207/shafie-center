@@ -28,10 +28,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 //        $schedule->job(new WalkNotificationBackGround, 'WalkNotificationBackGround')->weeklyOn(1, '10:00'); //monday
-        $schedule->command('walk_notification:cron')->everyMinute();
+        $schedule->command('walk_notification:cron')->weeklyOn(6, '12:00'); //friday
 
 //        $schedule->job(new DrinkWaterNotificationBackGround, 'DrinkWaterNotificationBackGround')->weeklyOn(4, '10:00'); //wednesday
-        $schedule->command('drink_water_notification:cron')->everyMinute();
+        $schedule->command('drink_water_notification:cron')->weeklyOn(3, '12:00'); //tuesday;
     }
 
     /**
