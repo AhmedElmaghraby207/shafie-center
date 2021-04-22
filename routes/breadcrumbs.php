@@ -82,6 +82,25 @@ Breadcrumbs::for('patients-show', function ($trail, $id) {
 });
 
 //***************************************************************
+// Dashboard > cases
+Breadcrumbs::for('cases', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(trans('case.title_list'), route('case.index'));
+});
+
+// Dashboard > cases > Create
+Breadcrumbs::for('cases-create', function ($trail) {
+    $trail->parent('cases');
+    $trail->push(trans('case.title_create'), route('case.create'));
+});
+
+// Dashboard > cases > Edit
+Breadcrumbs::for('cases-edit', function ($trail, $id) {
+    $trail->parent('cases');
+    $trail->push(trans('case.title_edit'), route('case.edit', $id));
+});
+
+//***************************************************************
 // Dashboard > Announcements > Create
 Breadcrumbs::for('announcements-create', function ($trail) {
     $trail->parent('dashboard');

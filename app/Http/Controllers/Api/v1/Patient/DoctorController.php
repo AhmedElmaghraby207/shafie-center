@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\v1\Patient;
 
 use App\Doctor;
+use App\PatientCase;
+use App\Transformers\CaseTransformer;
 use App\Transformers\DoctorTransformer;
 use Illuminate\Http\Request;
 use Spatie\Fractal\Facades\Fractal;
@@ -29,6 +31,14 @@ class DoctorController extends PatientApiController
                 'name', 'email', 'phone', 'clinic_name', 'about', 'image', 'about', 'signature', 'facebook', 'instagram', 'twitter', 'youtube', 'website'
             ]))
             ->parseIncludes([])->toArray();
+
+        $cases = Fractal::collection(PatientCase::all())
+            ->transformWith(new CaseTransformer([
+                'case_name', 'image_before', 'image_after'
+            ]))
+            ->parseIncludes([])->toArray();
+
+        $doctor['data']['cases'] = $cases['data'];
 
         return response()->json($doctor);
     }

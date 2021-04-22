@@ -79,6 +79,17 @@ Route::group(['namespace' => 'Dashboard'], function () {
             Route::get('/{id}/delete', 'PatientsController@destroy')->name('patient.delete');
         });
 
+        //case pages
+        Route::group(['prefix' => 'case'], function () {
+            Route::get('/index', 'CasesController@index')->name('case.index');
+            Route::post('/list', 'CasesController@list')->name('case.list');
+            Route::get('/create', 'CasesController@create')->name('case.create');
+            Route::post('/store', 'CasesController@store')->name('case.store');
+            Route::get('/{id}/edit', 'CasesController@edit')->name('case.edit');
+            Route::post('/{id}/update', 'CasesController@update')->name('case.update');
+            Route::get('/{id}/delete', 'CasesController@destroy')->name('case.delete');
+        });
+
         //announcements
         Route::group(['prefix' => 'announcement'], function () {
             Route::get('/create', 'AnnouncementsController@create')->name('announcement.create');

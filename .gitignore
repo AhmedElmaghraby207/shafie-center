@@ -4,6 +4,12 @@
 /public/storage
 /storage/*.key
 /vendor
+/public/uploads/admins
+/public/uploads/branches
+/public/uploads/cases
+/public/uploads/doctor
+/public/uploads/patients
+/public/uploads/settings
 .env
 .env.backup
 .phpunit.result.cache
