@@ -148,11 +148,11 @@ class BranchesController extends BaseController
 
         if ($updated_branch) {
             if ($image = $request->image) {
-                $path = 'uploads/branches/branch_' . $updated_branch->id . '/';
+                $path = 'uploads/branches/branch_' . $branch->id . '/';
                 $image_new_name = time() . '_' . $image->getClientOriginalName();
                 $image->move($path, $image_new_name);
-                $updated_branch->image = $path . $image_new_name;
-                $updated_branch->save();
+                $branch->image = $path . $image_new_name;
+                $branch->save();
             }
             session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('branch.attribute_name')]));
             return redirect()->route('branch.index');
