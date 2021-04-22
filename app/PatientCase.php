@@ -13,7 +13,7 @@ class PatientCase extends Model
         if ($value) {
             return asset($value);
         }
-        return asset("/uploads/defaults/admin.png");
+        return asset("/uploads/defaults/case_before.jpg");
     }
 
     public function getImageAfterAttribute($value): string
@@ -21,6 +21,6 @@ class PatientCase extends Model
         if ($value) {
             return asset($value);
         }
-        return asset("/uploads/defaults/admin.png");
+        return asset("/uploads/defaults/case_after.jpg");
     }
 }

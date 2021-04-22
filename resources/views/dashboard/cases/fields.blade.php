@@ -17,8 +17,8 @@
         <div class="col-md-5">
             <h5>@lang('case.image_before')</h5>
             <div class="text-center mb-2">
-                <img id="image_before_preview" style="height: 310px; width: 100%; border-radius: 2%"
-                     src="{{isset($case) && $case->image_before ? url($case->image_before) : url('/uploads/defaults/location.png')}}"
+                <img id="image_before_preview" style="height: 300px; width: 50%; border-radius: 2%"
+                     src="{{isset($case) && $case->image_before ? url($case->image_before) : url('/uploads/defaults/case_before.jpg')}}"
                      alt="Card image">
             </div>
             <fieldset class="form-group">
@@ -45,8 +45,8 @@
         <div class="col-md-5">
             <h5>@lang('case.image_after')</h5>
             <div class="text-center mb-2">
-                <img id="image_after_preview" style="height: 310px; width: 100%; border-radius: 2%"
-                     src="{{isset($case) && $case->image_after ? url($case->image_after) : url('/uploads/defaults/location.png')}}"
+                <img id="image_after_preview" style="height: 300px; width: 50%; border-radius: 2%"
+                     src="{{isset($case) && $case->image_after ? url($case->image_after) : url('/uploads/defaults/case_after.jpg')}}"
                      alt="Card image">
             </div>
             <fieldset class="form-group">
