@@ -61,7 +61,8 @@ class AdminsController extends BaseController
                 Rule::unique('admins'),
             ],
             'password' => 'required|confirmed|min:6',
-            'roles' => 'required'
+            'roles' => 'required',
+            'image' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:4096'
         ];
 
         $validator = Validator::make($request->all(), $validator_array);
@@ -122,7 +123,8 @@ class AdminsController extends BaseController
                 'max:255',
                 Rule::unique('admins')->ignore($id),
             ],
-            'roles' => 'required'
+            'roles' => 'required',
+//            'image' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096'
         ];
 
         if ($request->password) {

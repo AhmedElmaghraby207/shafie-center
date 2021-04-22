@@ -45,13 +45,15 @@ class DoctorController extends BaseController
             'facebook' => 'required',
             'instagram' => 'required',
             'website' => 'required',
+            'image' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096',
+            'signature' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096'
         ];
 
         if (!$updated_doctor->image)
-            $validator['image'] = 'required';
+            $validator['image'] = 'required|mimes:jpg,jpeg,png,bmp,tiff|max:4096';
 
         if (!$updated_doctor->signature)
-            $validator['image'] = 'required';
+            $validator['signature'] = 'required|mimes:jpg,jpeg,png,bmp,tiff|max:4096';
 
         $validator = Validator::make($request->all(), $validator_array);
 

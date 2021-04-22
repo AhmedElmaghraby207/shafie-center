@@ -72,6 +72,7 @@ class PatientsController extends BaseController
             'weight' => "required|numeric",
             'height' => "numeric",
             'gender' => "in:0,1",
+            'image' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096',
         ];
 
         $validator = Validator::make($request->all(), $validator_array);
@@ -147,6 +148,7 @@ class PatientsController extends BaseController
             'weight' => "required|numeric",
             'height' => "numeric",
             'gender' => "in:0,1",
+            'image' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096',
         ];
 
         if ($request->password) {

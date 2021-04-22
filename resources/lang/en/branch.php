@@ -13,4 +13,5 @@ return [
     'phone' => 'Phone',
     'location' => 'Location',
     'location_url' => 'Location on map',
+    'image' => 'Image',
 ];

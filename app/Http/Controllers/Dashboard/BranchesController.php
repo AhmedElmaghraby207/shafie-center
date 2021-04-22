@@ -61,6 +61,7 @@ class BranchesController extends BaseController
             ],
             'address_en' => 'required',
             'address_ar' => 'required',
+            'image' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:4096'
         ];
         $validator = Validator::make($request->all(), $validator_array);
 
@@ -86,6 +87,13 @@ class BranchesController extends BaseController
         $created_branch = $branch_query->create($branch_array);
 
         if ($created_branch) {
+            if ($image = $request->image) {
+                $path = 'uploads/branches/branch_' . $created_branch->id . '/';
+                $image_new_name = time() . '_' . $image->getClientOriginalName();
+                $image->move($path, $image_new_name);
+                $created_branch->image = $path . $image_new_name;
+                $created_branch->save();
+            }
             session()->flash('success_message', trans('main.created_alert_message', ['attribute' => Lang::get('branch.attribute_name')]));
             return redirect()->route('branch.index');
         } else {
@@ -113,6 +121,7 @@ class BranchesController extends BaseController
             ],
             'address_en' => 'required',
             'address_ar' => 'required',
+            'image' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096'
         ];
         $validator = Validator::make($request->all(), $validator_array);
 
@@ -138,6 +147,13 @@ class BranchesController extends BaseController
         $updated_branch = $branch->update($branch_array);
 
         if ($updated_branch) {
+            if ($image = $request->image) {
+                $path = 'uploads/branches/branch_' . $updated_branch->id . '/';
+                $image_new_name = time() . '_' . $image->getClientOriginalName();
+                $image->move($path, $image_new_name);
+                $updated_branch->image = $path . $image_new_name;
+                $updated_branch->save();
+            }
             session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('branch.attribute_name')]));
             return redirect()->route('branch.index');
         } else {

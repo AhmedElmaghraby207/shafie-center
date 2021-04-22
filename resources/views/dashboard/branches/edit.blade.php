@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-content collpase show">
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" id="update_form"
+                        <form class="form form-horizontal" method="POST" id="update_form" enctype="multipart/form-data"
                               action="{{ route('branch.update', $branch->id) }}">
                             @csrf
                             @include('dashboard.branches.fields')

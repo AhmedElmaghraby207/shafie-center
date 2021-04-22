@@ -34,4 +34,12 @@ class Branch extends Model
             return null;
         }
     }
+
+    public function getImageAttribute($value): string
+    {
+        if ($value) {
+            return asset($value);
+        }
+        return asset("/uploads/defaults/location.png");
+    }
 }

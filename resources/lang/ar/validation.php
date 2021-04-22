@@ -152,6 +152,8 @@ return [
 
     'attributes' => [
         'name' => 'الاسم',
+        'name_en' => 'الاسم بالانجليزية',
+        'name_ar' => 'الاسم بالعربية',
         'username' => 'اسم المُستخدم',
         'email' => 'البريد الالكتروني',
         'first_name' => 'الاسم الأول',
@@ -176,14 +178,14 @@ return [
         'title' => 'العنوان',
         'content' => 'المُحتوى',
         'description' => 'الوصف',
+        'description_en' => 'الوصف بالانجليزية',
+        'description_ar' => 'الوصف بالعربية',
         'excerpt' => 'المُلخص',
         'date' => 'التاريخ',
         'time' => 'الوقت',
         'available' => 'مُتاح',
         'size' => 'الحجم',
-        'image' => Lang::get('employee.image'),
-        'start_date' => Lang::get('mission.form_mission_basic_start_date'),
-        'complete_date' => Lang::get('mission.form_mission_basic_complete_date'),
+        'image' => 'الصورة',
         //announcements
         'subject' => Lang::get('announcement.subject'),
         'message' => Lang::get('announcement.message'),

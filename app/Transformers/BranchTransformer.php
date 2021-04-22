@@ -20,6 +20,7 @@ class BranchTransformer extends Fractal\TransformerAbstract
     {
         $res = [
             'id' => $item['id'],
+            'image' => $item['image'],
             'name' => $this->lang == 'en' ? $item['name_en'] : $item['name_ar'],
             'phone' => $item['phone'],
             'address' => $this->lang == 'en' ? $item['address_en'] : $item['address_ar'],

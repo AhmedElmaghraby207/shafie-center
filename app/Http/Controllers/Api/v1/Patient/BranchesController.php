@@ -31,7 +31,7 @@ class BranchesController extends PatientApiController
 
         $branches = Fractal::collection($branches)
             ->transformWith(new BranchTransformer($this->lang, [
-                'id', 'name', 'phone', 'address', 'location', 'location_url'
+                'id', 'name', 'phone', 'address', 'location', 'location_url', 'image'
             ]))
             ->withResourceName('')
             ->parseIncludes([])->toArray();

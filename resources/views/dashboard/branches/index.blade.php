@@ -103,6 +103,7 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>@lang('branch.image')</th>
                                     <th>@if(App::isLocale('en')) @lang('branch.name_en') @else @lang('branch.name_ar') @endif</th>
                                     <th>@if(App::isLocale('en')) @lang('branch.address_en') @else @lang('branch.address_ar') @endif</th>
                                     <th>@lang('branch.phone')</th>
@@ -203,6 +204,16 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(oData.id);
+                        }
+                    },
+                    {
+                        data: 'image', name: 'image',
+                        "searchable": true,
+                        "sortable": true,
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html(
+                                '<img alt="branch image" style="width: 36px; height: 36px" src="' + oData.image + '" data-id="' + oData.id + '" class="img-fluid img-thumbnail">'
+                            );
                         }
                     },
                         @if(App::isLocale('en'))
