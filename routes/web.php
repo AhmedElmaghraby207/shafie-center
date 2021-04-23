@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return redirect()->route('home');
+});
 
-Route::group(['namespace' => 'Dashboard'], function () {
+Route::group(['namespace' => 'Dashboard', 'prefix' => 'shafie-center'], function () {
     //change languages
     Route::get('/changeLanguage/{lang}', 'LanguagesController@changeLanguage')->name('CHANGE_LANGUAGE')->middleware('lang');
 

@@ -10,10 +10,10 @@ class AdminAuth
     {
         $user_admin = $request->session()->get('user_admin');
         if (!$user_admin) {
-            if ($request->ajax() || $request->wantsJson() )
+            if ($request->ajax() || $request->wantsJson())
                 return response('Unauthorized', 401);
             else
-                return redirect()->guest('/login?return_url='.url()->current());
+                return redirect()->guest(route('admin.get_login') . '?return_url=' . url()->current());
         }
         return $next($request);
     }

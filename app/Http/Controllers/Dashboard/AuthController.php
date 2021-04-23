@@ -43,7 +43,7 @@ class AuthController extends BaseController
         $request->session()->put('user_admin', $user_admin);
         if ($request->return_url)
             return redirect()->to($request->return_url);
-        return redirect()->to('dashboard');
+        return redirect()->route('home');
     }
 
     public function getForgotPassword()
@@ -127,6 +127,6 @@ class AuthController extends BaseController
     public function logout(Request $request)
     {
         $request->session()->flush();
-        return redirect()->to('/login');
+        return redirect()->route('admin.get_login');
     }
 }
