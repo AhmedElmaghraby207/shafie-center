@@ -216,7 +216,7 @@
                         "sortable": false,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                "<a href='{{url('dashboard/notification_template/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')' style='margin-top:5px'><i class='fa fa-edit'></i></a> "
+                                "<a href='{{url('shafie-center/dashboard/notification_template/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')' style='margin-top:5px'><i class='fa fa-edit'></i></a> "
                             );
                         }
                     }

@@ -241,12 +241,12 @@
                             $(nTd).html('')
                             @if(session()->get('user_admin')->can('faq-edit'))
                             $(nTd).append(
-                                "<a href='{{url('dashboard/faq/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  "
+                                "<a href='{{url('shafie-center/dashboard/faq/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  "
                             );
                             @endif
                             @if(session()->get('user_admin')->can('faq-delete'))
                             $(nTd).append(
-                                "<a href='javascript:' url='{{url('dashboard/faq/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
+                                "<a href='javascript:' url='{{url('shafie-center/dashboard/faq/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
                             );
                             @endif
                         }

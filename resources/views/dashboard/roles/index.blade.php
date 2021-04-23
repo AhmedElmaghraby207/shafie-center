@@ -197,7 +197,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/dashboard/role')}}' + '/' + oData.id + '/edit' + ' ">' + oData.name + '</a>'
+                                '<a href="{{url('/shafie-center/dashboard/role')}}' + '/' + oData.id + '/edit' + ' ">' + oData.name + '</a>'
                             );
                         }
                     },
@@ -210,12 +210,12 @@
                             $(nTd).html('')
                             @if(session()->get('user_admin')->can('role-edit'))
                             $(nTd).append(
-                                "<a href='{{url('dashboard/role/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  "
+                                "<a href='{{url('shafie-center/dashboard/role/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  "
                             );
                             @endif
                             @if(session()->get('user_admin')->can('role-delete'))
                             $(nTd).append(
-                                "<a href='javascript:' url='{{url('dashboard/role/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
+                                "<a href='javascript:' url='{{url('shafie-center/dashboard/role/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
                             );
                             @endif
                         }
