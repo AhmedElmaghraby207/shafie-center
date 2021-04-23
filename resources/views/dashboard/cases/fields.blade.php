@@ -65,6 +65,18 @@
             </fieldset>
         </div>
     </div>
+    {{--description--}}
+    <div class="form-group">
+        <label for="description">@lang('case.description')</label>
+        <textarea id="description" rows="5" class="form-control" name="description"
+                  placeholder="@lang('case.description')">{{ old('description', isset($case) ? $case->description : '')}}</textarea>
+        @if ($errors->has('description'))
+            <div class="error" style="color: red">
+                <i class="fa fa-sm fa-times-circle"></i>
+                {{ $errors->first('description') }}
+            </div>
+        @endif
+    </div>
 </div>
 
 @section('scripts')

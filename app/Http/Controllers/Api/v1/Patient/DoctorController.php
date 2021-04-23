@@ -34,7 +34,7 @@ class DoctorController extends PatientApiController
 
         $cases = Fractal::collection(PatientCase::all())
             ->transformWith(new CaseTransformer([
-                'case_name', 'image_before', 'image_after'
+                'case_name', 'image_before', 'image_after', 'description'
             ]))
             ->parseIncludes([])->toArray();
 

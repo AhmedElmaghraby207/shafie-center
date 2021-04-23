@@ -18,6 +18,7 @@ class CreatePatientCasesTable extends Migration
             $table->string('case_name')->nullable();
             $table->string('image_before');
             $table->string('image_after');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

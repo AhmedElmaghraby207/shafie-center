@@ -9,4 +9,5 @@ return [
     'case_name' => 'Case name',
     'image_before' => 'Image before',
     'image_after' => 'Image after',
+    'description' => 'Description',
 ];

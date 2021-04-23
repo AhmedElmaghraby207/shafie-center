@@ -9,4 +9,5 @@ return [
     'case_name' => 'اسم الحالة',
     'image_before' => 'الصورة قبل',
     'image_after' => 'الصورة بعد',
+    'description' => 'الوصف',
 ];

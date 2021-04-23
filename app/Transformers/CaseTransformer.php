@@ -23,6 +23,7 @@ class CaseTransformer extends Fractal\TransformerAbstract
             'case_name' => $item['case_name'],
             'image_before' => $item['image_before'],
             'image_after' => $item['image_after'],
+            'description' => $item['description'],
         ];
 
         if ($this->fields != null) {

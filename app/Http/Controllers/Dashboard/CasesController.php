@@ -79,6 +79,7 @@ class CasesController extends BaseController
             $created_case->image_after = $path . $image_new_name;
         }
         $created_case->case_name = $request->input('case_name');
+        $created_case->description = $request->input('description');
         $created_case->save();
 
         session()->flash('success_message', trans('main.created_alert_message', ['attribute' => Lang::get('case.attribute_name')]));
@@ -132,6 +133,7 @@ class CasesController extends BaseController
                 $updated_case->image_after = $path . $image_new_name;
             }
             $updated_case->case_name = $request->input('case_name');
+            $updated_case->description = $request->input('description');
             $updated_case->save();
 
             session()->flash('success_message', trans('main.updated_alert_message', ['attribute' => Lang::get('case.attribute_name')]));
@@ -140,8 +142,6 @@ class CasesController extends BaseController
             session()->flash('error_message', 'Something went wrong');
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
-
-
     }
 
     public function destroy($id, Request $request)
