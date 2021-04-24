@@ -42,7 +42,6 @@ class CasesController extends BaseController
     public function store(Request $request)
     {
         $validator_array = [
-            'case_name' => 'required',
             'image_before' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:4096',
             'image_after' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:4096'
         ];
@@ -95,7 +94,6 @@ class CasesController extends BaseController
     public function update($id, Request $request)
     {
         $validator_array = [
-            'case_name' => 'required',
             'image_before' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096',
             'image_after' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096'
         ];
