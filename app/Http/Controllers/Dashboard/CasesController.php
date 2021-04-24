@@ -96,8 +96,8 @@ class CasesController extends BaseController
     {
         $validator_array = [
             'case_name' => 'required',
-            'image_before' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:4096',
-            'image_after' => 'required|mimes:jpg,jpeg,png,bmp,tiff|max:4096'
+            'image_before' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096',
+            'image_after' => 'mimes:jpg,jpeg,png,bmp,tiff|max:4096'
         ];
 
         $validator = Validator::make($request->all(), $validator_array);
