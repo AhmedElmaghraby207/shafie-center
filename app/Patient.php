@@ -25,7 +25,11 @@ class Patient extends Model
         if ($value) {
             return asset($value);
         }
-        return asset("/uploads/defaults/admin.png");
+        if ($this->gender == 0) {
+            return asset("/uploads/defaults/patient_female.jpg");
+        } else {
+            return asset("/uploads/defaults/patient_male.jpg");
+        }
     }
 
     public function branch()
