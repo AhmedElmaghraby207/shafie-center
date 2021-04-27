@@ -107,18 +107,18 @@ class PatientsController extends PatientApiController
             return response()->json(['error' => [$account_not_found_msg]]);
         }
 
-        $lastWeight = PatientWeight::query()->where('PatientId', $patient_auth->id)->orderBy('created_at', 'desc')->first();
-        $today = Carbon::now();
-        $diffDays =  Carbon::parse($lastWeight->created_at)->diffInDays($today);
-        $daysToUpdate = 30 - $diffDays;
-        if ($daysToUpdate >= 0) {
-            if ($this->lang == 'ar') {
-                $ms = "لا يمكن تحديث الوزن قبل مرور $daysToUpdate يوم ";
-            } else {
-                $ms = "You can not update weight before " . $daysToUpdate . ' days';
-            }
-            return response()->json(['error' => [$ms]]);
-        }
+//        $lastWeight = PatientWeight::query()->where('PatientId', $patient_auth->id)->orderBy('created_at', 'desc')->first();
+//        $today = Carbon::now();
+//        $diffDays =  Carbon::parse($lastWeight->created_at)->diffInDays($today);
+//        $daysToUpdate = 30 - $diffDays;
+//        if ($daysToUpdate >= 0) {
+//            if ($this->lang == 'ar') {
+//                $ms = "لا يمكن تحديث الوزن قبل مرور $daysToUpdate يوم ";
+//            } else {
+//                $ms = "You can not update weight before " . $daysToUpdate . ' days';
+//            }
+//            return response()->json(['error' => [$ms]]);
+//        }
 
         $patient = Patient::find($patient_auth->id);
 
