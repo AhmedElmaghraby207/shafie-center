@@ -79,7 +79,6 @@ class BranchesController extends BaseController
             'address_en' => $request->address_en,
             'address_ar' => $request->address_ar,
             'phone' => $request->phone,
-            'location' => new Point($request->lat, $request->lng),
             'location_url' => $request->location_url
         ];
 
@@ -139,7 +138,6 @@ class BranchesController extends BaseController
             'address_en' => $request->address_en,
             'address_ar' => $request->address_ar,
             'phone' => $request->phone,
-            'location' => new Point($request->lat, $request->lng),
             'location_url' => $request->location_url
         ];
 
