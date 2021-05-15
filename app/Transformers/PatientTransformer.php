@@ -38,6 +38,7 @@ class PatientTransformer extends Fractal\TransformerAbstract
             'mobile_model' => $item['mobile_model'],
             'created_at' => $item['created_at'],
             'token' => $item['token'],
+            'lang' => $item['lang'],
         ];
         if ($this->lang == 'en') {
             $res['gender'] = $item['gender'] == 1 ? "Male" : "Female";

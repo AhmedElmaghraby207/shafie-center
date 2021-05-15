@@ -44,6 +44,7 @@ class AuthController extends PatientApiController
             "height" => "required|numeric|max:250",
             "mobile_os" => "required",
             "mobile_model" => "required",
+            "lang" => "in:en,ar"
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);
@@ -72,6 +73,7 @@ class AuthController extends PatientApiController
         $patient->phone = $request->phone;
         $patient->birth_date = $request->birth_date;
         $patient->gender = $request->gender;
+        $patient->lang = $request->lang ? trim($request->lang) : 'en';
         $patient->weight = $request->weight;
         $patient->height = $request->height;
         $patient->mobile_os = $request->mobile_os;
@@ -119,6 +121,7 @@ class AuthController extends PatientApiController
         $validator = Validator::make($request->all(), [
             "password" => "required",
             "email" => "required",
+            "lang" => "in:en,ar",
 
             //for set device
             "device_id" => "required",
@@ -170,9 +173,17 @@ class AuthController extends PatientApiController
                 if ($request->firebase_token) {
                     \App\Helpers\FCMHelper::Subscribe_User_To_FireBase_Topic(Config::get('constants._PATIENT_FIREBASE_TOPIC'), [$request->firebase_token]);
                 }
+
+                if($request->lang) {
+                    $patient->lang = trim($request->input('lang'));
+                } else {
+                    $patient->lang = 'en';
+                }
+                $patient->save();
+
                 $patient = Fractal::item($patient)
                     ->transformWith(new PatientTransformer($this->lang, [
-                        'id', 'first_name', 'last_name', 'is_active', 'email', 'token', 'image'
+                        'id', 'first_name', 'last_name', 'is_active', 'email', 'token', 'image', 'lang'
                     ]))
                     ->withResourceName('')
                     ->parseIncludes([])->toArray();
@@ -340,6 +351,7 @@ class AuthController extends PatientApiController
             "social_id" => "required",
             "device_id" => "required",
             "firebase_token" => "required",
+            "lang" => "in:en,ar",
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);
@@ -407,6 +419,7 @@ class AuthController extends PatientApiController
             "social_id" => "required",
             "device_id" => "required",
             "firebase_token" => "required",
+            "lang" => "in:en,ar",
         ]);
         if ($validator->fails())
             return self::errify(400, ['validator' => $validator]);
@@ -429,6 +442,7 @@ class AuthController extends PatientApiController
         $newPatient->phone = $request->phone;
         $newPatient->birth_date = $request->birth_date;
         $newPatient->gender = $request->gender;
+        $newPatient->lang = $request->lang ? trim($request->lang) : 'en';
         $newPatient->weight = $request->weight;
         $newPatient->height = $request->height;
         $newPatient->mobile_os = $request->mobile_os;
