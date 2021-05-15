@@ -43,7 +43,7 @@ class DrinkWaterNotificationsCron extends Command
         $patients = Patient::all();
 
         foreach ($patients as $patient) {
-            $patient->notify(new P_DrinkWater());
+            $patient->notify(new P_DrinkWater($patient));
         }
         Log::info('drink_water_notification:cron');
     }

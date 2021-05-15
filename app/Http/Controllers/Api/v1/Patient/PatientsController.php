@@ -7,7 +7,6 @@ use App\Patient;
 use App\PatientWeight;
 use App\Transformers\PatientTransformer;
 use App\Transformers\WeightTransformer;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Fractal\Facades\Fractal;
@@ -168,6 +167,37 @@ class PatientsController extends PatientApiController
 
         return response()->json($weights);
 
+    }
+
+    public function changeLanguage(Request $request)
+    {
+        $patient_auth = PatientAuth::patient();
+        if (!$patient_auth) {
+            if ($this->lang == 'ar') {
+                $account_not_found_msg = 'الرمز غير صحيح او منتهى';
+            } else {
+                $account_not_found_msg = 'Invalid or expired token';
+            }
+            return response()->json(['error' => [$account_not_found_msg]]);
+        }
+
+        $patient = Patient::find($patient_auth->id);
+
+        $validator = Validator::make($request->all(), [
+            'lang' => "required|in:en,ar",
+        ]);
+        if ($validator->fails())
+            return self::errify(400, ['validator' => $validator]);
+
+        $lang = $request->lang;
+
+        $saved = $patient->update(['lang' => $lang]);
+
+        if ($saved) {
+            return response()->json(['msg' => 'ok']);
+        } else {
+            return response()->json(['error' => 'Can not update language, please try again!']);
+        }
     }
 
 }

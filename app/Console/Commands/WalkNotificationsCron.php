@@ -43,7 +43,7 @@ class WalkNotificationsCron extends Command
         $patients = Patient::all();
 
         foreach ($patients as $patient) {
-            $patient->notify(new P_Walk());
+            $patient->notify(new P_Walk($patient));
         }
         Log::info('walk_notification:cron');
     }

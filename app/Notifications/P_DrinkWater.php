@@ -9,16 +9,23 @@ use Illuminate\Support\Facades\Config;
 
 class P_DrinkWater extends _BaseNotification
 {
+    public $patient;
     public $subject;
     public $content;
 
-    public function __construct()
+    public function __construct($patient = null)
     {
         parent::__construct('P_DrinkWater');
         $this->template = NotificationTemplate::where('name', $this->template_Name)->first();
 
-        $this->subject = $this->template->subject;
-        $this->content = $this->template->template;
+        $this->patient = $patient;
+        if ($this->patient->lang == 'ar') {
+            $this->subject = $this->template->subject_ar;
+            $this->content = $this->template->template_ar;
+        } else {
+            $this->subject = $this->template->subject_en;
+            $this->content = $this->template->template_en;
+        }
     }
 
     public function via($notifiable)

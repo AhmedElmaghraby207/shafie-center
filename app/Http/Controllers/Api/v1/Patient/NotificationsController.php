@@ -29,7 +29,7 @@ class NotificationsController extends PatientApiController
             ->where("notifiable_type", "App\Patient")->latest()->paginate($limit);
 
         foreach ($notifications as $notification) {
-            $h = App::make($notification->type);
+            $h = App::makeWith($notification->type, ['patient' => $patient]);
             $notification->data = json_decode($notification->data, JSON_FORCE_OBJECT);
             $subject = $h->toSubject($notification->data);
             $content = $h->toString($notification->data);
