@@ -52,29 +52,55 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        {{--Subject--}}
+                                        {{--Subject_en--}}
                                         <div class="form-group">
-                                            <label for="subject">@lang('announcement.subject')</label>
-                                            <input type="text" id="subject" class="form-control"
-                                                   placeholder="@lang('announcement.subject')" name="subject"
-                                                   value="{{ old('subject')}}"
+                                            <label for="subject_en">@lang('announcement.subject_en')</label>
+                                            <input type="text" id="subject_en" class="form-control"
+                                                   placeholder="@lang('announcement.subject_en')" name="subject_en"
+                                                   value="{{ old('subject_en')}}"
                                             >
-                                            @if ($errors->has('subject'))
+                                            @if ($errors->has('subject_en'))
                                                 <div class="error" style="color: red">
                                                     <i class="fa fa-sm fa-times-circle"></i>
-                                                    {{ $errors->first('subject') }}
+                                                    {{ $errors->first('subject_en') }}
                                                 </div>
                                             @endif
                                         </div>
-                                        {{--message--}}
+                                        {{--Subject_ar--}}
                                         <div class="form-group">
-                                            <label for="message">@lang('announcement.message')</label>
-                                            <textarea id="message" rows="5" class="form-control" name="message"
-                                                      placeholder="@lang('announcement.message')">{{ old('message')}}</textarea>
-                                            @if ($errors->has('message'))
+                                            <label for="subject_ar">@lang('announcement.subject_ar')</label>
+                                            <input type="text" id="subject_ar" class="form-control"
+                                                   placeholder="@lang('announcement.subject_ar')" name="subject_ar"
+                                                   value="{{ old('subject_ar')}}"
+                                            >
+                                            @if ($errors->has('subject_ar'))
                                                 <div class="error" style="color: red">
                                                     <i class="fa fa-sm fa-times-circle"></i>
-                                                    {{ $errors->first('message') }}
+                                                    {{ $errors->first('subject_ar') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        {{--message_en--}}
+                                        <div class="form-group">
+                                            <label for="message_en">@lang('announcement.message_en')</label>
+                                            <textarea id="message_en" rows="5" class="form-control" name="message_en"
+                                                      placeholder="@lang('announcement.message_en')">{{ old('message_en')}}</textarea>
+                                            @if ($errors->has('message_en'))
+                                                <div class="error" style="color: red">
+                                                    <i class="fa fa-sm fa-times-circle"></i>
+                                                    {{ $errors->first('message_en') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        {{--message_ar--}}
+                                        <div class="form-group">
+                                            <label for="message_ar">@lang('announcement.message_ar')</label>
+                                            <textarea id="message_ar" rows="5" class="form-control" name="message_ar"
+                                                      placeholder="@lang('announcement.message_ar')">{{ old('message_ar')}}</textarea>
+                                            @if ($errors->has('message_ar'))
+                                                <div class="error" style="color: red">
+                                                    <i class="fa fa-sm fa-times-circle"></i>
+                                                    {{ $errors->first('message_ar') }}
                                                 </div>
                                             @endif
                                         </div>

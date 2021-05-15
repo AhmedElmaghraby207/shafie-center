@@ -9,16 +9,32 @@ use Illuminate\Support\Facades\Config;
 
 class P_Announcement extends _BaseNotification
 {
+    public $patient;
     public $subject;
     public $content;
+    public $subject_en;
+    public $subject_ar;
+    public $content_en;
+    public $content_ar;
 
-    public function __construct($subject = null, $content = null)
+    public function __construct($patient = null, $subject_en = null, $subject_ar = null, $content_en = null, $content_ar = null)
     {
         parent::__construct('P_Announcement');
 
-        $this->subject = $subject;
-        $this->content = $content;
+        $this->patient = $patient;
+        $this->subject_en = $subject_en;
+        $this->subject_ar = $subject_ar;
+        $this->content_en = $content_en;
+        $this->content_ar = $content_ar;
         $this->template = NotificationTemplate::where('name', $this->template_Name)->first();
+
+        if ($this->patient->lang == 'ar') {
+            $this->subject = $this->subject_ar;
+            $this->content = $this->content_ar;
+        } else {
+            $this->subject = $this->subject_en;
+            $this->content = $this->content_en;
+        }
     }
 
     public function via($notifiable)
@@ -32,16 +48,20 @@ class P_Announcement extends _BaseNotification
     public function toDatabase($notifiable)
     {
         return [
-            'subject' => $this->subject,
-            'content' => $this->content,
+            'subject_en' => $this->subject_en,
+            'subject_ar' => $this->subject_ar,
+            'content_en' => $this->content_en,
+            'content_ar' => $this->content_ar,
         ];
     }
 
     public function toArray($notifiable)
     {
         return [
-            'subject' => $this->subject,
-            'content' => $this->content,
+            'subject_en' => $this->subject_en,
+            'subject_ar' => $this->subject_ar,
+            'content_en' => $this->content_en,
+            'content_ar' => $this->content_ar,
         ];
     }
 
@@ -79,8 +99,13 @@ class P_Announcement extends _BaseNotification
     {
         $data = (object)$data;
         if ($this->dataObject == []) {
-            $this->dataObject['subject'] = $data->subject;
-            $this->dataObject['content'] = $data->content;
+            if ($this->patient->lang == 'ar') {
+                $this->dataObject['subject'] = $data->subject_ar;
+                $this->dataObject['content'] = $data->content_ar;
+            } else {
+                $this->dataObject['subject'] = $data->subject_en;
+                $this->dataObject['content'] = $data->content_en;
+            }
         }
         return $this->dataObject;
     }

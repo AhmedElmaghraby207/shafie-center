@@ -29,8 +29,10 @@ class AnnouncementsController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             "patients" => "required_if:specify_patients,==,true",
-            "subject" => "required|min:3|max:500",
-            "message" => "required|min:3|max:2000",
+            "subject_en" => "required|min:3|max:500",
+            "subject_ar" => "required|min:3|max:500",
+            "message_en" => "required|min:3|max:2000",
+            "message_ar" => "required|min:3|max:2000",
             "mail_checkbox" => 'required_without:notify_checkbox',
             "notify_checkbox" => 'required_without:mail_checkbox',
         ]);
@@ -41,8 +43,10 @@ class AnnouncementsController extends BaseController
             return redirect()->back()->with('error_message', 'You must select Method to send (Mail Or Notification)!');
 
         $announcement = new Announcement;
-        $announcement->subject = $request->subject;
-        $announcement->message = $request->message;
+        $announcement->subject_en = $request->subject_en;
+        $announcement->subject_ar = $request->subject_ar;
+        $announcement->message_en = $request->message_en;
+        $announcement->message_ar = $request->message_ar;
 
         $patients_ids_for_tokens = array();
         if ($request->patients) {
@@ -90,7 +94,7 @@ class AnnouncementsController extends BaseController
 
         if ($request->notify_checkbox) {
             foreach ($array_patients as $patient) {
-                $patient->notify(new P_Announcement($request->subject, $request->message));
+                $patient->notify(new P_Announcement($patient, $request->subject_en, $request->subject_ar, $request->message_en, $request->message_ar));
             }
         }
 

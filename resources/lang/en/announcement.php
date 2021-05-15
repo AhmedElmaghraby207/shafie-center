@@ -6,8 +6,10 @@ return [
 
     'patients' => 'Patients',
     'specify_patients' => 'Send to specify patients',
-    'subject' => 'Subject',
-    'message' => 'Message',
+    'subject_en' => 'English Subject',
+    'subject_ar' => 'Arabic Subject',
+    'message_en' => 'English Message',
+    'message_ar' => 'Arabic Message',
     'published_at' => 'Published at',
 
     'select_patients_placeholder' => 'Select patients',
