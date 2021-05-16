@@ -95,8 +95,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>@lang('notification_template.name')</th>
-                                    <th>@lang('notification_template.subject')</th>
-                                    <th>@lang('notification_template.template')</th>
+                                    <th>@lang('notification_template.subject_en')</th>
+                                    <th>@lang('notification_template.subject_ar')</th>
+                                    <th>@lang('notification_template.template_en')</th>
+                                    <th>@lang('notification_template.template_ar')</th>
                                     @if(session()->get('user_admin')->can('notification_template-edit'))
                                         <th>@lang('main.table_actions')</th>
                                     @endif
@@ -200,12 +202,22 @@
                         "sortable": true,
                     },
                     {
-                        data: 'subject', name: 'subject',
+                        data: 'subject_en', name: 'subject_en',
                         "searchable": true,
                         "sortable": true,
                     },
                     {
-                        data: 'template', name: 'template',
+                        data: 'subject_ar', name: 'subject_ar',
+                        "searchable": true,
+                        "sortable": true,
+                    },
+                    {
+                        data: 'template_en', name: 'template_en',
+                        "searchable": true,
+                        "sortable": true,
+                    },
+                    {
+                        data: 'template_ar', name: 'template_ar',
                         "searchable": true,
                         "sortable": true,
                     },

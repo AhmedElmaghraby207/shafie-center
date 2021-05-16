@@ -8,8 +8,10 @@ return [
     'title_edit' => 'Edit Template',
 
     'name' => 'Name',
-    'subject' => 'Subject',
-    'template' => 'Content',
+    'subject_en' => 'English Subject',
+    'subject_ar' => 'Arabic Subject',
+    'template_en' => 'English Content',
+    'template_ar' => 'Arabic Content',
     'is_popup' => 'Is popup',
     'popup_image' => 'Popup image',
 

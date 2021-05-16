@@ -40,8 +40,10 @@ class NotificationTemplatesController extends BaseController
     public function update($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'subject' => 'required',
-            'template' => 'required',
+            'subject_en' => 'required',
+            'subject_ar' => 'required',
+            'template_en' => 'required',
+            'template_ar' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -53,8 +55,10 @@ class NotificationTemplatesController extends BaseController
         }
 
         $template_array = [
-            'subject' => $request->subject,
-            'template' => $request->template,
+            'subject_en' => $request->subject_en,
+            'subject_ar' => $request->subject_ar,
+            'template_en' => $request->template_en,
+            'template_ar' => $request->template_ar,
             'is_popup' => $request->is_popup,
         ];
 
