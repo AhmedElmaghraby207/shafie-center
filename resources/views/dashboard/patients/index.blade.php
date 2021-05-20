@@ -264,7 +264,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/shafie-center/dashboard/patient')}}' + '/' + oData.id + '/show' + ' ">' +
+                                '<a href="{{url('/dashboard/patient')}}' + '/' + oData.id + '/show' + ' ">' +
                                 '<img style="width: 36px; height: 36px" src="' + oData.image + '" data-id="' + oData.id + '" class="img-fluid img-thumbnail">' +
                                 '</a>'
                             );
@@ -276,7 +276,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/shafie-center/dashboard/patient')}}' + '/' + oData.id + '/show' + ' ">' + oData.first_name + '</a>'
+                                '<a href="{{url('/dashboard/patient')}}' + '/' + oData.id + '/show' + ' ">' + oData.first_name + '</a>'
                             );
                         }
                     },
@@ -286,7 +286,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/shafie-center/dashboard/patient')}}' + '/' + oData.id + '/show' + ' ">' + oData.last_name + '</a>'
+                                '<a href="{{url('/dashboard/patient')}}' + '/' + oData.id + '/show' + ' ">' + oData.last_name + '</a>'
                             );
                         }
                     },
@@ -321,26 +321,26 @@
                             @if(session()->get('user_admin')->can('patient-edit'))
                             if (oData.is_active == 1) {
                                 $(nTd).append(
-                                    "<a href='javascript:' url='{{url('shafie-center/dashboard/patient/')}}/" + oData.id + "/deactivate' class='btn btn-warning btn-sm' " +
+                                    "<a href='javascript:' url='{{url('/dashboard/patient/')}}/" + oData.id + "/deactivate' class='btn btn-warning btn-sm' " +
                                     "title='@lang('patient.deactivate')' onclick='deactivate(" + oData.id + ")' id='deactivate_" + oData.id + "' style='margin-top:5px'>" +
                                     "<i class='fa fa-user-times'></i>" +
                                     "</a> "
                                 );
                             } else if (oData.is_active == 0) {
                                 $(nTd).append(
-                                    "<a href='javascript:' url='{{url('shafie-center/dashboard/patient/')}}/" + oData.id + "/activate' class='btn btn-success btn-sm' " +
+                                    "<a href='javascript:' url='{{url('/dashboard/patient/')}}/" + oData.id + "/activate' class='btn btn-success btn-sm' " +
                                     "title='@lang('patient.activate')' onclick='activate(" + oData.id + ")' id='activate_" + oData.id + "' style='margin-top:5px'>" +
                                     "<i class='fa fa-user-check'></i>" +
                                     "</a> "
                                 );
                             }
                             $(nTd).append(
-                                "<a href='{{url('shafie-center/dashboard/patient/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')' style='margin-top:5px'><i class='fa fa-edit'></i></a> "
+                                "<a href='{{url('/dashboard/patient/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')' style='margin-top:5px'><i class='fa fa-edit'></i></a> "
                             );
                             @endif
                             @if(session()->get('user_admin')->can('patient-delete'))
                             $(nTd).append(
-                                "<a href='javascript:' url='{{url('shafie-center/dashboard/patient/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' " +
+                                "<a href='javascript:' url='{{url('/dashboard/patient/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' " +
                                 "class='btn btn-danger btn-sm' title='@lang('main.delete_button')' style='margin-top:5px'><i class='fa fa-trash-alt'></i></a>"
                             );
                             @endif

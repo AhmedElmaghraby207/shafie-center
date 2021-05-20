@@ -175,7 +175,7 @@
             $(document).on('click', "#read_message_btn", function (e) {
                 var btn = $(this);
                 $.ajax({
-                    url: "{{ url('shafie-center/dashboard/message') }}/" + btn.attr('message_id') + "/read",
+                    url: "{{ url('/dashboard/message') }}/" + btn.attr('message_id') + "/read",
                     method: 'get',
                     dataType: 'json',
                     data: {},
@@ -267,7 +267,7 @@
                         "sortable": false,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                "<a href='javascript:' url='{{url('shafie-center/dashboard/message/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
+                                "<a href='javascript:' url='{{url('/dashboard/message/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
                             );
                         }
                     }

@@ -141,7 +141,7 @@
                             </div>
 
                             <div class="form-actions right">
-                                <a href="{{url('/shafie-center/dashboard')}}" class="btn btn-warning mr-1">
+                                <a href="{{url('/dashboard')}}" class="btn btn-warning mr-1">
                                     <i class="ft-x"></i> @lang('main.cancel_button')
                                 </a>
                                 <button type="button" class="btn btn-primary" style="height: 40px" id="add_btn">

@@ -213,7 +213,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/shafie-center/dashboard/admin')}}' + '/' + oData.id + '/show' + ' ">' +
+                                '<a href="{{url('/dashboard/admin')}}' + '/' + oData.id + '/show' + ' ">' +
                                 '<img style="width: 36px; height: 36px" src="' + oData.image + '" data-id="' + oData.id + '" class="img-fluid img-thumbnail">' +
                                 '</a>'
                             );
@@ -225,7 +225,7 @@
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html(
-                                '<a href="{{url('/shafie-center/dashboard/admin')}}' + '/' + oData.id + '/show' + ' ">' + oData.name + '</a>'
+                                '<a href="{{url('/dashboard/admin')}}' + '/' + oData.id + '/show' + ' ">' + oData.name + '</a>'
                             );
                         }
                     },
@@ -243,12 +243,12 @@
                             $(nTd).html('')
                             @if(session()->get('user_admin')->can('admin-edit'))
                             $(nTd).append(
-                                "<a href='{{url('shafie-center/dashboard/admin/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  "
+                                "<a href='{{url('/dashboard/admin/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')'><i class='fa fa-edit'></i></a>  "
                             );
                             @endif
                             @if(session()->get('user_admin')->can('admin-delete'))
                             $(nTd).append(
-                                "<a href='javascript:' url='{{url('shafie-center/dashboard/admin/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
+                                "<a href='javascript:' url='{{url('/dashboard/admin/')}}/" + oData.id + "/delete' onclick='destroy(" + oData.id + ")' id='delete_" + oData.id + "' class='btn btn-danger btn-sm' title='@lang('main.delete_button')'><i class='fa fa-trash-alt'></i></a>"
                             );
                             @endif
                         }
