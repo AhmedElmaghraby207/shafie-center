@@ -35,9 +35,9 @@ class Kernel extends ConsoleKernel
         //Friday => 5
         //Saturday => 6
 
-        $schedule->command('walk_notification:cron')->weeklyOn(5, '12:00'); //friday
+        $schedule->command('walk_notification:cron')->weeklyOn(6, '12:00'); //Saturday 2:00 pm in local
 
-        $schedule->command('drink_water_notification:cron')->weeklyOn(2, '12:00'); //tuesday;
+        $schedule->command('drink_water_notification:cron')->weeklyOn(2, '12:00'); //Tuesday 2:00 pm in local
     }
 
     /**
