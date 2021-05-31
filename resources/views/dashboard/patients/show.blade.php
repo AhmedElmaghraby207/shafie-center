@@ -64,15 +64,15 @@
                                 </div>
                                 <hr>
                                 {{--status--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <span class="text-primary"><i class="fa fa-shield-alt"></i> @lang('patient.status'):&nbsp;&nbsp; </span>--}}
+{{--                                    <span>{{isset($patient) && $patient->is_active == 1 ? trans('patient.active') : '----'}}</span>--}}
+{{--                                </div>--}}
+{{--                                <hr>--}}
+                                {{--birth_date--}}
                                 <div class="form-group">
-                                    <span class="text-primary"><i class="fa fa-shield-alt"></i> @lang('patient.status'):&nbsp;&nbsp; </span>
-                                    <span>{{isset($patient) && $patient->is_active == 1 ? trans('patient.active') : '----'}}</span>
-                                </div>
-                                <hr>
-                                {{--age--}}
-                                <div class="form-group">
-                                    <span class="text-primary"><i class="fa fa-id-badge"></i> @lang('patient.age'):&nbsp;&nbsp; </span>
-                                    <span>{{isset($patient) && $patient->age ? $patient->age : '----'}} @lang('main.year')</span>
+                                    <span class="text-primary"><i class="fa fa-id-badge"></i> @lang('patient.birth_date'):&nbsp;&nbsp; </span>
+                                    <span>{{isset($patient) && $patient->birth_date ? $patient->birth_date : '----'}}</span>
                                 </div>
                                 <hr>
                                 {{--weight--}}

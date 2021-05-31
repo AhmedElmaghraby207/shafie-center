@@ -143,7 +143,7 @@
                                     <th>@lang('patient.first_name')</th>
                                     <th>@lang('patient.last_name')</th>
                                     <th>@lang('patient.email')</th>
-                                    <th>@lang('patient.status')</th>
+{{--                                    <th>@lang('patient.status')</th>--}}
                                     @if(session()->get('user_admin')->can('patient-edit') || session()->get('user_admin')->can('patient-delete'))
                                         <th>@lang('main.table_actions')</th>
                                     @endif
@@ -285,9 +285,13 @@
                         "searchable": true,
                         "sortable": true,
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html(
-                                '<a href="{{url('/dashboard/patient')}}' + '/' + oData.id + '/show' + ' ">' + oData.last_name + '</a>'
-                            );
+                            if (oData.last_name) {
+                                $(nTd).html(
+                                    '<a href="{{url('/dashboard/patient')}}' + '/' + oData.id + '/show' + ' ">' + oData.last_name + '</a>'
+                                );
+                            } else {
+                                $(nTd).html('----');
+                            }
                         }
                     },
                     {
@@ -295,22 +299,22 @@
                         "searchable": true,
                         "sortable": true,
                     },
-                    {
-                        data: 'is_active', name: 'is_active',
-                        "searchable": true,
-                        "sortable": true,
-                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            if (oData.is_active == 1) {
-                                $(nTd).html(
-                                    '<span class="text-success"><i class="fa fa-user-check"></i> @lang('patient.active')</span>'
-                                );
-                            } else if (oData.is_active == 0) {
-                                $(nTd).html(
-                                    '<span class="text-warning"><i class="fa fa-user-times"></i> @lang('patient.inactive')</span>'
-                                );
-                            }
-                        }
-                    },
+                    {{--{--}}
+                    {{--    data: 'is_active', name: 'is_active',--}}
+                    {{--    "searchable": true,--}}
+                    {{--    "sortable": true,--}}
+                    {{--    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {--}}
+                    {{--        if (oData.is_active == 1) {--}}
+                    {{--            $(nTd).html(--}}
+                    {{--                '<span class="text-success"><i class="fa fa-user-check"></i> @lang('patient.active')</span>'--}}
+                    {{--            );--}}
+                    {{--        } else if (oData.is_active == 0) {--}}
+                    {{--            $(nTd).html(--}}
+                    {{--                '<span class="text-warning"><i class="fa fa-user-times"></i> @lang('patient.inactive')</span>'--}}
+                    {{--            );--}}
+                    {{--        }--}}
+                    {{--    }--}}
+                    {{--},--}}
                         @if(session()->get('user_admin')->can('patient-edit') || session()->get('user_admin')->can('patient-delete'))
                     {
                         "data": "id",
@@ -319,21 +323,21 @@
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html('')
                             @if(session()->get('user_admin')->can('patient-edit'))
-                            if (oData.is_active == 1) {
-                                $(nTd).append(
-                                    "<a href='javascript:' url='{{url('/dashboard/patient/')}}/" + oData.id + "/deactivate' class='btn btn-warning btn-sm' " +
-                                    "title='@lang('patient.deactivate')' onclick='deactivate(" + oData.id + ")' id='deactivate_" + oData.id + "' style='margin-top:5px'>" +
-                                    "<i class='fa fa-user-times'></i>" +
-                                    "</a> "
-                                );
-                            } else if (oData.is_active == 0) {
-                                $(nTd).append(
-                                    "<a href='javascript:' url='{{url('/dashboard/patient/')}}/" + oData.id + "/activate' class='btn btn-success btn-sm' " +
-                                    "title='@lang('patient.activate')' onclick='activate(" + oData.id + ")' id='activate_" + oData.id + "' style='margin-top:5px'>" +
-                                    "<i class='fa fa-user-check'></i>" +
-                                    "</a> "
-                                );
-                            }
+                            {{--if (oData.is_active == 1) {--}}
+                            {{--    $(nTd).append(--}}
+                            {{--        "<a href='javascript:' url='{{url('/dashboard/patient/')}}/" + oData.id + "/deactivate' class='btn btn-warning btn-sm' " +--}}
+                            {{--        "title='@lang('patient.deactivate')' onclick='deactivate(" + oData.id + ")' id='deactivate_" + oData.id + "' style='margin-top:5px'>" +--}}
+                            {{--        "<i class='fa fa-user-times'></i>" +--}}
+                            {{--        "</a> "--}}
+                            {{--    );--}}
+                            {{--} else if (oData.is_active == 0) {--}}
+                            {{--    $(nTd).append(--}}
+                            {{--        "<a href='javascript:' url='{{url('/dashboard/patient/')}}/" + oData.id + "/activate' class='btn btn-success btn-sm' " +--}}
+                            {{--        "title='@lang('patient.activate')' onclick='activate(" + oData.id + ")' id='activate_" + oData.id + "' style='margin-top:5px'>" +--}}
+                            {{--        "<i class='fa fa-user-check'></i>" +--}}
+                            {{--        "</a> "--}}
+                            {{--    );--}}
+                            {{--}--}}
                             $(nTd).append(
                                 "<a href='{{url('/dashboard/patient/')}}/" + oData.id + "/edit' class='btn btn-warning btn-sm' title='@lang('main.edit_button')' style='margin-top:5px'><i class='fa fa-edit'></i></a> "
                             );
