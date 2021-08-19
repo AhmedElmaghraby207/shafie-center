@@ -247,6 +247,8 @@ class PatientsController extends BaseController
     {
         $patient = Patient::find($id);
         $patient->weights()->delete();
+        $patient->devices()->delete();
+        $patient->messages()->delete();
         $deleted_patient = $patient->delete();
 
         if ($deleted_patient) {

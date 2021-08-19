@@ -51,4 +51,14 @@ class Patient extends Model
     {
         return $this->hasMany('App\PatientWeight', 'PatientId');
     }
+
+    public function devices(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\PatientDevice', 'PatientId');
+    }
+
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\Message', 'PatientId');
+    }
 }
