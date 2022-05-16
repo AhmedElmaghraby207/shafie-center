@@ -77,4 +77,9 @@ class HomeController extends BaseController
             ]);
     }
 
+    public function facebookDeletion()
+    {
+        return view('dashboard.facebook-deletion');
+    }
+
 }

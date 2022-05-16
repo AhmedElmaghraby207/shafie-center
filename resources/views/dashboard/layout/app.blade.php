@@ -10,8 +10,8 @@
 
     <title> @yield('title') </title>
 
-    <link rel="apple-touch-icon" href="{{url(App\Setting::where('key', 'icon_image')->first()->value)}}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{url(App\Setting::where('key', 'icon_image')->first()->value)}}">
+    <link rel="apple-touch-icon" href="{{url(App\Setting::where('key', 'icon_image')->first() ? App\Setting::where('key', 'icon_image')->first()->value : "")}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{url(App\Setting::where('key', 'icon_image')->first() ? App\Setting::where('key', 'icon_image')->first()->value : "")}}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700">
     <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css">
@@ -59,8 +59,8 @@
                 <li class="nav-item mr-auto">
                     <a class="navbar-brand" href="{{route('home')}}">
                         <img class="brand-logo" alt="modern admin logo" style="border-radius: 50%"
-                             src="{{url(App\Setting::where('key', 'logo_image')->first()->value)}}">
-                        <h3 class="brand-text">{{App\Setting::where('key', 'website_name')->first()->value}}</h3>
+                             src="{{url(App\Setting::where('key', 'logo_image')->first() ? App\Setting::where('key', 'logo_image')->first()->value : "")}}">
+                        <h3 class="brand-text">{{App\Setting::where('key', 'website_name')->first() ? App\Setting::where('key', 'website_name')->first()->value : ""}}</h3>
                     </a>
                 </li>
                 <li class="nav-item d-none d-md-block float-right">
@@ -142,7 +142,7 @@
 <footer class="footer footer-static footer-light navbar-border navbar-shadow">
     <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
       <span class="d-block d-md-inline-block">@lang('dashboard.copyrights_word') {{\Carbon\Carbon::now()->format('Y')}}
-          <span class="text-bold-700">{{App\Setting::where('key', 'website_name')->first()->value}}</span>@lang('dashboard.copyrights_text')
+          <span class="text-bold-700">{{App\Setting::where('key', 'website_name')->first() ? App\Setting::where('key', 'website_name')->first()->value : ""}}</span>@lang('dashboard.copyrights_text')
       </span>
     </p>
 </footer>

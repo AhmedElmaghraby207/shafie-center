@@ -16,6 +16,7 @@ abstract class BaseController extends Controller
             'postForgotPassword',
             'getResetPassword',
             'postResetPassword',
+            'facebookDeletion',
         ]]);
     }
 }

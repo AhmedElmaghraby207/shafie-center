@@ -24,6 +24,9 @@ Route::group(['namespace' => 'Dashboard'], function () {
     //get email template page
     Route::get('/email-temp-view', 'HomeController@emailTempView');
 
+    //get facebook deletion steps page
+    Route::get('/facebook-deletion', 'HomeController@facebookDeletion');
+
     //dashboard page
     Route::get('/', 'HomeController@dashboard')->name('home');
     Route::get('/dashboard', 'HomeController@dashboard')->name('home');
