@@ -223,15 +223,15 @@ class AuthController extends PatientApiController
                 }
                 return self::errify(400, ['errors' => [$email_not_found_msg]]);
             } else {
-                $recover = PatientRecover::where('email', $patient->email)->first();
-                if ($recover) {
-                    if ($this->lang == 'ar') {
-                        $email_already_sent_msg = 'تم ارسال البريد بالفعل من فضلك افحص بريدك';
-                    } else {
-                        $email_already_sent_msg = 'Reset email already sent, Please check your email';
-                    }
-                    return self::errify(400, ['errors' => [$email_already_sent_msg]]);
-                }
+//                $recover = PatientRecover::where('email', $patient->email)->first();
+//                if ($recover) {
+//                    if ($this->lang == 'ar') {
+//                        $email_already_sent_msg = 'تم ارسال البريد بالفعل من فضلك افحص بريدك';
+//                    } else {
+//                        $email_already_sent_msg = 'Reset email already sent, Please check your email';
+//                    }
+//                    return self::errify(400, ['errors' => [$email_already_sent_msg]]);
+//                }
 
                 $hash = md5(uniqid(rand(), true));
                 $patientRecover = new PatientRecover();
